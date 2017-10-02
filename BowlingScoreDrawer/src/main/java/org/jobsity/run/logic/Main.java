@@ -32,7 +32,6 @@ public class Main {
 	private static final Logger LOG = Logger.getLogger(Main.class.getName());
 	
 	public static void main(String[] args) {
-
 		if(args.length>0){
 			printBoard(args[0]);
 		}
