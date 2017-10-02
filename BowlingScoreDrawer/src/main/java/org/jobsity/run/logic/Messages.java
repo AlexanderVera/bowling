@@ -11,7 +11,7 @@ public class Messages implements IMessages{
 	
 	private InputStream messagesFile;
 	private Properties messageProperties;
-	private static final Logger log = Logger.getLogger(Main.class.getName());
+	private static final Logger LOG = Logger.getLogger(Main.class.getName());
 	
 	public Messages(){
 		messagesFile = Thread.currentThread().getContextClassLoader()
@@ -21,7 +21,7 @@ public class Messages implements IMessages{
 			messageProperties.load(messagesFile);
 		}
 		catch(IOException exc){
-			log.error(exc.getMessage());
+			LOG.error(exc.getMessage());
 		}
 	}
 	

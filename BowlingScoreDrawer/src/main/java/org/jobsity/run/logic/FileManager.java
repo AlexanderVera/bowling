@@ -34,7 +34,9 @@ public class FileManager implements IFileManager {
 			if (bufferPlayerLines != null) {
 				playerLines = new ArrayList<String>();
 				while ((playerLine = bufferPlayerLines.readLine()) != null) {
-					playerLines.add(playerLine);
+					if(playerLine.trim().length()>0){
+						playerLines.add(playerLine);
+					}
 				}
 			}
 		} catch (IOException exc) {

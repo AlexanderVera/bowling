@@ -61,7 +61,7 @@ public class ScoreBoardControllerImpl implements IScoreBoardController {
 				Score currentScore = player.getScore().get(posScore);
 				//
 				int bonus = evaluateBonus(currentScore, posScore, player.getScore());
-				int tempTotal = currentScore.getFirstTry() + currentScore.getSecondTry() + bonus;
+				int tempTotal = currentScore.getShoots()[0] + currentScore.getShoots()[1] + bonus;
 				player.setTotalScore(player.getTotalScore() + tempTotal);
 				currentScore.setTotal(player.getTotalScore());
 				listScores.add(currentScore);
@@ -75,20 +75,20 @@ public class ScoreBoardControllerImpl implements IScoreBoardController {
 
 	public int evaluateBonus(Score score, int posScore, List<Score> listScores) {
 		if (score.isFlagFinal()) {
-			return score.getTirdTry();
+			return score.getShoots()[2];
 		} else {
 			Score nextScore = listScores.get(posScore + 1);
 			if (score.isSpare()) {
-				return nextScore.getFirstTry();
+				return nextScore.getShoots()[0];
 			} else if (score.isStrike()) {
 
 				if (nextScore.isFlagFinal()) {
-					return nextScore.getFirstTry() + nextScore.getSecondTry();
+					return nextScore.getShoots()[0] + nextScore.getShoots()[1];
 				} else if (nextScore.isStrike()) {
 					Score postNextScore = listScores.get(posScore + 2);
-					return nextScore.getFirstTry() + postNextScore.getFirstTry();
+					return nextScore.getShoots()[0] + postNextScore.getShoots()[0];
 				} else {
-					return nextScore.getFirstTry() + nextScore.getSecondTry();
+					return nextScore.getShoots()[0] + nextScore.getShoots()[1];
 				}
 			} else {
 				return 0;
@@ -115,7 +115,7 @@ public class ScoreBoardControllerImpl implements IScoreBoardController {
 			player.setName(playerName);
 
 			if (countTurns == 0) {
-				score.setFirstTry(playerPoints);
+				score.getShoots()[0]=playerPoints;
 				if (playerPoints < NUMBER_OF_PINS) {
 					countTurns++;
 				} else if (round < NUMBER_OF_ROUNDS) {
@@ -126,10 +126,10 @@ public class ScoreBoardControllerImpl implements IScoreBoardController {
 					countTurns++;
 				}
 			} else if (countTurns == 1) {
-				score.setSecondTry(playerPoints);
-				if (score.getFirstTry() >= NUMBER_OF_PINS || score.getSecondTry() >= NUMBER_OF_PINS) {
+				score.getShoots()[1]=playerPoints;
+				if (score.getShoots()[0] >= NUMBER_OF_PINS || score.getShoots()[1] >= NUMBER_OF_PINS) {
 					score.setStrike(true);
-				} else if ((score.getFirstTry() + score.getSecondTry()) >= 10) {
+				} else if ((score.getShoots()[0] + score.getShoots()[1]) >= 10) {
 					score.setSpare(true);
 				}
 				if (round >= NUMBER_OF_ROUNDS) {
@@ -138,12 +138,11 @@ public class ScoreBoardControllerImpl implements IScoreBoardController {
 					countTurns = 3;
 				}
 			} else if (countTurns == 2) {
-				if (round >= NUMBER_OF_ROUNDS && ((score.getFirstTry() + score.getSecondTry()) >= NUMBER_OF_PINS)) {
-					score.setTirdTry(playerPoints);
+				if (round >= NUMBER_OF_ROUNDS && ((score.getShoots()[0] + score.getShoots()[1]) >= NUMBER_OF_PINS)) {
+					score.getShoots()[2]=playerPoints;
 				}
 				countTurns = 3;
 			}
-
 			if (countTurns > 2) {
 				if (round >= NUMBER_OF_ROUNDS) {
 					score.setFlagFinal(true);
@@ -159,7 +158,6 @@ public class ScoreBoardControllerImpl implements IScoreBoardController {
 				}
 				countTurns = 0;
 			}
-
 		}
 		listOfPLayers = calculateScore(listOfPLayers);
 		}

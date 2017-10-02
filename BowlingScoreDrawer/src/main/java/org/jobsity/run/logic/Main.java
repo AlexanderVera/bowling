@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.jobsity.run.interfaces.IBoardDrawer;
 import org.jobsity.run.interfaces.IFileManager;
+import org.jobsity.run.interfaces.IPlayerController;
 import org.jobsity.run.interfaces.IScoreBoardController;
 import org.jobsity.run.model.Player;
 
@@ -36,14 +37,14 @@ public class Main {
 		}
 		else{
 			LOG.info("Insert file route");
-			File fileScore = new File("/usr/local/qdt/ws-bowling-score/frame.txt");
+			File fileScore = new File("D:\\alexander.vera\\documentos\\documentacion\\frame.txt");
 			IFileManager fileManager = new FileManager(fileScore);
 			playerPinfalls = fileManager.buildListPlayerFromFile();
 		
-			IScoreBoardController scoreController = new ScoreBoardControllerImpl(playerPinfalls);	
-			List<Player> players = scoreController.buildFrame();
-			IBoardDrawer boardDrawer = null;
+			IPlayerController playerController = new PlayerController(playerPinfalls);
+			List<Player> players = playerController.buildPlayerScore(playerPinfalls);
 			
+			IBoardDrawer boardDrawer = null;
 			boardDrawer = new BoardDrawer(players);
 			boardDrawer.printFrame();
 			

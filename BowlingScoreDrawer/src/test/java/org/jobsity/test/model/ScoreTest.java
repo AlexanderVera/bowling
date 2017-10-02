@@ -18,17 +18,17 @@ public class ScoreTest {
 		// Test empty construct
 		messageTestPerson = new StringBuilder();
 		Score score = new Score();
-		messageTestPerson.append("ScoreEmpty ").append(score.getFirstTry()).append(" ").append(score.getSecondTry())
-				.append(" ").append(score.getTirdTry()).append(" ").append(score.getTotal()).append(" ")
+		messageTestPerson.append("ScoreEmpty ").append(score.getShoots()[0]).append(" ").append(score.getShoots()[1])
+				.append(" ").append(score.getShoots()[2]).append(" ").append(score.getTotal()).append(" ")
 				.append(score.getFlagFinal()).append(" ").append(score.isSpare()).append(" ").append(score.isStrike())
 				.append(" ");
 		LOG.debug(messageTestPerson.toString());
 
 		// Test construct
 		messageTestPerson = new StringBuilder();
-		Score scoreComplete = new Score(2, 1, 0, false);
-		messageTestPerson.append("ScoreComplete ").append(scoreComplete.getFirstTry()).append(" ").append(scoreComplete.getSecondTry())
-		.append(" ").append(scoreComplete.getTirdTry()).append(" ").append(scoreComplete.getTotal()).append(" ")
+		Score scoreComplete = new Score(false);
+		messageTestPerson.append("ScoreComplete ").append(scoreComplete.getShoots()[0]).append(" ").append(scoreComplete.getShoots()[1])
+		.append(" ").append(scoreComplete.getShoots()[2]).append(" ").append(scoreComplete.getTotal()).append(" ")
 		.append(scoreComplete.getFlagFinal()).append(" ").append(scoreComplete.isSpare()).append(" ").append(scoreComplete.isStrike())
 		.append(" ");
 		LOG.debug(messageTestPerson.toString());

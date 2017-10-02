@@ -53,35 +53,35 @@ public class BoardDrawer implements IBoardDrawer {
 							scoreByPlayer.append(" ");
 							scoreByPlayer.append("X");
 						} else {
-							scoreByPlayer.append(score.getFirstTry());
+							scoreByPlayer.append(score.getShoots()[0]);
 							scoreByPlayer.append(" ");
 							if (score.isSpare()) {
 								scoreByPlayer.append("/");
 							} else {
-								scoreByPlayer.append(score.getSecondTry());
+								scoreByPlayer.append(score.getShoots()[1]);
 							}
 						}
 					}
 
 					if (score.getFlagFinal()) {
-						if (score.getFirstTry() >= NUMBER_OF_PINS) {
+						if (score.getShoots()[0] >= NUMBER_OF_PINS) {
 							scoreByPlayer.append("X");
 						} else {
-							scoreByPlayer.append(score.getFirstTry());
+							scoreByPlayer.append(score.getShoots()[0]);
 						}
 						scoreByPlayer.append(" ");
-						if (score.getSecondTry() >= NUMBER_OF_PINS) {
+						if (score.getShoots()[1] >= NUMBER_OF_PINS) {
 							scoreByPlayer.append("X");
 						} else {
-							scoreByPlayer.append(score.getSecondTry());
+							scoreByPlayer.append(score.getShoots()[1]);
 						}
 
 						scoreByPlayer.append(" ");
 
-						if (score.getTirdTry() >= NUMBER_OF_PINS) {
+						if (score.getShoots()[2] >= NUMBER_OF_PINS) {
 							scoreByPlayer.append("X");
 						} else {
-							scoreByPlayer.append(score.getTirdTry());
+							scoreByPlayer.append(score.getShoots()[2]);
 						}
 
 					}
@@ -97,7 +97,7 @@ public class BoardDrawer implements IBoardDrawer {
 					scoreByPlayer.append(score.getTotal());
 					scoreByPlayer.append(" ");
 				}
-				scoreByPlayer.append("\n");
+				scoreByPlayer.append("\n\n");
 				System.out.print(scoreByPlayer.toString());
 
 			}

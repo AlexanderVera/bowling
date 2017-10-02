@@ -9,9 +9,7 @@ package org.jobsity.run.model;
  */
 
 public class Score {
-	private int firstTry;
-	private int secondTry;
-	private int tirdTry;
+	private int[] shoots;
 	private int total;
 	private String symbol;
 	private boolean flagFinal;
@@ -19,38 +17,12 @@ public class Score {
 	private boolean spare;
 	
 	public Score(){
-		
+		shoots = new int[3];
 	}
 	
-	public Score(int _firstTry, int _secondTry, int _tirdTry, boolean _flagFinal){
-		setFirstTry(_firstTry);
-		setSecondTry(_secondTry);
-		setTirdTry(_tirdTry);
-		setFlagFinal(_flagFinal);	
-	}
-	
-	public int getFirstTry() {
-		return firstTry;
-	}
-
-	public void setFirstTry(int firstTry) {
-		this.firstTry = firstTry;
-	}
-
-	public int getSecondTry() {
-		return secondTry;
-	}
-
-	public void setSecondTry(int secondTry) {
-		this.secondTry = secondTry;
-	}
-
-	public int getTirdTry() {
-		return tirdTry;
-	}
-
-	public void setTirdTry(int tirdTry) {
-		this.tirdTry = tirdTry;
+	public Score(boolean flagFinal){
+		setFlagFinal(flagFinal);
+		shoots = new int[3];
 	}
 
 	public String getSymbol() {
@@ -95,5 +67,13 @@ public class Score {
 
 	public void setStrike(boolean strike) {
 		this.strike = strike;
+	}
+
+	public int[] getShoots() {
+		return shoots;
+	}
+
+	public void setShoots(int[] shoots) {
+		this.shoots = shoots;
 	}
 }
