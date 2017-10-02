@@ -30,11 +30,7 @@ public class PlayerScore implements Comparable<PlayerScore>{
 	}
 
 	public int compareTo(PlayerScore newPlayer) {
-		if(newPlayer.getName().equals(getName())){
-			return 0;
-		}
-		else{
-			return 1;
-		}
+		return this.getName().compareTo(newPlayer.getName());
+		
 	}
 }
