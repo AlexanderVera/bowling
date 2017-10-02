@@ -12,4 +12,5 @@ public interface IBoardDrawer{
 	
 	public void printFrame();
 	
+	
 }
