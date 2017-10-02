@@ -38,9 +38,9 @@ public class PlayerController implements IPlayerController {
 				
 				newPlayerScore = new PlayerScore();
 				String[] plainScoreSplited = plainScore.split(" ");
-				newPlayerScore.setName(plainScoreSplited[0]);
+				newPlayerScore.setName(plainScoreSplited[0].trim());
 				if(plainScoreSplited.length>1){
-					newPlayerScore.setPinfalls(Utilities.parseValidateInteger(plainScoreSplited[1]));
+					newPlayerScore.setPinfalls(Utilities.parseValidateInteger(plainScoreSplited[1].trim()));
 				}
 				else{
 					newPlayerScore.setPinfalls(0);
@@ -160,8 +160,6 @@ public class PlayerController implements IPlayerController {
 				playerPosition++;
 			}
 		}
-		
-		System.out.println("FIN");
 		return calculateScore(listOfPLayers);
 
 	}
@@ -174,7 +172,6 @@ public class PlayerController implements IPlayerController {
 				throwIncorrectBoard(playerName, "src.main.labels.incomplete");
 			}
 		}
-
 	}
 
 	public void throwIncorrectBoard(String playerName, String message) throws Exception{
@@ -222,7 +219,6 @@ public class PlayerController implements IPlayerController {
 			player.setScore(listScores);
 			outPlayers.add(player);
 		}
-
 		return outPlayers;
 	}
 
