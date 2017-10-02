@@ -1,7 +1,8 @@
 package org.jobsity.run.interfaces;
 
 /**
-* Messages
+*
+* IFrameDrawer
 *
 *
 * @author alexander.vera
@@ -12,16 +13,14 @@ package org.jobsity.run.interfaces;
 * -------------------------------------------------- 
 * Author             Date          Change 
 * ----------------- -------------- ------------------
-* alexander.vera	01/10/2017 		add validateBoard method
+* 
 */
-
-public interface IMessages {
+public interface IFrameDrawer {
 	
 	/**
-     * Method to return a text message used in the app
+     * Print a full frame based in a list of frames
      *
-     * @return A String value with the message
-     * @param key: String key
+     * 
      */
-	public String getMessage(String key);
+	public void printFrame();
 }

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.jobsity.run.logic.BoardDrawer;
-import org.jobsity.run.model.Player;
+import org.jobsity.run.logic.FrameDrawer;
+import org.jobsity.run.model.Frame;
 import org.jobsity.run.model.Score;
 import org.jobsity.util.Utilities;
 import org.junit.Test;
@@ -21,29 +21,29 @@ import org.junit.runners.JUnit4;
  * 
  */
 @RunWith(JUnit4.class)
-public class BoardDrawerTest {
+public class FrameDrawerTest {
 	private final static Logger LOG = Logger.getLogger(Utilities.class.getName());
 	
 	@Test
 	public void constructorTest(){
 		
-		List<Player> nullListPlayers = null;
-		List<Player> emptyListPlayers = new ArrayList<Player>();
-		List<Player> fullListPlayers = new ArrayList<Player>();
-		Player player = null;
+		List<Frame> nullListPlayers = null;
+		List<Frame> emptyListPlayers = new ArrayList<Frame>();
+		List<Frame> fullListPlayers = new ArrayList<Frame>();
+		Frame player = null;
 		for(int i = 0; i< 10; i++){
-			player = new Player();
+			player = new Frame();
 			player.setId(System.currentTimeMillis());
 			StringBuilder name = new StringBuilder("Test");
 			name.append(i);
-			player.setName(name.toString());
+			player.setPlayerName(name.toString());
 			List<Score> scores = new ArrayList<Score>(); 
 			player.setScore(scores);
 		}
 		
-		BoardDrawer boardTestEmpty = new BoardDrawer(nullListPlayers);
-		boardTestEmpty = new BoardDrawer(emptyListPlayers);
-		boardTestEmpty = new BoardDrawer(fullListPlayers);
+		FrameDrawer boardTestEmpty = new FrameDrawer(nullListPlayers);
+		boardTestEmpty = new FrameDrawer(emptyListPlayers);
+		boardTestEmpty = new FrameDrawer(fullListPlayers);
 		
 		LOG.debug(boardTestEmpty);
 	
@@ -53,31 +53,31 @@ public class BoardDrawerTest {
 	public void printFrameTest() {
 		StringBuilder messageTest = new StringBuilder();
 		
-		List<Player> nullListPlayers = null;
-		List<Player> emptyListPlayers = new ArrayList<Player>();
-		List<Player> fullListPlayers = new ArrayList<Player>();
-		Player player = null;
+		List<Frame> nullListPlayers = null;
+		List<Frame> emptyListPlayers = new ArrayList<Frame>();
+		List<Frame> fullListPlayers = new ArrayList<Frame>();
+		Frame player = null;
 		for(int i = 0; i< 10; i++){
-			player = new Player();
+			player = new Frame();
 			player.setId(System.currentTimeMillis());
 			StringBuilder name = new StringBuilder("Test");
 			name.append(i);
-			player.setName(name.toString());
+			player.setPlayerName(name.toString());
 			List<Score> scores = new ArrayList<Score>(); 
 			player.setScore(scores);
 		}
 		messageTest = new StringBuilder("Print frame with a null list");
-		BoardDrawer boardTestEmpty = new BoardDrawer(nullListPlayers);
+		FrameDrawer boardTestEmpty = new FrameDrawer(nullListPlayers);
 		LOG.debug(messageTest.toString());
 		boardTestEmpty.printFrame();
 		
 		messageTest = new StringBuilder("Print frame with a empty list");		
-		boardTestEmpty = new BoardDrawer(emptyListPlayers);
+		boardTestEmpty = new FrameDrawer(emptyListPlayers);
 		LOG.debug(messageTest.toString());
 		boardTestEmpty.printFrame();
 		
 		messageTest = new StringBuilder("Print frame with a full List");		
-		boardTestEmpty = new BoardDrawer(fullListPlayers);
+		boardTestEmpty = new FrameDrawer(fullListPlayers);
 		LOG.debug(messageTest.toString());
 		boardTestEmpty.printFrame();
 		

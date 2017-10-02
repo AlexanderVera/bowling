@@ -1,40 +1,50 @@
 package org.jobsity.util;
 
-import java.util.Calendar;
 
-import org.apache.log4j.Logger;
-
+/**
+* Utilities
+* Object with a useful utilities for the app
+*
+* @author alexander.vera
+* @since 30/10/2017
+*
+*
+* Changes history
+* -------------------------------------------------- 
+* Author             Date          Change 
+* ----------------- -------------- ------------------
+* 
+*/
 public class Utilities {
 
-	private final static Logger LOG = Logger.getLogger(Utilities.class.getName());
-	private static StringBuilder infoMessage = new StringBuilder();
+	//private final static Logger LOG = Logger.getLogger(Utilities.class.getName());
 
-
+	/**
+     * Method validate if a string input is a number
+     *
+     * @return A Boolean, true is the number is valid
+     * @param number: String with a number value to validate
+     */
 	public static boolean validNumber(String number) {
-		infoMessage = new StringBuilder();
-		initLog(number);
 		if (number != null) {
 			try {
-
 				Double.parseDouble(number);
-				appendLogMessage(" is a great number ");
-				//LOG.debug(getInfoMessage().toString());
-
 				return true;
 			} catch (NumberFormatException exc) {
-				// Replace to logger
-				appendLogMessage(" is not a number");
-				LOG.error(getInfoMessage().toString());
+				return false;
 			}
-			return false;
 		} else {
-			appendLogMessage(" is not a number");
-			LOG.error(getInfoMessage().toString());
 			return false;
 		}
 
 	}
 
+	/**
+     * Method that convert a string with a number value and return a int
+     * if the string is not a valid number return 0
+     * @return A Boolean, true is the number is valid
+     * @param number: int
+     */	
 	public static int parseValidateInteger(String number){
 		if (validNumber(number)) {
 			Double outDouble = Double.parseDouble(number);
@@ -43,34 +53,6 @@ public class Utilities {
 			return 0;
 		}
 	}
-	
-	public static int resultAsNumber(String number) {
-		if (validNumber(number)) {
-			return Integer.parseInt(number);
-		} else {
-			return 0;
-		}
-	}
-
-	private static void appendLogMessage(String message) {
-		infoMessage =getInfoMessage().append(message);
-	}
-
-	private static void initLog(String number) {
-		Calendar timeLog = Calendar.getInstance();
-		appendLogMessage(" ");
-		appendLogMessage(timeLog.getTime().toString());
-		appendLogMessage(": ");
-		appendLogMessage(number);
-	}
 
 
-
-	public static StringBuilder getInfoMessage() {
-		return infoMessage;
-	}
-
-	public void setInfoMessage(StringBuilder newMessage) {
-		infoMessage = newMessage;
-	}
 }

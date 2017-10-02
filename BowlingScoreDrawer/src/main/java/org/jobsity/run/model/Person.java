@@ -1,5 +1,19 @@
 package org.jobsity.run.model;
 
+/**
+* Person
+* Object to represents a person
+*
+* @author alexander.vera
+* @since 30/10/2017
+*
+*
+* Changes history
+* -------------------------------------------------- 
+* Author             Date          Change 
+* ----------------- -------------- ------------------
+* 
+*/
 public abstract class Person{
 	private Long id;
 	private String name;

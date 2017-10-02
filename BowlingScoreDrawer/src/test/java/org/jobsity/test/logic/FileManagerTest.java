@@ -13,6 +13,7 @@ public class FileManagerTest {
 	private static final File FRAME_TEST_FILE = new File(
 			Thread.currentThread().getContextClassLoader().getResource("test-frame.txt").getFile());
 
+	
 	@Test
 	public void buildListPlayerFromFileTest() {
 		

@@ -4,51 +4,55 @@ import java.io.File;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.jobsity.run.interfaces.IBoardDrawer;
 import org.jobsity.run.interfaces.IFileManager;
+import org.jobsity.run.interfaces.IFrameDrawer;
 import org.jobsity.run.interfaces.IPlayerController;
-import org.jobsity.run.model.Player;
+import org.jobsity.run.model.Frame;
 
 
 
 /**
- * @author alexander.vera
- * @since 2017/09/30
- */
-
+* Main
+*
+*
+* @author alexander.vera
+* @since 29/10/2017
+*
+*
+* Changes history
+* -------------------------------------------------- 
+* Author             Date          Change 
+* ----------------- -------------- ------------------
+* alexander.vera	30/10/2017 		run app with a external name of file
+* alexander.vera	30/10/2017 		add if for args[0] condition
+* 
+*/
 
 public class Main {
 	private static final Logger LOG = Logger.getLogger(Main.class.getName());
+	
 	public static void main(String[] args) {
 
-		List<String> playerPinfalls = null;
 		if(args.length>0){
-			File fileScore = new File(args[0]);
-			IFileManager fileManager = new FileManager(fileScore);
-			playerPinfalls = fileManager.buildListPlayerFromFile();
-		
-			IPlayerController playerController = new PlayerController(playerPinfalls);
-			List<Player> players = playerController.buildPlayerScore(playerPinfalls);
-			
-			IBoardDrawer boardDrawer = null;
-			boardDrawer = new BoardDrawer(players);
-			boardDrawer.printFrame();
+			printBoard(args[0]);
 		}
 		else{
-			LOG.info("Insert file route");
-			File fileScore = new File("D:\\alexander.vera\\documentos\\documentacion\\frame.txt");
-			IFileManager fileManager = new FileManager(fileScore);
-			playerPinfalls = fileManager.buildListPlayerFromFile();
-		
-			IPlayerController playerController = new PlayerController(playerPinfalls);
-			List<Player> players = playerController.buildPlayerScore(playerPinfalls);
-			
-			IBoardDrawer boardDrawer = null;
-			boardDrawer = new BoardDrawer(players);
-			boardDrawer.printFrame();
-			
-
+			LOG.info("Insert file path");
 		}
+	}
+	
+	public static void printBoard(String fileName){
+		List<String> playerPinfalls = null;
+		File fileScore = new File(fileName);
+		IFileManager fileManager = new FileManager(fileScore);
+		playerPinfalls = fileManager.buildListPlayerFromFile();
+
+		IPlayerController playerController = new PlayerController(playerPinfalls);
+		List<Frame> players = playerController.buildPlayerScore(playerPinfalls);
+		
+		IFrameDrawer boardDrawer = null;
+		boardDrawer = new FrameDrawer(players);
+		boardDrawer.printFrame();
 	}
 
 }

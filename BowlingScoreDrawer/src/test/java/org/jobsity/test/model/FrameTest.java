@@ -8,14 +8,7 @@ import org.jobsity.run.model.Score;
 import org.jobsity.util.Utilities;
 import org.junit.Test;
 
-public class PersonTest {
-
-	/**
-	 * Create the test case
-	 *
-	 * @param 
-	 */ 
-	
+public class FrameTest {
 	private final static Logger LOG = Logger.getLogger(Utilities.class.getName());
 	
 	@Test
@@ -36,5 +29,5 @@ public class PersonTest {
 		
 		
 	}
-
+	
 }

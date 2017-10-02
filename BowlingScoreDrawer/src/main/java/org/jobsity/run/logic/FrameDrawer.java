@@ -2,33 +2,44 @@ package org.jobsity.run.logic;
 
 import java.util.List;
 
-import org.jobsity.run.interfaces.IBoardDrawer;
+import org.jobsity.run.interfaces.IFrameDrawer;
 import org.jobsity.run.interfaces.IMessages;
-import org.jobsity.run.model.Player;
+import org.jobsity.run.model.Frame;
 import org.jobsity.run.model.Score;
 
 /**
- * 
- * @author alexnder.vera
- * @since 2017/10/01
- * 
- * HISTORY CHANGES
- * 
- */
-public class BoardDrawer implements IBoardDrawer {
+*
+* FrameDrawer
+*
+*
+* @author alexander.vera
+* @since 30/10/2017
+*
+*
+* Changes history
+* -------------------------------------------------- 
+* Author             Date          Change 
+* ----------------- -------------- ------------------
+* alexander.vera	2017/10/01		Update call of score objects 
+*/
+public class FrameDrawer implements IFrameDrawer {
 
 	private static final int NUMBER_OF_ROUNDS = 10;
 	private static final int NUMBER_OF_PINS = 10;
-	private List<Player> players;
+	private List<Frame> players;
 	private IMessages messages;
 
-	public BoardDrawer(List<Player> players) {
+	public FrameDrawer(List<Frame> players) {
 		this.players  = players;
 		setMessages(new Messages());
 	}
 
+	/**
+     * Print a full frame based in a list of frames
+     *
+     *
+     */
 	public void printFrame() {
-
 
 		if (getPlayers() != null) {
 			StringBuilder scoreByPlayer = new StringBuilder(messages.getMessage("src.main.labels.frame"));
@@ -39,8 +50,8 @@ public class BoardDrawer implements IBoardDrawer {
 			scoreByPlayer.append("\n");
 			System.out.print(scoreByPlayer.toString());
 
-			for (Player tmpPlayer : getPlayers()) {
-				scoreByPlayer = new StringBuilder(tmpPlayer.getName());
+			for (Frame tmpPlayer : getPlayers()) {
+				scoreByPlayer = new StringBuilder(tmpPlayer.getPlayerName());
 				scoreByPlayer.append("\n");
 				System.out.print(scoreByPlayer);
 
@@ -104,11 +115,11 @@ public class BoardDrawer implements IBoardDrawer {
 		}
 	}
 
-	public List<Player> getPlayers() {
+	public List<Frame> getPlayers() {
 		return players;
 	}
 
-	public void setPlayers(List<Player> players) {
+	public void setPlayers(List<Frame> players) {
 		this.players = players;
 	}
 

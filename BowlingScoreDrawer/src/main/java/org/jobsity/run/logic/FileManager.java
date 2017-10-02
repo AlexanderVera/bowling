@@ -11,6 +11,21 @@ import org.apache.log4j.Logger;
 import org.jobsity.run.interfaces.IFileManager;
 import org.jobsity.run.interfaces.IMessages;
 
+
+/**
+* FileManager
+*
+*
+* @author alexander.vera
+* @since 30/10/2017
+*
+*
+* Changes history
+* -------------------------------------------------- 
+* Author             Date          Change 
+* ----------------- -------------- ------------------
+* alexander.vera	01/10/2017 		add validateBoard method
+*/
 public class FileManager implements IFileManager {
 
 	private String fileName;
@@ -23,6 +38,11 @@ public class FileManager implements IFileManager {
 		messages = new Messages();
 	}
 
+	/**
+     * Method that take the input file and make a list of file lines with the player and his pinfalls
+     *
+     * @return A list of String, each line is a player info
+     */
 	public List<String> buildListPlayerFromFile() {
 
 		List<String> playerLines = null;
@@ -54,6 +74,13 @@ public class FileManager implements IFileManager {
 		return playerLines;
 	}
 
+	
+	/**
+     * Read a file and check if the file has content or exists
+     *
+     * @param Object file
+     * @return a BufferedReader with the content file.
+     */
 	public BufferedReader validateBoard(File file) throws IOException {
 		if (!file.exists()) {
 			throw new IOException(messages.getMessage("src.main.messages.file.not.found"));

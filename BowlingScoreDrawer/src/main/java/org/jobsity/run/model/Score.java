@@ -1,13 +1,19 @@
 package org.jobsity.run.model;
 
 /**
- * 
- * @author alexander.vera
- * @since 2017-09-30
- * 
- * 
- */
-
+* Score
+* Object that represents a score for a player, the shoots and the total.
+*
+* @author alexander.vera
+* @since 30/10/2017
+*
+*
+* Changes history
+* -------------------------------------------------- 
+* Author             Date          Change 
+* ----------------- -------------- ------------------
+* 
+*/
 public class Score {
 	private int[] shoots;
 	private int total;

@@ -80,10 +80,6 @@ public class PlayerControllerTest {
 		player.buildPlayerScore(listPlainPlayers);
 		
 	}
-	
-	public static void main(String[] args) {
-		PlayerControllerTest test = new PlayerControllerTest();
-		test.buildPlayerScoreTest();
-	}
+
 	
 }

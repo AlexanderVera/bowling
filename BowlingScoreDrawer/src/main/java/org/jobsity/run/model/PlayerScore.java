@@ -1,7 +1,20 @@
 package org.jobsity.run.model;
 
-public class PlayerScore implements Comparable<PlayerScore>{
-	private String name;
+/**
+* PlayerScore
+* Object that represents a player 
+*
+* @author alexander.vera
+* @since 30/10/2017
+* 
+*
+* Changes history
+* -------------------------------------------------- 
+* Author             Date          Change 
+* ----------------- -------------- ------------------
+* 
+*/
+public class PlayerScore extends Person implements Comparable<PlayerScore>{
 	private int pinfalls;
 	
 	public PlayerScore(){
@@ -9,16 +22,8 @@ public class PlayerScore implements Comparable<PlayerScore>{
 	}
 	
 	public PlayerScore(String name, int pinfalls){
-		this.name = name;
+		setName(name);
 		this.pinfalls = pinfalls;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public int getPinfalls() {

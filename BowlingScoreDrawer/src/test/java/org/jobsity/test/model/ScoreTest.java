@@ -11,6 +11,7 @@ import org.junit.runners.JUnit4;
 public class ScoreTest {
 	private final static Logger LOG = Logger.getLogger(Utilities.class.getName());
 
+	
 	@Test
 	public void testConstructor() {
 
@@ -24,6 +25,7 @@ public class ScoreTest {
 				.append(" ");
 		LOG.debug(messageTestPerson.toString());
 
+		
 		// Test construct
 		messageTestPerson = new StringBuilder();
 		Score scoreComplete = new Score(false);
