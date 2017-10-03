@@ -25,13 +25,13 @@ public class PersonTest {
 	    // Test empty construct
 		messageTestPerson = new StringBuilder();
 		Frame person = new Frame();
-		messageTestPerson.append("PersonComplete ").append(person.getPlayerName()).append(" ").append(person.getId());
+		messageTestPerson.append("PersonComplete ").append(person.getPlayerName()).append(" ").append(person.getPlayerId());
 		LOG.debug(messageTestPerson.toString());
 		
 	    // Test construct
 		messageTestPerson = new StringBuilder();
 		Frame personComplete = new Frame(System.currentTimeMillis(), "test", new ArrayList<Score>());
-		messageTestPerson.append("PersonComplete ").append(personComplete.getPlayerName()).append(" ").append(personComplete.getId());
+		messageTestPerson.append("PersonComplete ").append(personComplete.getPlayerName()).append(" ").append(personComplete.getPlayerId());
 		LOG.debug(messageTestPerson.toString());
 		
 		

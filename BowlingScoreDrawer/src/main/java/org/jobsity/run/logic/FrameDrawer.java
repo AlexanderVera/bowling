@@ -8,35 +8,43 @@ import org.jobsity.run.model.Frame;
 import org.jobsity.run.model.Score;
 
 /**
-*
 * FrameDrawer
 *
-*
 * @author alexander.vera
-* @since 30/10/2017
-*
-*
-* Changes history
-* -------------------------------------------------- 
-* Author             Date          Change 
-* ----------------- -------------- ------------------
-* alexander.vera	2017/10/01		Update call of score objects 
-*/
+* @since 30/09/2017
+**/
 public class FrameDrawer implements IFrameDrawer {
 
+	/**
+     * Maximum round ina a bowling game
+     */
 	private static final int NUMBER_OF_ROUNDS = 10;
+	
+	/**
+     * Number of pins of a bowling game
+     */
 	private static final int NUMBER_OF_PINS = 10;
+	
+	/**
+     * List of Frame of a bowling game
+     */
 	private List<Frame> players;
+	
+	/**
+     * Parameter to get de messages
+     */
 	private IMessages messages;
 
-	public FrameDrawer(List<Frame> players) {
+	/**
+     * Constructor
+     */
+	public FrameDrawer(final List<Frame> players) {
 		this.players  = players;
 		setMessages(new Messages());
 	}
 
 	/**
      * Print a full frame based in a list of frames
-     *
      *
      */
 	public void printFrame() {
@@ -47,12 +55,12 @@ public class FrameDrawer implements IFrameDrawer {
 			for (int i = 0; i < NUMBER_OF_ROUNDS; i++) {
 				scoreByPlayer.append((i + 1) + "	");
 			}
-			scoreByPlayer.append("\n");
+			scoreByPlayer.append('\n');
 			System.out.print(scoreByPlayer.toString());
 
 			for (Frame tmpPlayer : getPlayers()) {
 				scoreByPlayer = new StringBuilder(tmpPlayer.getPlayerName());
-				scoreByPlayer.append("\n");
+				scoreByPlayer.append('\n');
 				System.out.print(scoreByPlayer);
 
 				scoreByPlayer = new StringBuilder(messages.getMessage("src.main.labels.pingfall"));
@@ -62,12 +70,12 @@ public class FrameDrawer implements IFrameDrawer {
 					if (!score.isFlagFinal()) {
 						if (score.isStrike()) {
 							scoreByPlayer.append(" ");
-							scoreByPlayer.append("X");
+							scoreByPlayer.append('X');
 						} else {
 							scoreByPlayer.append(score.getShoots()[0]);
 							scoreByPlayer.append(" ");
 							if (score.isSpare()) {
-								scoreByPlayer.append("/");
+								scoreByPlayer.append('/');
 							} else {
 								scoreByPlayer.append(score.getShoots()[1]);
 							}
@@ -76,13 +84,13 @@ public class FrameDrawer implements IFrameDrawer {
 
 					if (score.getFlagFinal()) {
 						if (score.getShoots()[0] >= NUMBER_OF_PINS) {
-							scoreByPlayer.append("X");
+							scoreByPlayer.append('X');
 						} else {
 							scoreByPlayer.append(score.getShoots()[0]);
 						}
 						scoreByPlayer.append(" ");
 						if (score.getShoots()[1] >= NUMBER_OF_PINS) {
-							scoreByPlayer.append("X");
+							scoreByPlayer.append('X');
 						} else {
 							scoreByPlayer.append(score.getShoots()[1]);
 						}
@@ -90,7 +98,7 @@ public class FrameDrawer implements IFrameDrawer {
 						scoreByPlayer.append(" ");
 
 						if (score.getShoots()[2] >= NUMBER_OF_PINS) {
-							scoreByPlayer.append("X");
+							scoreByPlayer.append('X');
 						} else {
 							scoreByPlayer.append(score.getShoots()[2]);
 						}
@@ -98,7 +106,7 @@ public class FrameDrawer implements IFrameDrawer {
 					}
 				}
 
-				scoreByPlayer.append("\n");
+				scoreByPlayer.append('\n');
 				System.out.print(scoreByPlayer.toString());
 
 				scoreByPlayer = new StringBuilder(messages.getMessage("src.main.labels.score"));
@@ -115,21 +123,40 @@ public class FrameDrawer implements IFrameDrawer {
 		}
 	}
 
+	/**
+     * Getter from players
+     */
 	public List<Frame> getPlayers() {
 		return players;
 	}
 
+	/**
+     * Setter from players
+     */
 	public void setPlayers(List<Frame> players) {
 		this.players = players;
 	}
-
+	
+	/**
+     * Getter from IMessages
+     */
 	public IMessages getMessages() {
 		return messages;
 	}
 
+	/**
+     * Setter from IMessages
+     */
 	public void setMessages(IMessages messages) {
 		this.messages = messages;
 	}
-
-	
 }
+
+/*
+*
+* Changes history
+* -------------------------------------------------- 
+* Author             Date          Change 
+* ----------------- -------------- ------------------
+* alexander.vera	2017/10/01		Update call of score objects 
+*/

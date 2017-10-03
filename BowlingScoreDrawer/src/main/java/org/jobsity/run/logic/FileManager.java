@@ -14,43 +14,54 @@ import org.jobsity.run.interfaces.IMessages;
 
 /**
 * FileManager
-*
-*
+* Class for manage file of the game
 * @author alexander.vera
 * @since 30/10/2017
 *
-*
-* Changes history
-* -------------------------------------------------- 
-* Author             Date          Change 
-* ----------------- -------------- ------------------
-* alexander.vera	01/10/2017 		add validateBoard method
 */
 public class FileManager implements IFileManager {
-
+	
+	/**
+	 * Name of the file with the data games
+	 * */
 	private String fileName;
+	
+	/**
+	 * Static parameter to set the LOG
+	 * */
 	private static final Logger LOG = Logger.getLogger(Main.class.getName());
+	
+	/**
+	 * Object to load the file
+	 * */
 	private File file;
-	private IMessages messages;
+	
+	/**
+	 * Parametter to get the message or key words
+	 * */
+	private transient final IMessages messages;
 
-	public FileManager(File file) {
+	/**
+	 * Contructor for FileManager Class
+	 * */
+	public FileManager(final File file) {
 		this.file = file;
 		messages = new Messages();
 	}
 
 	/**
-     * Method that take the input file and make a list of file lines with the player and his pinfalls
-     *
+     * Method that take the input file and make a list of file lines 
+     * With the player and his pinfalls
      * @return A list of String, each line is a player info
      */
 	public List<String> buildListPlayerFromFile() {
 
-		List<String> playerLines = null;
 
-		BufferedReader bufferPlayerLines = null;
+		List<String> playerLines = null;
 		try {
+			BufferedReader bufferPlayerLines;
 			bufferPlayerLines = validateBoard(getFile());
-			String playerLine = null;
+			String playerLine;
 			if (bufferPlayerLines != null) {
 				playerLines = new ArrayList<String>();
 				while ((playerLine = bufferPlayerLines.readLine()) != null) {
@@ -61,16 +72,7 @@ public class FileManager implements IFileManager {
 			}
 		} catch (IOException exc) {
 			LOG.error(exc.getMessage());
-		} finally {
-			try {
-				if (bufferPlayerLines != null) {
-					bufferPlayerLines.close();
-				}
-			} catch (IOException e) {
-				LOG.error(e.getMessage());
-			}
 		}
-
 		return playerLines;
 	}
 
@@ -81,32 +83,53 @@ public class FileManager implements IFileManager {
      * @param Object file
      * @return a BufferedReader with the content file.
      */
-	public BufferedReader validateBoard(File file) throws IOException {
-		if (!file.exists()) {
-			throw new IOException(messages.getMessage("src.main.messages.file.not.found"));
-		} else {
+	public BufferedReader validateBoard(final File file) throws IOException {
+		if(file.exists()){
 			if (file.length() == 0) {
 				throw new IOException(messages.getMessage("src.main.messages.empty.file"));
 			} else {
 				return new BufferedReader(new FileReader(file));
-			}
+			}			
+		}
+		else {
+			throw new IOException(messages.getMessage("src.main.messages.file.not.found"));
 		}
 	}
 
+	/**
+	 * Getter from fileName
+	 * */
 	public String getFileName() {
 		return fileName;
 	}
 
-	public void setFileName(String fileName) {
+	/**
+	 * Setter from fileName
+	 * */
+	public void setFileName(final String fileName) {
 		this.fileName = fileName;
 	}
 
+	/**
+	 * Getter from file object
+	 * */
 	public File getFile() {
 		return file;
 	}
 
-	public void setFile(File file) {
+	/**
+	 * Setter from fileName
+	 * */
+	public void setFile(final File file) {
 		this.file = file;
 	}
 
 }
+
+/**
+* Changes history
+* -------------------------------------------------- 
+* Author             Date          Change 
+* ----------------- -------------- ------------------
+* alexander.vera	01/10/2017 		add validateBoard method
+*/

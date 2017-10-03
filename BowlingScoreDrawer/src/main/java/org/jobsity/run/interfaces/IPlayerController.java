@@ -7,17 +7,8 @@ import org.jobsity.run.model.Frame;
 /**
 * IPlayerController
 *
-*
 * @author alexander.vera
 * @since 01/10/2017
-*
-*
-* Changes history
-* -------------------------------------------------- 
-* Author             Date          Change 
-* ----------------- -------------- ------------------
-* alexander.vera	01/10/2017 		improve the buildPlayerScore method
-* alexander.vera	02/10/2017 		create validation for a incorrect scores
 */
 public interface IPlayerController {
 	
@@ -27,6 +18,15 @@ public interface IPlayerController {
      * @return A String value with the message
      * @param List of string player score
      */
-	public List<Frame> buildPlayerScore(List<String> plainPlayerScores);
+	List<Frame> buildPlayerScore(List<String> plainPlayerScores);
 
 }
+
+/**
+ * Changes history
+* -------------------------------------------------- 
+* Author             Date          Change 
+* ----------------- -------------- ------------------
+* alexander.vera	01/10/2017 		improve the buildPlayerScore method
+* alexander.vera	02/10/2017 		create validation for a incorrect scores
+*/

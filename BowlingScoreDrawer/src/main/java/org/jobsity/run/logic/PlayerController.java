@@ -7,6 +7,8 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.apache.log4j.Logger;
+import org.jobsity.run.exceptions.BuildException;
+import org.jobsity.run.interfaces.IMessages;
 import org.jobsity.run.interfaces.IPlayerController;
 import org.jobsity.run.model.Frame;
 import org.jobsity.run.model.PlayerScore;
@@ -16,33 +18,47 @@ import org.jobsity.util.Utilities;
 /**
 * PlayerController
 *
-*
 * @author alexander.vera
 * @since 01/10/2017
 *
-*
-* Changes history
-* -------------------------------------------------- 
-* Author             Date          Change 
-* ----------------- -------------- ------------------
-* alexander.vera	01/10/2017 		improve the buildPlayerScore method
-* alexander.vera	02/10/2017 		create validation for a incorrect scores
 */
 public class PlayerController implements IPlayerController {
-	
+
+	/**
+     * List of couple Name and score as a string (Joe 9)
+     */
 	private List<String> plainPlayerScores;
+	/**
+	 * Maximum turns by game
+	 * */
 	private static final int TURNS_BY_GAME = 9;
+	/**
+	 * Pins that result as strike 
+	 **/
 	private static final int STRIKE_POINTS = 10;
-	private static final int MAX_SHOOTS_BY_GAME = 21;
+	/**
+	 * Max number of shoots by game
+	 */
+	private static final int SHOOTS_BY_GAME = 21;
+	/**
+	 * Shoots by normal turn
+	 **/
 	private static final int SHOOTS_BY_TURN = 2;
+	/**
+	 * Static parameter to LOG  
+	 */
 	private static final Logger LOG = Logger.getLogger(PlayerController.class.getName());
-	private Messages messages;
+	
+	/**
+     * Class to manage the messages
+     **/
+	private IMessages messages;
 
 	public PlayerController(List<String> plainPlayerScores) {
 		messages = new Messages();
 		this.plainPlayerScores = plainPlayerScores;
 	}
-
+	
 	/**
      * Method that take a list of Shoot lines with a name and pins for each player
      *
@@ -89,8 +105,7 @@ public class PlayerController implements IPlayerController {
 			//Delete the repeated names in order to get the number of player
 			for (int i = 0; i < newPlayerScores.size(); i++) {
 				namesOfPlayers.add(newPlayerScores.get(i).getName());
-			}
-			
+			}			
 			//Move the distinct names to a List in order to manipulate
 			List<String> playerNameList = new ArrayList<String>();
 			playerNameList.addAll(namesOfPlayers);
@@ -125,7 +140,7 @@ public class PlayerController implements IPlayerController {
 			while (playerPosition < countPlayers) {
 				//Create a array to simulate the frame in a bowling game 
 				// Ej. [0][/] [][X] [7][2] [6][3] [2][/] [1][6] [][X] [][X] [3][5] [X][9][0]
-				shootCharByPlayer = new int[MAX_SHOOTS_BY_GAME];
+				shootCharByPlayer = new int[SHOOTS_BY_GAME];
 				// Init the counter to manage the shoots by player
 				shootByPlayer = 0;
 				// Init the counter to manage the bonus shoot by player
@@ -158,7 +173,7 @@ public class PlayerController implements IPlayerController {
 						
 						//Validate if the shoot of this player doesn't beat the maximum allowed shots in a bowling frame
 						//In that case the app stop and sohw a message
-						if (shootByPlayer >= MAX_SHOOTS_BY_GAME) {
+						if (shootByPlayer >= SHOOTS_BY_GAME) {
 							StringBuilder incompleteMessage = new StringBuilder(playerName);
 							incompleteMessage.append("! ").append(messages.getMessage("src.main.labels.much.shoots"));
 							LOG.info(incompleteMessage.toString());
@@ -184,8 +199,7 @@ public class PlayerController implements IPlayerController {
 							score.setStrike(true);
 						} else {
 							//Set pins for the player in the simulated frame
-							shootCharByPlayer[shootByPlayer] = (pivotePlayerScore.getPinfalls()==0?-1:pivotePlayerScore.getPinfalls());
-							
+							shootCharByPlayer[shootByPlayer] = (pivotePlayerScore.getPinfalls()==0?-1:pivotePlayerScore.getPinfalls());	
 							//Evaluate if this turn is the final turn to set the bonus shoots.
 							//Because the final turn can have a extra shoot
 							if (turn >= TURNS_BY_GAME) {
@@ -195,16 +209,13 @@ public class PlayerController implements IPlayerController {
 							} else {
 								score.getShoots()[shootPosition] = pivotePlayerScore.getPinfalls();
 							}
-							
 							//Evaluate if the current player make a spare
 							if ((score.getShoots()[0] + score.getShoots()[1]) >= STRIKE_POINTS && !score.isStrike()) {
 								score.setSpare(true);
-							}
-							
+							}					
 							//Increase the shoot counter to indicate the player make this shoot form his turn
 							shootByPlayer++;
 						}
-						
 						//Calculate the new module to know if the if the player ends his turn
 						shootPosition = shootByPlayer % SHOOTS_BY_TURN;
 						if ((shootPosition) == 0 && turn < TURNS_BY_GAME) {
@@ -215,7 +226,7 @@ public class PlayerController implements IPlayerController {
 							//Clean the socre
 							score = new Score();
 						}
-						else if (shootByPlayer >= MAX_SHOOTS_BY_GAME) {
+						else if (shootByPlayer >= SHOOTS_BY_GAME) {
 							playerFrame.setCurrentScore(score);
 							score = new Score();
 						}
@@ -232,7 +243,7 @@ public class PlayerController implements IPlayerController {
 						//Add the current frame to a list of players frames
 						listOfFrames = addPlayer(playerFrame, listOfFrames);
 						playerFrame = new Frame();
-						shootCharByPlayer = new int[MAX_SHOOTS_BY_GAME];
+						shootCharByPlayer = new int[SHOOTS_BY_GAME];
 						//Clean the counters
 						shootByPlayer = 0; turn = 0; playerPosition++; contPlayer--; bonusTurn = 0;
 					}
@@ -250,18 +261,16 @@ public class PlayerController implements IPlayerController {
 		}
 		//Calculate the extra score with bonus for strike or spare and return frames to print
 		return calculateScore(listOfFrames);
-
 	}
 
 	/**
      * Method that walks each score by player in order to verify that they have finish the game
-     *
      * 
      * @param shootCharByPlayer: Array with score for a player
      * 		  playerName: Name of player	 
      */
 	public void validatePlayerChar(int[] shootCharByPlayer, String playerName)
-			throws Exception {
+			throws BuildException {
 		
 		//Loop the simulated frame in order to evaluate if all position are full
 		for (int i = 0; i < shootCharByPlayer.length; i++) {
@@ -270,15 +279,14 @@ public class PlayerController implements IPlayerController {
 				//if one box on the simulated frame is empty, stop the app and shows a message
 				StringBuilder incompleteMessage = new StringBuilder(playerName);
 				incompleteMessage.append("! ").append(messages.getMessage("src.main.labels.incomplete"));
-				throw new Exception(incompleteMessage.toString());
+				throw new BuildException(incompleteMessage.toString());
 			}
 		}
 	}
 
 	/**
-     * Method that take each player shoot (PlayerScore) and add it to its correspond frame
-     *
-     * 
+     * Method that take each player shoot (PlayerScore) 
+     * and add it to its correspond frame
      * @param listOfPLayers: List of player frame
      * 		  player: Frame to add	 
      */	
@@ -305,11 +313,9 @@ public class PlayerController implements IPlayerController {
 	}
 
 	/**
-     * Method that take each frame (PlayerScore) and calculate its score based on bonus
-     *
-     * 
-     * @param listOfPLayers: List with frames
-     * 	 
+     * Method that calculate the total of player point and calculate the bonus 
+     * by Strike o spare
+     * @param listOfPLayers: List with frames 	 
      */	
 	public List<Frame> calculateScore(List<Frame> listOfPLayers) {
 		List<Frame> outPlayers = new ArrayList<Frame>();
@@ -318,7 +324,6 @@ public class PlayerController implements IPlayerController {
 			List<Score> listScores = new ArrayList<Score>();
 			for (int posScore = 0; posScore < player.getScore().size(); posScore++) {
 				Score currentScore = player.getScore().get(posScore);
-				//
 				int bonus = evaluateBonus(currentScore, posScore, player.getScore());
 				int tempTotal = currentScore.getShoots()[0] + currentScore.getShoots()[1] + bonus;
 				player.setTotalScore(player.getTotalScore() + tempTotal);
@@ -333,42 +338,65 @@ public class PlayerController implements IPlayerController {
 
 	/**
      * Method that calculate bonus by strike or spare
-     *
-     * 
+     * Strike take 10 points plus the next two balls
+     * Spare take 10 points plus the next ball
      * @param score: Score with a point by current turn
      *		  posScore: position or turn for this score
      *        listScores: List of all scores for a player	 	 
      */	
 	public int evaluateBonus(Score score, int posScore, List<Score> listScores) {
+		//If the score is the last score, there is no bonus and just sum all points from this round
 		if (score.isFlagFinal()) {
 			return score.getShoots()[2];
 		} else {
+			//Get the score for the next round
 			Score nextScore = listScores.get(posScore + 1);
 			if (score.isSpare()) {
+				//If current score is a spare, the bonus is the next shoot
 				return nextScore.getShoots()[0];
 			} else if (score.isStrike()) {
-
 				if (nextScore.isFlagFinal()) {
+					//If the current score is a strike but the next score is the final score
+					//The bonus will be the the next first and second shoot
 					return nextScore.getShoots()[0] + nextScore.getShoots()[1];
 				} else if (nextScore.isStrike()) {
+					//If the score is a strike and the next score is a strike too.
+					//The bonus will be the next first next first shoot and
+					//The next next first shoot
 					Score postNextScore = listScores.get(posScore + 2);
 					return nextScore.getShoots()[0] + postNextScore.getShoots()[0];
 				} else {
+					//If the score is a strike but the next is a regular shoot.
+					//The bonus will be the next first and second shoot
 					return nextScore.getShoots()[0] + nextScore.getShoots()[1];
 				}
 			} else {
+				//If the current shoot is a regular shoot. The bonus is 0
 				return 0;
 			}
 		}
 
 	}
-
+	/**
+     * Getter from PlainPlayerSCore
+     */
 	public List<String> getPlainPlayerScores() {
 		return plainPlayerScores;
 	}
-
+	/**
+     * Setter from PlainPlayerSCore
+     */
 	public void setPlainPlayerScores(List<String> plainPlayerScores) {
 		this.plainPlayerScores = plainPlayerScores;
 	}
-
 }
+/*
+ *
+* Changes history
+* -------------------------------------------------- 
+* Author             Date          Change 
+* ----------------- -------------- ------------------
+* alexander.vera	01/10/2017 		improve the buildPlayerScore method
+* alexander.vera	02/10/2017 		create validation for a incorrect scores
+*/
+ 

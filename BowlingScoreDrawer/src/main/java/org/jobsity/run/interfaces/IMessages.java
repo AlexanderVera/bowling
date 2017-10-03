@@ -3,16 +3,8 @@ package org.jobsity.run.interfaces;
 /**
 * Messages
 *
-*
 * @author alexander.vera
-* @since 30/10/2017
-*
-*
-* Changes history
-* -------------------------------------------------- 
-* Author             Date          Change 
-* ----------------- -------------- ------------------
-* alexander.vera	01/10/2017 		add validateBoard method
+* @since 30/09/2017
 */
 
 public interface IMessages {
@@ -23,5 +15,12 @@ public interface IMessages {
      * @return A String value with the message
      * @param key: String key
      */
-	public String getMessage(String key);
+	String getMessage(String key);
 }
+
+/**
+* -------------------------------------------------- 
+* Author             Date          Change 
+* ----------------- -------------- ------------------
+* alexander.vera	01/10/2017 		add validateBoard method
+*/

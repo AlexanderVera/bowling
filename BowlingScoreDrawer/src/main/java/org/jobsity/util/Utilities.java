@@ -25,7 +25,7 @@ public class Utilities {
      * @return A Boolean, true is the number is valid
      * @param number: String with a number value to validate
      */
-	public static boolean validNumber(String number) {
+	public static boolean validNumber(String number){
 		if (number != null) {
 			try {
 				Double.parseDouble(number);

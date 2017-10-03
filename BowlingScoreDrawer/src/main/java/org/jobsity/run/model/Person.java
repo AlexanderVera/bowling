@@ -6,13 +6,7 @@ package org.jobsity.run.model;
 *
 * @author alexander.vera
 * @since 30/10/2017
-*
-*
-* Changes history
-* -------------------------------------------------- 
-* Author             Date          Change 
-* ----------------- -------------- ------------------
-* 
+
 */
 public abstract class Person{
 	private Long id;
@@ -23,9 +17,9 @@ public abstract class Person{
 		setName("");
 	}
 	
-	public Person(Long _id, String _name){
-		setId(0L);
-		setName(_name);
+	public Person(Long id, String name){
+		this.id=id;
+		this.name=name;
 	}
 	
 	public Long getId() {

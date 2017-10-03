@@ -15,75 +15,126 @@ import org.junit.Test;
 
 
 /**
-* FileManager
-*
+* MainTest
 *
 * @author alexander.vera
-* @since 30/10/2017
+* @since 30/09/2017
 *
-*
-* Changes history
-* -------------------------------------------------- 
-* Author             Date          Change 
-* ----------------- -------------- ------------------
-* alexander.vera	01/10/2017 		add validateBoard method
 */
 public class MainTest {
 	private final static Logger LOG = Logger.getLogger(PlayerController.class.getName());
 	
 	/**
      * Create the test case
-     *
-     * @param testName name of the test case
+     * Test
      */
 	@Test
-	public void integrationTest(){
-		
+	public void printFrameIdealCase(){
 		LOG.info("Ideal case");
 		//Nice frame
 		printBoard("test-frame.txt");
-
+	}
+	/**
+	 * Incomplete frame. Some player don't have all his shoots
+	 */
+	@Test
+	public void printFrameIncompleteCase(){
 		LOG.info("Incomplete shoot for one player");
-		//Incomplete frame
 		printBoard("test-frame-incomplete-shoots.txt");	
-		
+	}	
+	
+	/**
+	 * Empty frame. The file is empty
+	 */
+	@Test
+	public void printFrameEmptyCase(){
 		LOG.info("Empty file");
-		//Empty frame
-		printBoard("test-frame-empty.txt");
-		
-		LOG.info("Extra shoots for a player");
-		//Extra shoot frame
-		printBoard("test-frame-extra-shoots.txt");
-
-		LOG.info("Four players");
-		//4 players frame
-		printBoard("test-frame-4-players.txt");
-		
-		LOG.info("No File");
-		//4 players frame
-		printBoard("test-frame-fake.txt");
-		
+		printBoard("test-frame-empty.txt");		
 	}
 	
+	/**
+	 * Extra shoot frame. Some player have more shoots
+	 */
+	@Test
+	public void printFrameExtraCase(){
+		LOG.info("Extra shoots for a player"); 
+		printBoard("test-frame-extra-shoots.txt");
+	}
+	
+	/**
+	 *4 players frame. Game with 4 players
+	 */
+	@Test
+	public void printFrame4PlayersCase(){
+		LOG.info("Four players");
+		printBoard("test-frame-4-players.txt");		
+	}
+	
+	/**
+	 * No file to the game
+	 */
+	@Test
+	public void printFrameNoFileCase(){
+		LOG.info("No File");
+		printBoard("test-frame-fake.txt");
+	}
+	
+	/**
+	 * Game with a single player with all strike
+	 */
+	@Test
+	public void printFrameAllStrikeCase(){
+		LOG.info("All Strike");
+		printBoard("test-frame-all-strike.txt");
+	}
+	
+	/**
+	 * Game with a player with all fails
+	 */
+	@Test
+	public void printFrameAllFileCase(){
+		LOG.info("All fail");
+		
+		printBoard("test-frame-all-fail.txt");	
+	}
+	
+	/***
+	 * Method get the fileName and print the frame of game
+	 * @param fileName
+	 */
 	public void printBoard(String fileName){
 		List<String> playerPinfalls = null;
+		//Get the .txt file from the classpath
 		URL fileFromPath = Thread.currentThread().getContextClassLoader().getResource(fileName);
+		
 		if(fileFromPath != null){
+			//Load the file object by the URL File Path
 			File fileScore = new File(
 				Thread.currentThread().getContextClassLoader().getResource(fileName).getFile());
+			
+			//Call a class FileManager to get list of String score in the file
 			IFileManager fileManager = new FileManager(fileScore);
 			playerPinfalls = fileManager.buildListPlayerFromFile();
 
+			//Call a class PlayerController to convert the player scores in a List of Frame to print
 			IPlayerController playerController = new PlayerController(playerPinfalls);
 			List<Frame> players = playerController.buildPlayerScore(playerPinfalls);
 		
-			FrameDrawer boardDrawer = null;
-			boardDrawer = new FrameDrawer(players);
+			//Call a class Frame drawer to print, all the frames by player  
+			FrameDrawer boardDrawer = new FrameDrawer(players);
 			boardDrawer.printFrame();
 		}
 		else{
 			LOG.debug("File not found");
 		}
-	}
-	
+	}	
 }
+
+/**
+* Changes history
+* -------------------------------------------------- 
+* Author             Date          Change 
+* ----------------- -------------- ------------------
+* alexander.vera	01/10/2017 		add validateBoard method
+
+**/

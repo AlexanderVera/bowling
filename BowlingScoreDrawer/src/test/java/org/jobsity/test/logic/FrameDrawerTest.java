@@ -9,18 +9,15 @@ import org.jobsity.run.model.Frame;
 import org.jobsity.run.model.Score;
 import org.jobsity.util.Utilities;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 
 /**
  * 
- * @author alexnder.vera
+ * @author alexander.vera
  * @since 2017/10/01
  * 
  * HISTORY CHANGES
  * 
  */
-@RunWith(JUnit4.class)
 public class FrameDrawerTest {
 	private final static Logger LOG = Logger.getLogger(Utilities.class.getName());
 	
@@ -33,7 +30,7 @@ public class FrameDrawerTest {
 		Frame player = null;
 		for(int i = 0; i< 10; i++){
 			player = new Frame();
-			player.setId(System.currentTimeMillis());
+			player.setPlayerId(System.currentTimeMillis());
 			StringBuilder name = new StringBuilder("Test");
 			name.append(i);
 			player.setPlayerName(name.toString());
@@ -59,7 +56,7 @@ public class FrameDrawerTest {
 		Frame player = null;
 		for(int i = 0; i< 10; i++){
 			player = new Frame();
-			player.setId(System.currentTimeMillis());
+			player.setPlayerId(System.currentTimeMillis());
 			StringBuilder name = new StringBuilder("Test");
 			name.append(i);
 			player.setPlayerName(name.toString());
@@ -81,7 +78,6 @@ public class FrameDrawerTest {
 		LOG.debug(messageTest.toString());
 		boardTestEmpty.printFrame();
 		
-
 	}
 	
 }

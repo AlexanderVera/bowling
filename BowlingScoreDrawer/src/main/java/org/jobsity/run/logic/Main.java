@@ -13,25 +13,21 @@ import org.jobsity.run.model.Frame;
 
 /**
 * Main
-*
-*
 * @author alexander.vera
 * @since 29/10/2017
 *
-*
-* Changes history
-* -------------------------------------------------- 
-* Author             Date          Change 
-* ----------------- -------------- ------------------
-* alexander.vera	30/10/2017 		run app with a external name of file
-* alexander.vera	30/10/2017 		add if for args[0] condition
-* 
 */
 
 public class Main {
+	/**
+	 * Static method to manage the log
+	 **/
 	private static final Logger LOG = Logger.getLogger(Main.class.getName());
-	
-	public static void main(String[] args) {
+
+	/**
+	 * Main method to run the app
+	 **/
+	public static void main(final String[] args) {
 		if(args.length>0){
 			printBoard(args[0]);
 		}
@@ -40,14 +36,17 @@ public class Main {
 		}
 	}
 	
-	public static void printBoard(String fileName){
-		List<String> playerPinfalls = null;
-		File fileScore = new File(fileName);
-		IFileManager fileManager = new FileManager(fileScore);
+	/**
+	 * Method print the all board
+	 **/
+	public static void printBoard(final String fileName){
+		List<String> playerPinfalls;
+		final File fileScore = new File(fileName);
+		final IFileManager fileManager = new FileManager(fileScore);
 		playerPinfalls = fileManager.buildListPlayerFromFile();
 
-		IPlayerController playerController = new PlayerController(playerPinfalls);
-		List<Frame> players = playerController.buildPlayerScore(playerPinfalls);
+		final IPlayerController playerController = new PlayerController(playerPinfalls);
+		final List<Frame> players = playerController.buildPlayerScore(playerPinfalls);
 		
 		IFrameDrawer boardDrawer = null;
 		boardDrawer = new FrameDrawer(players);
@@ -55,3 +54,11 @@ public class Main {
 	}
 
 }
+/*
+* Changes history
+* -------------------------------------------------- 
+* Author             Date          Change 
+* ----------------- -------------- ------------------
+* alexander.vera	30/10/2017 		run app with a external name of file
+* alexander.vera	30/10/2017 		add if for args[0] condition
+*/
