@@ -25,4 +25,9 @@ public class UtilitiesTest extends TestCase{
 		assertNotSame(3, Utilities.parseValidateInteger("3a"));
 		assertEquals(0, Utilities.parseValidateInteger("F"));
 	}
+	
+	@Test
+	public void generatePlayerFileTest(){
+		Utilities.generatePlayerFile(2);
+	}
 }

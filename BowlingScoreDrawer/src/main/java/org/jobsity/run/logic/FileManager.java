@@ -39,12 +39,12 @@ public class FileManager implements IFileManager {
 	/**
 	 * Parametter to get the message or key words
 	 * */
-	private transient final IMessages messages;
+	private final IMessages messages;
 
 	/**
 	 * Contructor for FileManager Class
 	 * */
-	public FileManager(final File file) {
+	public FileManager(File file) {
 		this.file = file;
 		messages = new Messages();
 	}
@@ -83,7 +83,7 @@ public class FileManager implements IFileManager {
      * @param Object file
      * @return a BufferedReader with the content file.
      */
-	public BufferedReader validateBoard(final File file) throws IOException {
+	public BufferedReader validateBoard(File file) throws IOException {
 		if(file.exists()){
 			if (file.length() == 0) {
 				throw new IOException(messages.getMessage("src.main.messages.empty.file"));

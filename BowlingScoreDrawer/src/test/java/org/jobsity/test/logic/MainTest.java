@@ -37,7 +37,7 @@ public class MainTest {
 	/**
 	 * Incomplete frame. Some player don't have all his shoots
 	 */
-	@Test
+	//@Test
 	public void printFrameIncompleteCase(){
 		LOG.info("Incomplete shoot for one player");
 		printBoard("test-frame-incomplete-shoots.txt");	
@@ -46,7 +46,7 @@ public class MainTest {
 	/**
 	 * Empty frame. The file is empty
 	 */
-	@Test
+	//@Test
 	public void printFrameEmptyCase(){
 		LOG.info("Empty file");
 		printBoard("test-frame-empty.txt");		
@@ -55,7 +55,7 @@ public class MainTest {
 	/**
 	 * Extra shoot frame. Some player have more shoots
 	 */
-	@Test
+	//@Test
 	public void printFrameExtraCase(){
 		LOG.info("Extra shoots for a player"); 
 		printBoard("test-frame-extra-shoots.txt");
@@ -64,7 +64,7 @@ public class MainTest {
 	/**
 	 *4 players frame. Game with 4 players
 	 */
-	@Test
+	//@Test
 	public void printFrame4PlayersCase(){
 		LOG.info("Four players");
 		printBoard("test-frame-4-players.txt");		
@@ -73,7 +73,7 @@ public class MainTest {
 	/**
 	 * No file to the game
 	 */
-	@Test
+	//@Test
 	public void printFrameNoFileCase(){
 		LOG.info("No File");
 		printBoard("test-frame-fake.txt");
@@ -82,7 +82,7 @@ public class MainTest {
 	/**
 	 * Game with a single player with all strike
 	 */
-	@Test
+	//@Test
 	public void printFrameAllStrikeCase(){
 		LOG.info("All Strike");
 		printBoard("test-frame-all-strike.txt");
@@ -91,11 +91,23 @@ public class MainTest {
 	/**
 	 * Game with a player with all fails
 	 */
-	@Test
-	public void printFrameAllFileCase(){
+	//@Test
+	public void printFrameAllFailCase(){
 		LOG.info("All fail");
 		
 		printBoard("test-frame-all-fail.txt");	
+	}
+	/**
+	 * Game with 3000 players
+	 */
+	//@Test
+	public void printALargeGame(){
+		
+		LOG.info("Print a game with 3000 players");
+		Long currentMillis = System.currentTimeMillis();
+		printBoard("test-frame-large-game.txt");
+		LOG.info("Time: "+((System.currentTimeMillis() - currentMillis))+"ms");
+		
 	}
 	
 	/***

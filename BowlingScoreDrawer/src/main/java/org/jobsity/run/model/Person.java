@@ -13,8 +13,8 @@ public abstract class Person{
 	private String name;
 	
 	public Person(){
-		setId(0L);
-		setName("");
+		this.id=0L;
+		this.name="";
 	}
 	
 	public Person(Long id, String name){
@@ -37,3 +37,10 @@ public abstract class Person{
 		this.name = name;
 	}
 }
+/*
+* Changes history
+* -------------------------------------------------- 
+* Author             Date          Change 
+* ----------------- -------------- ------------------
+* 
+*/

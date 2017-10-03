@@ -50,79 +50,112 @@ public class FrameDrawer implements IFrameDrawer {
 	public void printFrame() {
 
 		if (getPlayers() != null) {
-			StringBuilder scoreByPlayer = new StringBuilder(messages.getMessage("src.main.labels.frame"));
-			scoreByPlayer.append("		");
-			for (int i = 0; i < NUMBER_OF_ROUNDS; i++) {
-				scoreByPlayer.append((i + 1) + "	");
-			}
-			scoreByPlayer.append('\n');
-			System.out.print(scoreByPlayer.toString());
-
-			for (Frame tmpPlayer : getPlayers()) {
-				scoreByPlayer = new StringBuilder(tmpPlayer.getPlayerName());
+			
+			StringBuilder scoreByPlayer = null;
+			//Print the numbers 1-10 on top of the frame
+			printFrameTitle(scoreByPlayer);
+			
+			//Walk all the player
+			for (Frame tmpPlayerFrame : getPlayers()) {
+				scoreByPlayer = new StringBuilder(tmpPlayerFrame.getPlayerName());
 				scoreByPlayer.append('\n');
 				System.out.print(scoreByPlayer);
 
 				scoreByPlayer = new StringBuilder(messages.getMessage("src.main.labels.pingfall"));
 				scoreByPlayer.append(" ");
-				for (Score score : tmpPlayer.getScore()) {
-					scoreByPlayer.append("	");
-					if (!score.isFlagFinal()) {
-						if (score.isStrike()) {
-							scoreByPlayer.append(" ");
-							scoreByPlayer.append('X');
-						} else {
-							scoreByPlayer.append(score.getShoots()[0]);
-							scoreByPlayer.append(" ");
-							if (score.isSpare()) {
-								scoreByPlayer.append('/');
-							} else {
-								scoreByPlayer.append(score.getShoots()[1]);
-							}
-						}
-					}
-
-					if (score.getFlagFinal()) {
-						if (score.getShoots()[0] >= NUMBER_OF_PINS) {
-							scoreByPlayer.append('X');
-						} else {
-							scoreByPlayer.append(score.getShoots()[0]);
-						}
-						scoreByPlayer.append(" ");
-						if (score.getShoots()[1] >= NUMBER_OF_PINS) {
-							scoreByPlayer.append('X');
-						} else {
-							scoreByPlayer.append(score.getShoots()[1]);
-						}
-
-						scoreByPlayer.append(" ");
-
-						if (score.getShoots()[2] >= NUMBER_OF_PINS) {
-							scoreByPlayer.append('X');
-						} else {
-							scoreByPlayer.append(score.getShoots()[2]);
-						}
-
-					}
-				}
-
+				
+				//Print the scores
+				printPlayerScores(scoreByPlayer, tmpPlayerFrame.getScore());
+				
 				scoreByPlayer.append('\n');
 				System.out.print(scoreByPlayer.toString());
-
-				scoreByPlayer = new StringBuilder(messages.getMessage("src.main.labels.score"));
-				scoreByPlayer.append("    ");
-				for (Score score : tmpPlayer.getScore()) {
-					scoreByPlayer.append(" 	");
-					scoreByPlayer.append(score.getTotal());
-					scoreByPlayer.append(" ");
-				}
-				scoreByPlayer.append("\n\n");
-				System.out.print(scoreByPlayer.toString());
+				
+				//Print the total score	
+				printTotalScore(scoreByPlayer, tmpPlayerFrame);
 
 			}
 		}
 	}
+	
+	/**
+	 * @param scoreByPlayer: StringBuilder to print the scores
+	 * 		  scores: List of scores for a player
+	 */
+	public void printPlayerScores(StringBuilder scoreByPlayer, List<Score> scores){
+		for (Score score : scores) {
+			scoreByPlayer.append("	");
+			//Print the strike and spare score
+			if (!score.isFlagFinal()) {
+				if (score.isStrike()) {
+					scoreByPlayer.append(" ");
+					scoreByPlayer.append('X');
+				} else {
+					scoreByPlayer.append(score.getShoots()[0]);
+					scoreByPlayer.append(" ");
+					if (score.isSpare()) {
+						scoreByPlayer.append('/');
+					} else {
+						scoreByPlayer.append(score.getShoots()[1]);
+					}
+				}
+			}
+			//Print the final turn strike and spare
+			if (score.getFlagFinal()) {
+				if (score.getShoots()[0] >= NUMBER_OF_PINS) {
+					scoreByPlayer.append('X');
+				} else {
+					scoreByPlayer.append(score.getShoots()[0]);
+				}
+				scoreByPlayer.append(" ");
+				if (score.getShoots()[1] >= NUMBER_OF_PINS) {
+					scoreByPlayer.append('X');
+				} else {
+					scoreByPlayer.append(score.getShoots()[1]);
+				}
 
+				scoreByPlayer.append(" ");
+
+				if (score.getShoots()[2] >= NUMBER_OF_PINS) {
+					scoreByPlayer.append('X');
+				} else {
+					scoreByPlayer.append(score.getShoots()[2]);
+				}
+
+			}
+		}
+	}
+	
+	/**Print the number on the frame header
+	 * 
+	 * @param scoreByPlayer: StringBuilder to build a labels from the top
+	 */
+	public void printFrameTitle(StringBuilder scoreByPlayer){
+		scoreByPlayer = new StringBuilder(messages.getMessage("src.main.labels.frame"));
+		scoreByPlayer.append("		");
+		//Load the number labels of frame
+		for (int i = 0; i < NUMBER_OF_ROUNDS; i++) {
+			scoreByPlayer.append((i + 1) + "	");
+		}
+		scoreByPlayer.append('\n');
+		System.out.print(scoreByPlayer.toString());
+	} 
+	
+	/**
+	 * @param scoreByPlayer: StringBuilder to print the score to print 
+	 * 		  frame: Object with the scores of current player 	
+	 */
+	public void printTotalScore(StringBuilder scoreByPlayer, Frame frame){
+		scoreByPlayer = new StringBuilder(messages.getMessage("src.main.labels.score"));
+		scoreByPlayer.append("    ");
+		for (Score score : frame.getScore()) {
+			scoreByPlayer.append(" 	");
+			scoreByPlayer.append(score.getTotal());
+			scoreByPlayer.append(" ");
+		}
+		scoreByPlayer.append("\n\n");
+		System.out.print(scoreByPlayer.toString());
+	}
+	
 	/**
      * Getter from players
      */

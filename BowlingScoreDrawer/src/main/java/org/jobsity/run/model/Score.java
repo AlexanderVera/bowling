@@ -7,13 +7,7 @@ package org.jobsity.run.model;
 * @author alexander.vera
 * @since 30/10/2017
 *
-*
-* Changes history
-* -------------------------------------------------- 
-* Author             Date          Change 
-* ----------------- -------------- ------------------
-* 
-*/
+**/
 public class Score {
 	private int[] shoots;
 	private int total;
@@ -27,8 +21,8 @@ public class Score {
 	}
 	
 	public Score(boolean flagFinal){
-		setFlagFinal(flagFinal);
-		shoots = new int[3];
+		this.flagFinal=flagFinal;
+		this.shoots = new int[3];
 	}
 
 	public String getSymbol() {
@@ -83,3 +77,10 @@ public class Score {
 		this.shoots = shoots;
 	}
 }
+/*
+* Changes history
+* -------------------------------------------------- 
+* Author             Date          Change 
+* ----------------- -------------- ------------------
+* 
+*/

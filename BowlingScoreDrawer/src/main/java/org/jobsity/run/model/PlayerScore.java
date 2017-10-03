@@ -8,11 +8,6 @@ package org.jobsity.run.model;
 * @since 30/10/2017
 * 
 *
-* Changes history
-* -------------------------------------------------- 
-* Author             Date          Change 
-* ----------------- -------------- ------------------
-* 
 */
 public class PlayerScore extends Person implements Comparable<PlayerScore>{
 	private int pinfalls;
@@ -39,3 +34,10 @@ public class PlayerScore extends Person implements Comparable<PlayerScore>{
 		
 	}
 }
+/*
+* Changes history
+* -------------------------------------------------- 
+* Author             Date          Change 
+* ----------------- -------------- ------------------
+* 
+*/

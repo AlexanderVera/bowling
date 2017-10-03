@@ -53,6 +53,21 @@ public class Utilities {
 			return 0;
 		}
 	}
-
+	
+	
+	/**
+	 * Generate a ramdom valid frames
+	 * @params numPlayer: int, number of player to generate
+	 */
+	public static void generatePlayerFile(int numPlayer){
+		for(int i=0;i<numPlayer;i++){
+			for(int j=0;j<20;j++ ){
+				int points = (int)(Math.random() * 9) + 1;
+				System.out.println("Player"+i+" "+points);
+			}
+			System.out.println("Player"+i+" "+0);
+		}
+	}
+	
 
 }
