@@ -24,8 +24,9 @@ public interface IFileManager {
 	/**
      * Read a file and check if the file has content or exists
      *
-     * @param Object file
+     * @param file
      * @return a BufferedReader with the content file.
+     * @throws
      */
 	BufferedReader validateBoard(File file) throws IOException;
 }

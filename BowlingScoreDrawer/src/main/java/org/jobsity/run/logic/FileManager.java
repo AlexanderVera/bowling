@@ -23,16 +23,19 @@ public class FileManager implements IFileManager {
 	
 	/**
 	 * Name of the file with the data games
+	 * @return String fileName
 	 * */
 	private String fileName;
 	
 	/**
 	 * Static parameter to set the LOG
+	 * @return Logger
 	 * */
 	private static final Logger LOG = Logger.getLogger(Main.class.getName());
 	
 	/**
 	 * Object to load the file
+	 * @return
 	 * */
 	private File file;
 	
@@ -80,7 +83,7 @@ public class FileManager implements IFileManager {
 	/**
      * Read a file and check if the file has content or exists
      *
-     * @param Object file
+     * @param {file} file File with score game
      * @return a BufferedReader with the content file.
      */
 	public BufferedReader validateBoard(File file) throws IOException {
@@ -98,6 +101,7 @@ public class FileManager implements IFileManager {
 
 	/**
 	 * Getter from fileName
+	 * @return String
 	 * */
 	public String getFileName() {
 		return fileName;
@@ -105,13 +109,15 @@ public class FileManager implements IFileManager {
 
 	/**
 	 * Setter from fileName
+	 * @param {string} fileName Name of the file
 	 * */
-	public void setFileName(final String fileName) {
+	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
 
 	/**
 	 * Getter from file object
+	 * @return File
 	 * */
 	public File getFile() {
 		return file;
@@ -119,8 +125,9 @@ public class FileManager implements IFileManager {
 
 	/**
 	 * Setter from fileName
+	 * @param {file} file Set the File
 	 * */
-	public void setFile(final File file) {
+	public void setFile(File file) {
 		this.file = file;
 	}
 

@@ -16,7 +16,7 @@ public interface IPlayerController {
      * Method that take a list of Shoot lines with a name and pins for each player
      *
      * @return A String value with the message
-     * @param List of string player score
+     * @param plainPlayerScores
      */
 	List<Frame> buildPlayerScore(List<String> plainPlayerScores);
 

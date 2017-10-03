@@ -24,7 +24,7 @@ public class Messages implements IMessages {
 	/**
 	 * Load properties file
 	 **/	
-	private transient final InputStream messagesFile = Thread.currentThread().getContextClassLoader()
+	private final InputStream messagesFile = Thread.currentThread().getContextClassLoader()
 			.getResourceAsStream("message.properties");
 
 	/**

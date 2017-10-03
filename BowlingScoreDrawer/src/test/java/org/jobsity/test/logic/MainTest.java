@@ -142,7 +142,7 @@ public class MainTest {
 	}	
 }
 
-/**
+/*
 * Changes history
 * -------------------------------------------------- 
 * Author             Date          Change 
