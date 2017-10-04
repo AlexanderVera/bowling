@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import org.jobsity.run.exceptions.BuildException;
+import org.jobsity.run.model.PlayerScore;
+
 /**
 * IFileManager
 * 
@@ -17,9 +20,9 @@ public interface IFileManager {
      * Method that take the input file and make a list of file.
      * Lines with the player and his pinfalls
      *
-     * @return A list of String, each line is a player info
+     * @return A List<PlayerScore>, each Player/Score from file
      */
-	List<String> buildListPlayerFromFile();
+	List<PlayerScore> buildListPlayerFromFile() throws BuildException;
 	
 	/**
      * Read a file and check if the file has content or exists

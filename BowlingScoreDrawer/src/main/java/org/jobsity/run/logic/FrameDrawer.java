@@ -16,7 +16,7 @@ import org.jobsity.run.model.Score;
 public class FrameDrawer implements IFrameDrawer {
 
 	/**
-     * Maximum round ina a bowling game
+     * Maximum round in a a bowling game
      */
 	private static final int NUMBER_OF_ROUNDS = 10;
 	
@@ -61,8 +61,7 @@ public class FrameDrawer implements IFrameDrawer {
 				scoreByPlayer.append('\n');
 				System.out.print(scoreByPlayer);
 
-				scoreByPlayer = new StringBuilder(messages.getMessage("src.main.labels.pingfall"));
-				scoreByPlayer.append(" ");
+				scoreByPlayer = new StringBuilder(messages.getMessage("src.main.labels.pinfall"));
 				
 				//Print the scores
 				printPlayerScores(scoreByPlayer, tmpPlayerFrame.getScore());
@@ -83,15 +82,15 @@ public class FrameDrawer implements IFrameDrawer {
 	 */
 	public void printPlayerScores(StringBuilder scoreByPlayer, List<Score> scores){
 		for (Score score : scores) {
-			scoreByPlayer.append("	");
+			scoreByPlayer.append("\t");
 			//Print the strike and spare score
 			if (!score.isFlagFinal()) {
 				if (score.isStrike()) {
-					scoreByPlayer.append(" ");
+					scoreByPlayer.append("\t");
 					scoreByPlayer.append('X');
 				} else {
 					scoreByPlayer.append(score.getShoots()[0]);
-					scoreByPlayer.append(" ");
+					scoreByPlayer.append("\t");
 					if (score.isSpare()) {
 						scoreByPlayer.append('/');
 					} else {
@@ -106,14 +105,14 @@ public class FrameDrawer implements IFrameDrawer {
 				} else {
 					scoreByPlayer.append(score.getShoots()[0]);
 				}
-				scoreByPlayer.append(" ");
+				scoreByPlayer.append("\t");
 				if (score.getShoots()[1] >= NUMBER_OF_PINS) {
 					scoreByPlayer.append('X');
 				} else {
 					scoreByPlayer.append(score.getShoots()[1]);
 				}
 
-				scoreByPlayer.append(" ");
+				scoreByPlayer.append("\t");
 
 				if (score.getShoots()[2] >= NUMBER_OF_PINS) {
 					scoreByPlayer.append('X');
@@ -131,10 +130,10 @@ public class FrameDrawer implements IFrameDrawer {
 	 */
 	public void printFrameTitle(StringBuilder scoreByPlayer){
 		scoreByPlayer = new StringBuilder(messages.getMessage("src.main.labels.frame"));
-		scoreByPlayer.append("		");
+		scoreByPlayer.append("\t\t");
 		//Load the number labels of frame
 		for (int i = 0; i < NUMBER_OF_ROUNDS; i++) {
-			scoreByPlayer.append((i + 1) + "	");
+			scoreByPlayer.append((i + 1) + "\t\t");
 		}
 		scoreByPlayer.append('\n');
 		System.out.print(scoreByPlayer.toString());
@@ -146,11 +145,11 @@ public class FrameDrawer implements IFrameDrawer {
 	 */
 	public void printTotalScore(StringBuilder scoreByPlayer, Frame frame){
 		scoreByPlayer = new StringBuilder(messages.getMessage("src.main.labels.score"));
-		scoreByPlayer.append("    ");
+		scoreByPlayer.append("\t");
 		for (Score score : frame.getScore()) {
-			scoreByPlayer.append(" 	");
+			scoreByPlayer.append("\t");
 			scoreByPlayer.append(score.getTotal());
-			scoreByPlayer.append(" ");
+			scoreByPlayer.append("\t");
 		}
 		scoreByPlayer.append("\n\n");
 		System.out.print(scoreByPlayer.toString());

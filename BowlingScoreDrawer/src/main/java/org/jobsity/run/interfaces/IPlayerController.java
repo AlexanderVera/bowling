@@ -2,7 +2,9 @@ package org.jobsity.run.interfaces;
 
 import java.util.List;
 
+import org.jobsity.run.exceptions.BuildException;
 import org.jobsity.run.model.Frame;
+import org.jobsity.run.model.PlayerScore;
 
 /**
 * IPlayerController
@@ -18,7 +20,7 @@ public interface IPlayerController {
      * @return A String value with the message
      * @param plainPlayerScores
      */
-	List<Frame> buildPlayerScore(List<String> plainPlayerScores);
+	List<Frame> buildPlayerScore(List<PlayerScore> plainPlayerScores) throws BuildException;
 
 }
 

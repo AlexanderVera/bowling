@@ -13,7 +13,6 @@ import org.jobsity.run.interfaces.IPlayerController;
 import org.jobsity.run.model.Frame;
 import org.jobsity.run.model.PlayerScore;
 import org.jobsity.run.model.Score;
-import org.jobsity.util.Utilities;
 
 /**
 * PlayerController
@@ -27,7 +26,7 @@ public class PlayerController implements IPlayerController {
 	/**
      * List of couple Name and score as a string (Joe 9)
      */
-	private List<String> plainPlayerScores;
+	private List<PlayerScore> plainPlayerScores;
 	/**
 	 * Maximum turns by game
 	 * */
@@ -54,9 +53,8 @@ public class PlayerController implements IPlayerController {
      **/
 	private IMessages messages;
 
-	public PlayerController(List<String> plainPlayerScores) {
+	public PlayerController() {
 		messages = new Messages();
-		this.plainPlayerScores = plainPlayerScores;
 	}
 	
 	/**
@@ -65,39 +63,11 @@ public class PlayerController implements IPlayerController {
      * @return A String value with the message
      * @param List of string player score
      */
-	public List<Frame> buildPlayerScore(List<String> plainPlayerScores) {
-		List<PlayerScore> newPlayerScores = null;
-		
+	public List<Frame> buildPlayerScore(List<PlayerScore> newPlayerScores) throws BuildException{
+		setPlainPlayerScores(newPlayerScores);
 		//Verify that list of players has a least one player
-		if (plainPlayerScores != null) {
-			
-			//Init the list to store the score
-			newPlayerScores = new ArrayList<PlayerScore>();
-			PlayerScore newPlayerScore = null;
-			
-			//Walk each player line to take the score
-			for (String plainScore : plainPlayerScores) {
-				//Init a new player
-				newPlayerScore = new PlayerScore();
-				//Split the player line in a name and pins
-				String[] plainScoreSplited = plainScore.split(" ");
-				
-				//Set the name in the Player
-				newPlayerScore.setName(plainScoreSplited[0].trim());
-				
-				//Validate if the line come with a valid number of pins. (Maria 10 => Ok, Juan => Bad)
-				if(plainScoreSplited.length>1){
-					newPlayerScore.setPinfalls(Utilities.parseValidateInteger(plainScoreSplited[1].trim()));
-				}
-				else{
-					//If the number of pins is not valid, put 0
-					newPlayerScore.setPinfalls(0);
-				}
-				//Add the new player
-				newPlayerScores.add(newPlayerScore);
-			
-			}
-			
+		
+		if (newPlayerScores != null) {
 			//Order the player list by name
 			Collections.sort(newPlayerScores);
 			Set<String> namesOfPlayers = new TreeSet<String>();
@@ -106,6 +76,7 @@ public class PlayerController implements IPlayerController {
 			for (int i = 0; i < newPlayerScores.size(); i++) {
 				namesOfPlayers.add(newPlayerScores.get(i).getName());
 			}			
+			
 			//Move the distinct names to a List in order to manipulate
 			List<String> playerNameList = new ArrayList<String>();
 			playerNameList.addAll(namesOfPlayers);
@@ -117,7 +88,7 @@ public class PlayerController implements IPlayerController {
 			return validateScore(newPlayerScores, playerNameList, numOfPlayers);
 
 		} else {
-			return null;
+			throw new BuildException(messages.getMessage("src.main.messages.no.players"));
 		}
 	}
 
@@ -380,18 +351,17 @@ public class PlayerController implements IPlayerController {
 	/**
      * Getter from PlainPlayerSCore
      */
-	public List<String> getPlainPlayerScores() {
+	public List<PlayerScore> getPlainPlayerScores() {
 		return plainPlayerScores;
 	}
 	/**
      * Setter from PlainPlayerSCore
      */
-	public void setPlainPlayerScores(List<String> plainPlayerScores) {
+	public void setPlainPlayerScores(List<PlayerScore> plainPlayerScores) {
 		this.plainPlayerScores = plainPlayerScores;
 	}
 }
 /*
- *
 * Changes history
 * -------------------------------------------------- 
 * Author             Date          Change 

@@ -20,39 +20,37 @@ import org.junit.Test;
  */
 public class FrameDrawerTest {
 	private final static Logger LOG = Logger.getLogger(Utilities.class.getName());
-	
-	@Test
-	public void constructorTest(){
 		
-		List<Frame> nullListPlayers = null;
-		List<Frame> emptyListPlayers = new ArrayList<Frame>();
-		List<Frame> fullListPlayers = new ArrayList<Frame>();
-		Frame player = null;
-		for(int i = 0; i< 10; i++){
-			player = new Frame();
-			player.setPlayerId(System.currentTimeMillis());
-			StringBuilder name = new StringBuilder("Test");
-			name.append(i);
-			player.setPlayerName(name.toString());
-			List<Score> scores = new ArrayList<Score>(); 
-			player.setScore(scores);
-		}
-		
-		FrameDrawer boardTestEmpty = new FrameDrawer(nullListPlayers);
-		boardTestEmpty = new FrameDrawer(emptyListPlayers);
-		boardTestEmpty = new FrameDrawer(fullListPlayers);
-		
-		LOG.debug(boardTestEmpty);
-	
-	}
-	
+	/*Test the printFrame in 3 scenarios: null, empty and full list. 
+	*/
 	@Test
 	public void printFrameTest() {
 		StringBuilder messageTest = new StringBuilder();
 		
-		List<Frame> nullListPlayers = null;
-		List<Frame> emptyListPlayers = new ArrayList<Frame>();
-		List<Frame> fullListPlayers = new ArrayList<Frame>();
+		List<Frame> nullListFrames = null;
+		List<Frame> emptyListFrames = new ArrayList<Frame>();
+
+		messageTest = new StringBuilder("Print frame with a null list");
+		FrameDrawer boardTestEmpty = new FrameDrawer(nullListFrames);
+		LOG.debug(messageTest.toString());
+		boardTestEmpty.printFrame();
+		
+		messageTest = new StringBuilder("Print frame with a empty list");		
+		boardTestEmpty = new FrameDrawer(emptyListFrames);
+		LOG.debug(messageTest.toString());
+		boardTestEmpty.printFrame();
+		
+		messageTest = new StringBuilder("Print frame with a full List");		
+		boardTestEmpty = new FrameDrawer(makeFullListOfFrames());
+		LOG.debug(messageTest.toString());
+		boardTestEmpty.printFrame();
+	}
+	
+	/**
+	 * @return List<Frame> List of frame with dummie players
+	 */
+	public List<Frame> makeFullListOfFrames(){
+		List<Frame> fullListFrames = new ArrayList<Frame>();
 		Frame player = null;
 		for(int i = 0; i< 10; i++){
 			player = new Frame();
@@ -63,21 +61,7 @@ public class FrameDrawerTest {
 			List<Score> scores = new ArrayList<Score>(); 
 			player.setScore(scores);
 		}
-		messageTest = new StringBuilder("Print frame with a null list");
-		FrameDrawer boardTestEmpty = new FrameDrawer(nullListPlayers);
-		LOG.debug(messageTest.toString());
-		boardTestEmpty.printFrame();
-		
-		messageTest = new StringBuilder("Print frame with a empty list");		
-		boardTestEmpty = new FrameDrawer(emptyListPlayers);
-		LOG.debug(messageTest.toString());
-		boardTestEmpty.printFrame();
-		
-		messageTest = new StringBuilder("Print frame with a full List");		
-		boardTestEmpty = new FrameDrawer(fullListPlayers);
-		LOG.debug(messageTest.toString());
-		boardTestEmpty.printFrame();
-		
+		return fullListFrames;
 	}
 	
 }

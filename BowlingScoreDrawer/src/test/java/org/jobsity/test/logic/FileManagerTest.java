@@ -16,20 +16,23 @@ public class FileManagerTest {
 	
 	@Test
 	public void buildListPlayerFromFileTest() {
+		try{
+			LOG.debug("Filemanager.buildListPlayerFromFileTest with no file");
+			FileManager fileManager = new FileManager(new File(""));
+			fileManager.buildListPlayerFromFile();
 		
-		LOG.debug("Filemanager.buildListPlayerFromFileTest with no file");
-		FileManager fileManager = new FileManager(new File(""));
-		fileManager.buildListPlayerFromFile();
-		
-		File fileTest = FRAME_TEST_FILE;
-		LOG.debug("FileManager.buildListPlayerFromFileTest with a full file");
-		fileManager = new FileManager(fileTest);
-		fileManager.buildListPlayerFromFile();
+			File fileTest = FRAME_TEST_FILE;
+			LOG.debug("FileManager.buildListPlayerFromFileTest with a full file");
+			fileManager = new FileManager(fileTest);
+			fileManager.buildListPlayerFromFile();
+		}
+		catch(Exception exc){
+			LOG.error(exc.getMessage());
+		}
 	}
 
 	@Test
 	public void validateBoardTest() {
-
 		LOG.debug("FileManager.validateBoardTest with no file");
 		FileManager fileManager = new FileManager(new File(""));
 		try {
