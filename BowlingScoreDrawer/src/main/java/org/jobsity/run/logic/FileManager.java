@@ -83,16 +83,16 @@ public class FileManager implements IFileManager {
 		// Initialize a new player
 		PlayerScore newPlayerScore = new PlayerScore();
 		// Split the player line in a name and pins
-		String[] plainScoreSplited = plainPlayer.trim().split("[\\s\\t]+");
+		List<String> plainScoreSplited = Utilities.split(plainPlayer.trim(), "[\\s\\t]+");
 
 		// Set the name in the Player
-		newPlayerScore.setName(plainScoreSplited[0].trim());
+		newPlayerScore.setName(plainScoreSplited.get(0));
 
 		// Validate if the line come with a valid number of pins. (Maria 10 =>
 		// Ok, Juan => Bad)
-		if (plainScoreSplited.length > 1) {
+		if (plainScoreSplited.size() > 1) {
 			newPlayerScore.setPinfalls(Utilities
-					.parseValidateInteger(plainScoreSplited[1].trim()));
+					.parseValidateInteger(plainScoreSplited.get(1)));
 		} else {
 			// If the number of pins is not valid, put 0
 			newPlayerScore.setPinfalls(0);

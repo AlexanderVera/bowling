@@ -1,5 +1,9 @@
 package org.jobsity.util;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 
 /**
 * Utilities
@@ -60,6 +64,18 @@ public class Utilities {
 			}
 			System.out.println("Player"+i+" "+0);
 		}
+	}
+	
+	/**
+	 * Take a player line and split by spaces or tabs
+	 * @param strLine
+	 * 		  regexp Regular expression for the split	
+	 * @return List<String>
+	 */
+	public static List<String> split(String strLine, String regexp){
+	    return Stream.of(strLine.split(regexp))
+	      .map (elem -> new String(elem))
+	      .collect(Collectors.toList());
 	}
 
 }
