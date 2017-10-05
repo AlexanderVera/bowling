@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
 import org.jobsity.run.interfaces.IMessages;
 
 /**
@@ -15,11 +14,6 @@ import org.jobsity.run.interfaces.IMessages;
  *
  */
 public class Messages implements IMessages {
-
-	/**
-	 * Static class for the LOGS
-	 **/
-	private static final Logger LOG = Logger.getLogger(Main.class.getName());
 
 	/**
 	 * Load properties file
@@ -35,9 +29,10 @@ public class Messages implements IMessages {
 	
 	/**
 	 * Empty constructor
+	 * @throws IOException 
 	 * 
 	 */
-	public Messages(){
+	public Messages() throws IOException{
 		this.properties=loadMessageFile();
 	}
 	
@@ -54,13 +49,9 @@ public class Messages implements IMessages {
 
 	/**Method to get a properties class from a properties file
 	 **/
-	public final Properties loadMessageFile() {
+	public final Properties loadMessageFile() throws IOException{
 		final Properties messageProperties = new Properties();
-		try {
-			messageProperties.load(messagesFile);
-		} catch (IOException exc) {
-			LOG.error(exc.getMessage());
-		}
+		messageProperties.load(messagesFile);
 		return messageProperties;
 	}
 
@@ -79,8 +70,10 @@ public class Messages implements IMessages {
 	}
 
 }
-/**
- * Changes history -------------------------------------------------- Author
- * Date Change ----------------- -------------- ------------------
- * alexander.vera 01/10/2017 add validateBoard method
+/*
+* Changes history
+* -------------------------------------------------- 
+* Author             Date          Change 
+* ----------------- -------------- ------------------
+ * 
  */

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.jobsity.run.exceptions.BuildException;
@@ -42,8 +43,9 @@ public class FileManager implements IFileManager {
 
 	/**
 	 * Constructor for FileManager Class
+	 * @throws IOException 
 	 * */
-	public FileManager(File file) {
+	public FileManager(File file) throws IOException {
 		this.file = file;
 		messages = new Messages();
 	}
@@ -66,8 +68,10 @@ public class FileManager implements IFileManager {
 						playerLines.add(buildPlayerByLine(playerLine));
 					}
 				}
+				Collections.sort(playerLines);
 			}
-		return playerLines;
+		//Order the player list by name	
+		return	playerLines;
 	}
 	/**
 	 * 
@@ -161,4 +165,5 @@ public class FileManager implements IFileManager {
 * ----------------- -------------- ------------------
 * alexander.vera	01/10/2017 		add validateBoard method
 * alexander.vera	04/10/2017 		add getANewPlayer method
+* alexander.vera	04/10/2017 		change getANewPlayer name by buildPlayerByLine
 */

@@ -1,5 +1,6 @@
 package org.jobsity.test.logic;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,16 +28,22 @@ public class FrameDrawerTest {
 	public void printFrameTest() {	
 		List<Frame> nullListFrames = null;
 		List<Frame> emptyListFrames = new ArrayList<Frame>();
-		
-		printFrameCases("Print frame with a null list", nullListFrames);
-		printFrameCases("Print frame with a empty list", emptyListFrames);		
-		printFrameCases("Print frame with a dummie List", makeFullListOfFrames());
+		try{
+			printFrameCases("Print frame with a null list", nullListFrames);
+			printFrameCases("Print frame with a empty list", emptyListFrames);		
+			printFrameCases("Print frame with a dummie List", makeFullListOfFrames());
+		}
+		catch(IOException exc){
+			LOG.debug(exc.getMessage());
+		}
 	}
 	
 	/***
 	 * PrintFrame
+	 * @param frames
+	 * @throws IOException 
 	 */
-	public void printFrameCases(String message, List<Frame> frames){
+	public void printFrameCases(String message, List<Frame> frames) throws IOException{
 		StringBuilder messageTest = new StringBuilder(message);		
 		FrameDrawer boardTestEmpty = new FrameDrawer(frames);
 		LOG.debug(messageTest.toString());

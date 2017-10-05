@@ -1,5 +1,6 @@
 package org.jobsity.run.logic;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.jobsity.run.interfaces.IFrameDrawer;
@@ -37,8 +38,10 @@ public class FrameDrawer implements IFrameDrawer {
 
 	/**
      * Constructor
+     * @param players List<Frame>
+	 * @throws IOException 
      */
-	public FrameDrawer(final List<Frame> players) {
+	public FrameDrawer(final List<Frame> players) throws IOException {
 		this.players  = players;
 		setMessages(new Messages());
 	}

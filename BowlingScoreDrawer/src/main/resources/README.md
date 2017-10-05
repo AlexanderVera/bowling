@@ -7,11 +7,12 @@ This take all pinfall in a bowling get by a text file and return a console print
 
 Unzip the zip file in a empty folder.
 The zip content will be:
-	-	/sources/pom.xml: Maven config file
-	-	/sources/src/: Source files 
+	-	pom.xml: Maven config file
+	-	/src/: Source files
+	-	/test-files/bowling-game.txt: Happy path 
 	-	/test-files/test-frame-all-strike.txt: File with all strike shoots
 	-	/test-files/test-frame-all-fail.txt: File with all fail shoots
-	-	/test-files/binary/test-frame-large-game.txt: File with 1000 players
+	-	/test-files/test-frame-large-game.txt: File with 1000 players
 
 ### Prerequisites
 #### Run Binary
@@ -26,15 +27,22 @@ The zip content will be:
 ####
 In order to compile this app:
 	- Open a terminal in a BowlingScoreDrawer folder
-	- Excecute the command: mvn clean install, then wait to the excecute of a unit test
-	- Excecute the command: mvn package, then wait to the excecute of a unit test
+	- Excecute the command: bowling-install.sh on Unix OS
+	- Excecute the command: bowling-install.bar on Windows OS
 	- Maven build a binary jar in the folder BowlingScoreDrawer/target
 
 ## Running the app
 
-To run this app:
-	- Run the command: java -jar bowlingScore.jar /abosolute/path/bowling-game.txt
+To Run this app use the command:
+### Windows OS
+	run-bowling.bat /abosolute/path/bowling-game.txt
+	e.g. run-bowling.bat test-files\bowling-game.txt
+	
+### Unix OS
+	run-bowling.sh /abosolute/path/bowling-game.txt 
+	e.g. run-bowling.sh test-files/bowling-game.txt
 
+	
 *Note* /absolute/path/ is path where is located the example file include in the zip
 	   If the .txt file is in the same app folder you can run the app this way:
 	   java -jar bowlingScore.jar bowling-game.txt 	
@@ -62,7 +70,6 @@ The automatic unit test contemplates this scenarios:
 
 
 ## Authors
-
 **Jorge Alexander Vera Meneses ** [LinkedIn] https://www.linkedin.com/in/jorge-alexander-vera-meneses-5ab159118/
 							   ** [email] jalexanderv.meneses@gmail.com
 

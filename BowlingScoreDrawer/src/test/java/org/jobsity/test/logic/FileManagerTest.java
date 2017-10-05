@@ -10,23 +10,23 @@ import org.junit.Test;
 
 public class FileManagerTest {
 
-	private static final Logger LOG = Logger.getLogger(FileManagerTest.class.getName());
-	private static final File FRAME_TEST_FILE = new File(
-			Thread.currentThread().getContextClassLoader().getResource("test-frame.txt").getFile());
+	private static final Logger LOG = Logger.getLogger(FileManagerTest.class
+			.getName());
+	private static final File FRAME_TEST_FILE = new File(Thread.currentThread()
+			.getContextClassLoader().getResource("test-frame.txt").getFile());
 
 	@Test
 	public void buildListPlayerFromFileTest() {
-		try{
+		try {
 			LOG.debug("Filemanager.buildListPlayerFromFileTest with no file");
 			FileManager fileManager = new FileManager(new File(""));
 			fileManager.buildListPlayerFromFile();
-		
+
 			File fileTest = FRAME_TEST_FILE;
 			LOG.debug("FileManager.buildListPlayerFromFileTest with a full file");
 			fileManager = new FileManager(fileTest);
 			fileManager.buildListPlayerFromFile();
-		}
-		catch(IOException | BuildException e ){
+		} catch (IOException | BuildException e) {
 			LOG.error(e.getMessage());
 		}
 	}
@@ -34,19 +34,16 @@ public class FileManagerTest {
 	@Test
 	public void validateBoardTest() {
 		LOG.debug("FileManager.validateBoardTest with no file");
-		FileManager fileManager = new FileManager(new File(""));
 		try {
+			FileManager fileManager = new FileManager(new File(""));
 			fileManager.validateBoard(new File(""));
-		} catch (IOException | BuildException e ) {
-			LOG.error(e.getMessage());
-		}
-		
-		File fileTest = FRAME_TEST_FILE;
-		LOG.debug("FileManager.validateBoardTest with a full file");
-		fileManager = new FileManager(fileTest);
-		try {
-			fileManager.validateBoard(new File(""));
-		} catch (IOException | BuildException e ) {
+
+			File fileTest = FRAME_TEST_FILE;
+			LOG.debug("FileManager.validateBoardTest with a full file");
+
+			fileManager = new FileManager(fileTest);
+			fileManager.validateBoard(fileTest);
+		} catch (IOException | BuildException e) {
 			LOG.error(e.getMessage());
 		}
 	}

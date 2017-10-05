@@ -8,12 +8,6 @@ package org.jobsity.util;
 * @author alexander.vera
 * @since 30/10/2017
 *
-*
-* Changes history
-* -------------------------------------------------- 
-* Author             Date          Change 
-* ----------------- -------------- ------------------
-* 
 */
 public class Utilities {
 
@@ -36,7 +30,6 @@ public class Utilities {
 		} else {
 			return false;
 		}
-
 	}
 
 	/**
@@ -68,6 +61,12 @@ public class Utilities {
 			System.out.println("Player"+i+" "+0);
 		}
 	}
-	
 
 }
+
+/* Changes history
+* -------------------------------------------------- 
+* Author             Date          Change 
+* ----------------- -------------- ------------------
+* alexander.vera	02/10/2017	   add generatePlayerFile method
+*/

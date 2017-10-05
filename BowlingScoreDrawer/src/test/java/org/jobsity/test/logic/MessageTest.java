@@ -1,5 +1,7 @@
 package org.jobsity.test.logic;
 
+import java.io.IOException;
+
 import junit.framework.TestCase;
 
 import org.apache.log4j.Logger;
@@ -17,6 +19,7 @@ public class MessageTest extends TestCase{
 	//Test the message class in 2 scenarios: validKey and invalid Key
 	@Test
 	public void getPropertieTest(){
+		try{
 		IMessages message = new Messages();
 		String testMessage = message.getMessage("src.main.labels.much.shoots");
 		String noMessage = message.getMessage("this.is.not.a.key");
@@ -24,6 +27,10 @@ public class MessageTest extends TestCase{
 		assertNull(noMessage);
 		StringBuilder logMessage = new StringBuilder("Valid key{");
 		logMessage.append(testMessage).append("} {").append(noMessage).append("}");
-		LOG.debug(logMessage);	
+		LOG.debug(logMessage);
+		}
+		catch(IOException exc){
+			LOG.error(exc.getMessage());
+		}
 	}
 }

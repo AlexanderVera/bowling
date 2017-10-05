@@ -1,5 +1,6 @@
 package org.jobsity.test.logic;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,11 +53,11 @@ public class PlayerControllerTest {
 		listPlainPlayers.add(new PlayerScore("John",9));
 		listPlainPlayers.add(new PlayerScore("John",0));
 
-		PlayerController player = new PlayerController();
 		try{
+			PlayerController player = new PlayerController();
 			player.buildPlayerScore(listPlainPlayers);
 		}
-		catch(BuildException exc){
+		catch(BuildException | IOException exc){
 			LOG.error(exc.getMessage());
 		}
 	}

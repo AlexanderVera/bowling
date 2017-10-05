@@ -121,7 +121,7 @@ public class MainTest {
 	/**
 	 * Game with a player with all fails
 	 */
-	//@Test
+	@Test
 	public void printFrameAllFailCase() {
 		LOG.info("All fail");
 		try {
@@ -175,8 +175,10 @@ public class MainTest {
 }
 
 /*
- * Changes history -------------------------------------------------- Author
- * Date Change ----------------- -------------- ------------------
- * alexander.vera 01/10/2017 group test methods in one
- * 
- **/
+* Changes history
+* -------------------------------------------------- 
+* Author             Date          Change 
+* ----------------- -------------- ------------------
+* alexander.vera 	01/10/2017 		group test methods in one
+* 
+**/

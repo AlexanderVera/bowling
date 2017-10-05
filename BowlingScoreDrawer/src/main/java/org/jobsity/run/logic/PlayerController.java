@@ -1,7 +1,7 @@
 package org.jobsity.run.logic;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -55,7 +55,7 @@ public class PlayerController implements IPlayerController {
      **/
 	private IMessages messages;
 
-	public PlayerController() {
+	public PlayerController() throws IOException {
 		match = false;
 		messages = new Messages();
 	}
@@ -69,8 +69,6 @@ public class PlayerController implements IPlayerController {
 	public List<Frame> buildPlayerScore(List<PlayerScore> newPlayerScores) throws BuildException{
 		//Verify that list of players has a least one player
 		if (newPlayerScores != null) {
-			//Order the player list by name
-			Collections.sort(newPlayerScores);
 			Set<String> namesOfPlayers = new TreeSet<String>();
 
 			//Delete the repeated names in order to get the number of player
