@@ -22,7 +22,7 @@ public interface IFileManager {
      *
      * @return A List<PlayerScore>, each Player/Score from file
      */
-	List<PlayerScore> buildListPlayerFromFile() throws BuildException;
+	List<PlayerScore> buildListPlayerFromFile() throws IOException, BuildException;
 	
 	/**
      * Read a file and check if the file has content or exists
@@ -31,7 +31,7 @@ public interface IFileManager {
      * @return a BufferedReader with the content file.
      * @throws
      */
-	BufferedReader validateBoard(File file) throws IOException;
+	BufferedReader validateBoard(File file) throws IOException, BuildException;
 }
 
 /** 

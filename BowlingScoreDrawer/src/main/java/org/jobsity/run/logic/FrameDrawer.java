@@ -60,15 +60,11 @@ public class FrameDrawer implements IFrameDrawer {
 				scoreByPlayer = new StringBuilder(tmpPlayerFrame.getPlayerName());
 				scoreByPlayer.append('\n');
 				System.out.print(scoreByPlayer);
-
 				scoreByPlayer = new StringBuilder(messages.getMessage("src.main.labels.pinfall"));
-				
 				//Print the scores
 				printPlayerScores(scoreByPlayer, tmpPlayerFrame.getScore());
-				
 				scoreByPlayer.append('\n');
 				System.out.print(scoreByPlayer.toString());
-				
 				//Print the total score	
 				printTotalScore(scoreByPlayer, tmpPlayerFrame);
 
@@ -111,7 +107,6 @@ public class FrameDrawer implements IFrameDrawer {
 				} else {
 					scoreByPlayer.append(score.getShoots()[1]);
 				}
-
 				scoreByPlayer.append("\t");
 
 				if (score.getShoots()[2] >= NUMBER_OF_PINS) {
@@ -123,7 +118,6 @@ public class FrameDrawer implements IFrameDrawer {
 			}
 		}
 	}
-	
 	/**Print the number on the frame header
 	 * 
 	 * @param scoreByPlayer: StringBuilder to build a labels from the top

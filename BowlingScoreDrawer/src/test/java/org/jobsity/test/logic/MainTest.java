@@ -1,6 +1,7 @@
 package org.jobsity.test.logic;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 
@@ -15,141 +16,167 @@ import org.jobsity.run.model.Frame;
 import org.jobsity.run.model.PlayerScore;
 import org.junit.Test;
 
-
 /**
-* MainTest
-*
-* @author alexander.vera
-* @since 30/09/2017
-*
-*/
+ * MainTest
+ *
+ * @author alexander.vera
+ * @since 30/09/2017
+ *
+ */
 public class MainTest {
 	private final static Logger LOG = Logger.getLogger(PlayerController.class.getName());
-	
+
 	/**
-     * Create the test case
-     * Test
-     */
+	 * Create the test case Test
+	 */
 	@Test
-	public void printFrameIdealCase(){
+	public void printFrameIdealCase() {
 		LOG.info("Ideal case");
-		//Nice frame
-		printBoard("test-frame.txt");
+		// Nice frame
+		try {
+			printBoard("test-frame.txt");
+		} catch (BuildException | IOException e) {
+			LOG.debug(e.getMessage());
+		}
 	}
+
 	/**
 	 * Incomplete frame. Some player don't have all his shoots
 	 */
 	@Test
-	public void printFrameIncompleteCase(){
+	public void printFrameIncompleteCase() {
 		LOG.info("Incomplete shoot for one player");
-		printBoard("test-frame-incomplete-shoots.txt");	
-	}	
-	
+		try {
+			printBoard("test-frame-incomplete-shoots.txt");
+		} catch (BuildException | IOException e) {
+			LOG.debug(e.getMessage());
+		}
+	}
+
 	/**
 	 * Empty frame. The file is empty
 	 */
 	@Test
-	public void printFrameEmptyCase(){
+	public void printFrameEmptyCase() {
 		LOG.info("Empty file");
-		printBoard("test-frame-empty.txt");		
+		try {
+			printBoard("test-frame-empty.txt");
+		} catch (BuildException | IOException e) {
+			LOG.debug(e.getMessage());
+		}
 	}
-	
+
 	/**
 	 * Extra shoot frame. Some player have more shoots
 	 */
 	@Test
-	public void printFrameExtraCase(){
-		LOG.info("Extra shoots for a player"); 
-		printBoard("test-frame-extra-shoots.txt");
+	public void printFrameExtraCase() {
+		LOG.info("Extra shoots for a player");
+		try {
+			printBoard("test-frame-extra-shoots.txt");
+		} catch (BuildException | IOException e) {
+			LOG.debug(e.getMessage());
+		}
 	}
-	
+
 	/**
-	 *4 players frame. Game with 4 players
+	 * 4 players frame. Game with 4 players
 	 */
 	@Test
-	public void printFrame4PlayersCase(){
+	public void printFrame4PlayersCase() {
 		LOG.info("Four players");
-		printBoard("test-frame-4-players.txt");		
+		try {
+			printBoard("test-frame-4-players.txt");
+		} catch (BuildException | IOException e) {
+			LOG.debug(e.getMessage());
+		}
 	}
-	
+
 	/**
 	 * No file to the game
 	 */
 	@Test
-	public void printFrameNoFileCase(){
+	public void printFrameNoFileCase() {
 		LOG.info("No File");
-		printBoard("test-frame-fake.txt");
+		try {
+			printBoard("test-frame-fake.txt");
+		} catch (BuildException | IOException e) {
+			LOG.debug(e.getMessage());
+		}
 	}
-	
+
 	/**
 	 * Game with a single player with all strike
 	 */
 	@Test
-	public void printFrameAllStrikeCase(){
+	public void printFrameAllStrikeCase() {
 		LOG.info("All Strike");
-		printBoard("test-frame-all-strike.txt");
+		try {
+			printBoard("test-frame-all-strike.txt");
+		} catch (BuildException | IOException e) {
+			LOG.debug(e.getMessage());
+		}
 	}
-	
+
 	/**
 	 * Game with a player with all fails
 	 */
-	@Test
-	public void printFrameAllFailCase(){
+	//@Test
+	public void printFrameAllFailCase() {
 		LOG.info("All fail");
-		
-		printBoard("test-frame-all-fail.txt");	
+		try {
+			printBoard("test-frame-all-fail.txt");
+		} catch (BuildException | IOException e) {
+			LOG.debug(e.getMessage());
+		}
 	}
+
 	/**
 	 * Game with 1000 players
 	 */
-	//@Test
-	public void printALargeGame(){
-		
+	@Test
+	public void printALargeGame() {
 		LOG.info("Print a game with 1000 players");
 		Long currentMillis = System.currentTimeMillis();
-		printBoard("test-frame-large-game.txt");
-		LOG.info("Time: "+((System.currentTimeMillis() - currentMillis))+"ms");
-		
+		try {
+			printBoard("test-frame-large-game.txt");
+		} catch (BuildException | IOException e) {
+			LOG.error(e.getMessage());
+		}
+		LOG.info("Time: " + ((System.currentTimeMillis() - currentMillis)) + "ms");
 	}
-	
+
 	/***
 	 * Method get the fileName and print the frame of game
+	 * 
 	 * @param fileName
 	 */
-	public void printBoard(String fileName){
+	public void printBoard(String fileName) throws BuildException, IOException {
 		List<PlayerScore> playerPinfalls = null;
-		//Get the .txt file from the classpath
-		URL fileFromPath = Thread.currentThread().getContextClassLoader().getResource(fileName);		
-		if(fileFromPath != null){
-			//Load the file object by the URL File Path
-			File fileScore = new File(
-				Thread.currentThread().getContextClassLoader().getResource(fileName).getFile());
-			try{
-				//Call a class FileManager to get list of String score in the file
-				IFileManager fileManager = new FileManager(fileScore);
-				playerPinfalls = fileManager.buildListPlayerFromFile();
-				//Call a class PlayerController to convert the player scores in a List of Frame to print
-				IPlayerController playerController = new PlayerController();
-				List<Frame> players = playerController.buildPlayerScore(playerPinfalls);
-				//Call a class Frame drawer to print, all the frames by player  
-				FrameDrawer boardDrawer = new FrameDrawer(players);
-				boardDrawer.printFrame();
-			}
-			catch(BuildException exc){
-				LOG.debug(exc.getMessage());
-			}
-		}
-		else{
+		// Get the .txt file from the classpath
+		URL fileFromPath = Thread.currentThread().getContextClassLoader().getResource(fileName);
+		if (fileFromPath != null) {
+			// Load the file object by the URL File Path
+			File fileScore = new File(Thread.currentThread().getContextClassLoader().getResource(fileName).getFile());
+			// Call a class FileManager to get list of String score in the file
+			IFileManager fileManager = new FileManager(fileScore);
+			playerPinfalls = fileManager.buildListPlayerFromFile();
+			// Call a class PlayerController to convert the player scores in a
+			// List of Frame to print
+			IPlayerController playerController = new PlayerController();
+			List<Frame> players = playerController.buildPlayerScore(playerPinfalls);
+			// Call a class Frame drawer to print, all the frames by player
+			FrameDrawer boardDrawer = new FrameDrawer(players);
+			boardDrawer.printFrame();
+		} else {
 			LOG.debug("File not found");
 		}
-	}	
+	}
 }
 
 /*
-* Changes history
-* -------------------------------------------------- 
-* Author             Date          Change 
-* ----------------- -------------- ------------------
-* alexander.vera	01/10/2017 		group test methods in one
-* 
-**/
+ * Changes history -------------------------------------------------- Author
+ * Date Change ----------------- -------------- ------------------
+ * alexander.vera 01/10/2017 group test methods in one
+ * 
+ **/

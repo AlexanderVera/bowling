@@ -1,6 +1,7 @@
 package org.jobsity.run.logic;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -10,7 +11,6 @@ import org.jobsity.run.interfaces.IFrameDrawer;
 import org.jobsity.run.interfaces.IPlayerController;
 import org.jobsity.run.model.Frame;
 import org.jobsity.run.model.PlayerScore;
-
 
 
 /**
@@ -31,32 +31,36 @@ public class Main {
 	 **/
 	public static void main(final String[] args) {
 		if(args.length>0){
-			printBoard(args[0]);
+			try{
+				printBoard(args[0]);
+			}
+			catch(BuildException bExc){
+				LOG.debug(bExc.getMessage());				
+			}
+			catch(IOException exc){
+				LOG.error(exc.getMessage());
+			}
 		}
 		else{
 			LOG.info("Insert file path");
 		}
 	}
-	
+
 	/**
-	 * Method print the all board
-	 **/
-	public static void printBoard(final String fileName){
+	 * 
+	 * @param fileName
+	 */
+	private static void printBoard(final String fileName) throws BuildException, IOException{
 		List<PlayerScore> playerPinfalls;
 		final File fileScore = new File(fileName);
 		final IFileManager fileManager = new FileManager(fileScore);
-		try{
-			playerPinfalls = fileManager.buildListPlayerFromFile();
-			final IPlayerController playerController = new PlayerController();
-			final List<Frame> players = playerController.buildPlayerScore(playerPinfalls);
-			IFrameDrawer boardDrawer = null;
-			boardDrawer = new FrameDrawer(players);
-			boardDrawer.printFrame();
-		}catch(BuildException exc){
-			LOG.debug(exc.getMessage());
-		}
+		playerPinfalls = fileManager.buildListPlayerFromFile();
+		final IPlayerController playerController = new PlayerController();
+		final List<Frame> players = playerController.buildPlayerScore(playerPinfalls);
+		IFrameDrawer boardDrawer = null;
+		boardDrawer = new FrameDrawer(players);
+		boardDrawer.printFrame();
 	}
-
 }
 /*
 * Changes history

@@ -48,34 +48,33 @@ public class PlayerController implements IPlayerController {
 	 */
 	private static final Logger LOG = Logger.getLogger(PlayerController.class.getName());
 	
+	private boolean match;
+	
 	/**
      * Class to manage the messages
      **/
 	private IMessages messages;
 
 	public PlayerController() {
+		match = false;
 		messages = new Messages();
 	}
-	
 	/**
      * Method that take a list of Shoot lines with a name and pins for each player
      *
      * @return A String value with the message
      * @param List of string player score
+     * @throws BuildException
      */
 	public List<Frame> buildPlayerScore(List<PlayerScore> newPlayerScores) throws BuildException{
-		setPlainPlayerScores(newPlayerScores);
 		//Verify that list of players has a least one player
-		
 		if (newPlayerScores != null) {
 			//Order the player list by name
 			Collections.sort(newPlayerScores);
 			Set<String> namesOfPlayers = new TreeSet<String>();
 
 			//Delete the repeated names in order to get the number of player
-			for (int i = 0; i < newPlayerScores.size(); i++) {
-				namesOfPlayers.add(newPlayerScores.get(i).getName());
-			}			
+			newPlayerScores.forEach(singlePlayer -> namesOfPlayers.add(singlePlayer.getName()));	
 			
 			//Move the distinct names to a List in order to manipulate
 			List<String> playerNameList = new ArrayList<String>();
@@ -86,20 +85,17 @@ public class PlayerController implements IPlayerController {
 
 			//Call a method to validate the shoots for each player and build a frame
 			return validateScore(newPlayerScores, playerNameList, numOfPlayers);
-
 		} else {
 			throw new BuildException(messages.getMessage("src.main.messages.no.players"));
 		}
 	}
-
 	/**
      * Method that walks each player in order to verify that they have finish the game
      *
      * @return A list of PlayerScore, a List of String player name and the number of player
      * @param List of a valid Frame to Draw
      */
-	public List<Frame> validateScore(List<PlayerScore> scoresToValidate, List<String> playerNameList, int countPlayers) {
-		
+	public List<Frame> validateScore(List<PlayerScore> scoresToValidate, List<String> playerNameList, int countPlayers) throws BuildException{
 		List<Frame> listOfFrames = null;
 		int playerPosition = 0, turn = 0, shootByPlayer = 0;
 
@@ -108,7 +104,7 @@ public class PlayerController implements IPlayerController {
 			int[] shootCharByPlayer = null;
 
 			//Init a loop for each player
-			while (playerPosition < countPlayers) {
+			if (playerPosition < countPlayers) {
 				//Create a array to simulate the frame in a bowling game 
 				// Ej. [0][/] [][X] [7][2] [6][3] [2][/] [1][6] [][X] [][X] [3][5] [X][9][0]
 				shootCharByPlayer = new int[SHOOTS_BY_GAME];
@@ -150,7 +146,6 @@ public class PlayerController implements IPlayerController {
 							LOG.info(incompleteMessage.toString());
 							return null;
 						}
-						
 						//Validate if the player make a strike and this is his first shoot in this turn 
 						if (pivotePlayerScore.getPinfalls() >= STRIKE_POINTS && shootPosition == 0 && turn < TURNS_BY_GAME) {
 							//Mark the first simulated frame position with a negative number to evaluate if the frame was correctly filled
@@ -204,13 +199,7 @@ public class PlayerController implements IPlayerController {
 					} else {
 						//When the player change, i must evaluate if the current simulated frame is full
 						//That indicate that player play his all shoots and the score is valid
-						try {
-							validatePlayerChar(shootCharByPlayer, playerName);
-						} catch (Exception e) {
-							//If the simulated frame is not full the app stops and shows a message 
-							LOG.info(e.getMessage());
-							return null;
-						}
+						validateCompletePlayerGame(shootCharByPlayer, playerName);
 						//Add the current frame to a list of players frames
 						listOfFrames = addPlayer(playerFrame, listOfFrames);
 						playerFrame = new Frame();
@@ -221,11 +210,10 @@ public class PlayerController implements IPlayerController {
 				}
 				//Validate the simulated frame with the last player
 				try {
-					validatePlayerChar(shootCharByPlayer, playerName);
+					validateCompletePlayerGame(shootCharByPlayer, playerName);
 					listOfFrames = addPlayer(playerFrame, listOfFrames);
 				} catch (Exception e) {
-					LOG.info(e.getMessage());
-					return null;
+					throw new BuildException(e.getMessage());
 				}
 				playerPosition++;
 			}
@@ -233,16 +221,14 @@ public class PlayerController implements IPlayerController {
 		//Calculate the extra score with bonus for strike or spare and return frames to print
 		return calculateScore(listOfFrames);
 	}
-
 	/**
      * Method that walks each score by player in order to verify that they have finish the game
      * 
      * @param shootCharByPlayer: Array with score for a player
      * 		  playerName: Name of player	 
      */
-	public void validatePlayerChar(int[] shootCharByPlayer, String playerName)
+	public void validateCompletePlayerGame(int[] shootCharByPlayer, String playerName)
 			throws BuildException {
-		
 		//Loop the simulated frame in order to evaluate if all position are full
 		for (int i = 0; i < shootCharByPlayer.length; i++) {
 			//Not points -1 is considered full and 0 is a empty space
@@ -254,7 +240,6 @@ public class PlayerController implements IPlayerController {
 			}
 		}
 	}
-
 	/**
      * Method that take each player shoot (PlayerScore) 
      * and add it to its correspond frame
@@ -263,18 +248,17 @@ public class PlayerController implements IPlayerController {
      */	
 	public List<Frame> addPlayer(Frame player, List<Frame> listOfPLayers) {
 		List<Frame> outPlayers = new ArrayList<Frame>();
-		boolean match = false;
 		if (player != null) {
 			if (listOfPLayers == null || listOfPLayers.size() == 0) {
 				outPlayers.add(player);
 			} else {
-				for (Frame iterPlayer : listOfPLayers) {
+				listOfPLayers.forEach(iterPlayer -> {
 					if (iterPlayer.getPlayerName().equals(player.getPlayerName())) {
 						iterPlayer.getScore().add(player.getCurrentScore());
 						match = true;
 					}
-					outPlayers.add(iterPlayer);
-				}
+					outPlayers.add(iterPlayer);		
+				});				
 				if (!match) {
 					outPlayers.add(player);
 				}
@@ -282,7 +266,6 @@ public class PlayerController implements IPlayerController {
 		}
 		return outPlayers;
 	}
-
 	/**
      * Method that calculate the total of player point and calculate the bonus 
      * by Strike o spare
@@ -290,9 +273,8 @@ public class PlayerController implements IPlayerController {
      */	
 	public List<Frame> calculateScore(List<Frame> listOfPLayers) {
 		List<Frame> outPlayers = new ArrayList<Frame>();
-
-		for (Frame player : listOfPLayers) {
-			List<Score> listScores = new ArrayList<Score>();
+		listOfPLayers.forEach(player -> {
+			List<Score> listScores = new ArrayList<Score>();	
 			for (int posScore = 0; posScore < player.getScore().size(); posScore++) {
 				Score currentScore = player.getScore().get(posScore);
 				int bonus = evaluateBonus(currentScore, posScore, player.getScore());
@@ -302,11 +284,10 @@ public class PlayerController implements IPlayerController {
 				listScores.add(currentScore);
 			}
 			player.setScore(listScores);
-			outPlayers.add(player);
-		}
+			outPlayers.add(player);			
+		});
 		return outPlayers;
 	}
-
 	/**
      * Method that calculate bonus by strike or spare
      * Strike take 10 points plus the next two balls
@@ -346,7 +327,6 @@ public class PlayerController implements IPlayerController {
 				return 0;
 			}
 		}
-
 	}
 	/**
      * Getter from PlainPlayerSCore

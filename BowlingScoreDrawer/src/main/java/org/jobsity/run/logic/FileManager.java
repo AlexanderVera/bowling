@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.jobsity.run.exceptions.BuildException;
 import org.jobsity.run.interfaces.IFileManager;
 import org.jobsity.run.interfaces.IMessages;
@@ -22,20 +21,12 @@ import org.jobsity.util.Utilities;
  *
  */
 public class FileManager implements IFileManager {
-
 	/**
 	 * Name of the file with the data games
 	 * 
 	 * @return String fileName
 	 * */
 	private String fileName;
-
-	/**
-	 * Static parameter to set the LOG
-	 * 
-	 * @return Logger
-	 * */
-	private static final Logger LOG = Logger.getLogger(Main.class.getName());
 
 	/**
 	 * Object to load the file
@@ -63,9 +54,8 @@ public class FileManager implements IFileManager {
 	 * 
 	 * @return A list of String, each line is a player info
 	 */
-	public List<PlayerScore> buildListPlayerFromFile() throws BuildException{
+	public List<PlayerScore> buildListPlayerFromFile() throws BuildException, IOException{
 		List<PlayerScore> playerLines = null;
-		try {
 			BufferedReader bufferPlayerLines;
 			bufferPlayerLines = validateBoard(getFile());
 			String playerLine;
@@ -73,24 +63,19 @@ public class FileManager implements IFileManager {
 				playerLines = new ArrayList<PlayerScore>();
 				while ((playerLine = bufferPlayerLines.readLine()) != null) {
 					if (playerLine.trim().length() > 0) {
-						playerLines.add(getANewPlayer(playerLine));
+						playerLines.add(buildPlayerByLine(playerLine));
 					}
 				}
 			}
-		} catch (IOException exc) {
-			LOG.error(exc.getMessage());
-			throw new BuildException(exc.getMessage());
-		}
 		return playerLines;
 	}
-
 	/**
 	 * 
 	 * @param plainPlayer
 	 *            String with a line player/pins (e.g. 'Lady 20')
 	 * @return PlayerScore a new player with then name and a score
 	 */
-	public PlayerScore getANewPlayer(String plainPlayer) {
+	private PlayerScore buildPlayerByLine(String plainPlayer) {
 		// Initialize a new player
 		PlayerScore newPlayerScore = new PlayerScore();
 		// Split the player line in a name and pins
@@ -114,13 +99,13 @@ public class FileManager implements IFileManager {
 	/**
 	 * Read a file and check if the file has content or exists
 	 *
-	 * @param {file} file File with score game
+	 * @param file File with score game
 	 * @return a BufferedReader with the content file.
 	 */
-	public BufferedReader validateBoard(File file) throws IOException {
+	public BufferedReader validateBoard(File file) throws IOException, BuildException {
 		if (file.exists()) {
 			if (file.length() == 0) {
-				throw new IOException(
+				throw new BuildException(
 						messages.getMessage("src.main.messages.empty.file"));
 			} else {
 				return new BufferedReader(new FileReader(file));
@@ -148,7 +133,7 @@ public class FileManager implements IFileManager {
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
-
+	
 	/**
 	 * Getter from file object
 	 * 
@@ -157,7 +142,7 @@ public class FileManager implements IFileManager {
 	public File getFile() {
 		return file;
 	}
-
+	
 	/**
 	 * Setter from fileName
 	 * 

@@ -5,16 +5,13 @@ This take all pinfall in a bowling get by a text file and return a console print
 
 ## Getting Started
 
-Unzip the zip folder in a empty folder.
-The content of the zip is:
+Unzip the zip file in a empty folder.
+The zip content will be:
 	-	/sources/pom.xml: Maven config file
 	-	/sources/src/: Source files 
-	-	/binary/bowlingScore.jar: binary to run directly
-	-	/binary/lib: External packaged libs to run the app
-	-	/binary/bowling-game.txt: Example file to run the with 0 error ;)
-	-	/binary/test-frame-all-strike.txt: File with all strike shoots
-	-	/binary/test-frame-all-fail.txt: File with all fail shoots
-	-	/binary/test-frame-large-game.txt: File with 3000 players
+	-	/test-files/test-frame-all-strike.txt: File with all strike shoots
+	-	/test-files/test-frame-all-fail.txt: File with all fail shoots
+	-	/test-files/binary/test-frame-large-game.txt: File with 1000 players
 
 ### Prerequisites
 #### Run Binary
@@ -36,7 +33,7 @@ In order to compile this app:
 ## Running the app
 
 To run this app:
-	- Run the command: java -jar bowlingScore.jar '/abosolute/path/bowling-game.txt'
+	- Run the command: java -jar bowlingScore.jar /abosolute/path/bowling-game.txt
 
 *Note* /absolute/path/ is path where is located the example file include in the zip
 	   If the .txt file is in the same app folder you can run the app this way:
@@ -44,21 +41,18 @@ To run this app:
 
 The bowlingScore.jar must be nearest to the 'lib' folder
 
-### Break down into end to end tests
+### Test examples
 
 The automatic unit test contemplates this scenarios:
-	- Nice case. The file with format and content ideal.
+	- Happy path. The file with format and content ideal.
 	- Incomplete game case. At least one of the player doesn't finished the game.
 	- Empty file case.  The file to test is empty
 	- Extra shoots case. At least one player has a extra bonus shoots. 
 	- 4 players case. A game with four player
-	- No file game. Invalid or nonexistent file as input
+	- No file game. Invalid or non existent file as input
 	- All strike case. A game with a player with all strike shoots.
 	- All fail case. A game with a player who fail all his shoots
 
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 
@@ -69,9 +63,6 @@ Add additional notes about how to deploy this on a live system
 
 ## Authors
 
-**Alexander Vera**
-
-## License
-
-This project is licensed under the CCO - see the [LICENSE.md](LICENSE.md) file for details
+**Jorge Alexander Vera Meneses ** [LinkedIn] https://www.linkedin.com/in/jorge-alexander-vera-meneses-5ab159118/
+							   ** [email] jalexanderv.meneses@gmail.com
 

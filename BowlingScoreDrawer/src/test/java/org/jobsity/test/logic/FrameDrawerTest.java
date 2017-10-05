@@ -24,26 +24,23 @@ public class FrameDrawerTest {
 	/*Test the printFrame in 3 scenarios: null, empty and full list. 
 	*/
 	@Test
-	public void printFrameTest() {
-		StringBuilder messageTest = new StringBuilder();
-		
+	public void printFrameTest() {	
 		List<Frame> nullListFrames = null;
 		List<Frame> emptyListFrames = new ArrayList<Frame>();
-
-		messageTest = new StringBuilder("Print frame with a null list");
-		FrameDrawer boardTestEmpty = new FrameDrawer(nullListFrames);
-		LOG.debug(messageTest.toString());
-		boardTestEmpty.printFrame();
 		
-		messageTest = new StringBuilder("Print frame with a empty list");		
-		boardTestEmpty = new FrameDrawer(emptyListFrames);
+		printFrameCases("Print frame with a null list", nullListFrames);
+		printFrameCases("Print frame with a empty list", emptyListFrames);		
+		printFrameCases("Print frame with a dummie List", makeFullListOfFrames());
+	}
+	
+	/***
+	 * PrintFrame
+	 */
+	public void printFrameCases(String message, List<Frame> frames){
+		StringBuilder messageTest = new StringBuilder(message);		
+		FrameDrawer boardTestEmpty = new FrameDrawer(frames);
 		LOG.debug(messageTest.toString());
-		boardTestEmpty.printFrame();
-		
-		messageTest = new StringBuilder("Print frame with a full List");		
-		boardTestEmpty = new FrameDrawer(makeFullListOfFrames());
-		LOG.debug(messageTest.toString());
-		boardTestEmpty.printFrame();
+		boardTestEmpty.printFrame();		
 	}
 	
 	/**

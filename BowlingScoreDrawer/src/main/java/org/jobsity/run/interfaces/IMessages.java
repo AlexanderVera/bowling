@@ -17,7 +17,6 @@ public interface IMessages {
      */
 	String getMessage(String key);
 }
-
 /**
 * -------------------------------------------------- 
 * Author             Date          Change 

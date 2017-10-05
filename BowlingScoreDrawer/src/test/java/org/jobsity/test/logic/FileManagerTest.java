@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.log4j.Logger;
+import org.jobsity.run.exceptions.BuildException;
 import org.jobsity.run.logic.FileManager;
 import org.junit.Test;
 
@@ -13,7 +14,6 @@ public class FileManagerTest {
 	private static final File FRAME_TEST_FILE = new File(
 			Thread.currentThread().getContextClassLoader().getResource("test-frame.txt").getFile());
 
-	
 	@Test
 	public void buildListPlayerFromFileTest() {
 		try{
@@ -26,8 +26,8 @@ public class FileManagerTest {
 			fileManager = new FileManager(fileTest);
 			fileManager.buildListPlayerFromFile();
 		}
-		catch(Exception exc){
-			LOG.error(exc.getMessage());
+		catch(IOException | BuildException e ){
+			LOG.error(e.getMessage());
 		}
 	}
 
@@ -37,8 +37,8 @@ public class FileManagerTest {
 		FileManager fileManager = new FileManager(new File(""));
 		try {
 			fileManager.validateBoard(new File(""));
-		} catch (IOException e) {
-			LOG.debug(e.getMessage());
+		} catch (IOException | BuildException e ) {
+			LOG.error(e.getMessage());
 		}
 		
 		File fileTest = FRAME_TEST_FILE;
@@ -46,8 +46,8 @@ public class FileManagerTest {
 		fileManager = new FileManager(fileTest);
 		try {
 			fileManager.validateBoard(new File(""));
-		} catch (IOException e) {
-			LOG.debug(e.getMessage());
+		} catch (IOException | BuildException e ) {
+			LOG.error(e.getMessage());
 		}
 	}
 

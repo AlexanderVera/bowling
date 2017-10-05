@@ -13,7 +13,6 @@ import org.jobsity.run.model.PlayerScore;
 * @since 01/10/2017
 */
 public interface IPlayerController {
-	
 	/**
      * Method that take a list of Shoot lines with a name and pins for each player
      *
@@ -21,7 +20,6 @@ public interface IPlayerController {
      * @param plainPlayerScores
      */
 	List<Frame> buildPlayerScore(List<PlayerScore> plainPlayerScores) throws BuildException;
-
 }
 
 /**
