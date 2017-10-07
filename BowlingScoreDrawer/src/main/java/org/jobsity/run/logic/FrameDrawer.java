@@ -148,7 +148,7 @@ public class FrameDrawer implements IFrameDrawer {
 			scoreByPlayer.append(score.getTotal());
 			scoreByPlayer.append("\t");
 		}
-		scoreByPlayer.append("\n\n");
+		scoreByPlayer.append("\n");
 		System.out.print(scoreByPlayer.toString());
 	}
 	

@@ -29,7 +29,7 @@ public class MainTest {
 	/**
 	 * Create the test case Test
 	 */
-	@Test
+	//@Test
 	public void printFrameIdealCase() {
 		LOG.info("Ideal case");
 		// Nice frame
@@ -43,7 +43,7 @@ public class MainTest {
 	/**
 	 * Incomplete frame. Some player don't have all his shoots
 	 */
-	@Test
+	//@Test
 	public void printFrameIncompleteCase() {
 		LOG.info("Incomplete shoot for one player");
 		try {
@@ -56,7 +56,7 @@ public class MainTest {
 	/**
 	 * Empty frame. The file is empty
 	 */
-	@Test
+	//@Test
 	public void printFrameEmptyCase() {
 		LOG.info("Empty file");
 		try {
@@ -69,7 +69,7 @@ public class MainTest {
 	/**
 	 * Extra shoot frame. Some player have more shoots
 	 */
-	@Test
+	//@Test
 	public void printFrameExtraCase() {
 		LOG.info("Extra shoots for a player");
 		try {
@@ -95,7 +95,7 @@ public class MainTest {
 	/**
 	 * No file to the game
 	 */
-	@Test
+	//@Test
 	public void printFrameNoFileCase() {
 		LOG.info("No File");
 		try {
@@ -108,7 +108,7 @@ public class MainTest {
 	/**
 	 * Game with a single player with all strike
 	 */
-	@Test
+	//@Test
 	public void printFrameAllStrikeCase() {
 		LOG.info("All Strike");
 		try {
@@ -121,7 +121,7 @@ public class MainTest {
 	/**
 	 * Game with a player with all fails
 	 */
-	@Test
+	//@Test
 	public void printFrameAllFailCase() {
 		LOG.info("All fail");
 		try {
@@ -131,20 +131,6 @@ public class MainTest {
 		}
 	}
 
-	/**
-	 * Game with 1000 players
-	 */
-	@Test
-	public void printALargeGame() {
-		LOG.info("Print a game with 1000 players");
-		Long currentMillis = System.currentTimeMillis();
-		try {
-			printBoard("test-frame-large-game.txt");
-		} catch (BuildException | IOException e) {
-			LOG.error(e.getMessage());
-		}
-		LOG.info("Time: " + ((System.currentTimeMillis() - currentMillis)) + "ms");
-	}
 
 	/***
 	 * Method get the fileName and print the frame of game
