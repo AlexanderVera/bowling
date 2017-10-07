@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.apache.log4j.Logger;
 import org.jobsity.run.exceptions.BuildException;
 import org.jobsity.run.interfaces.IMessages;
 import org.jobsity.run.interfaces.IPlayerController;
 import org.jobsity.run.model.Frame;
 import org.jobsity.run.model.PlayerScore;
 import org.jobsity.run.model.Score;
+import org.jobsity.util.Utilities;
 
 /**
 * PlayerController
@@ -32,10 +32,6 @@ public class PlayerController implements IPlayerController {
 	 * */
 	private static final int TURNS_BY_GAME = 9;
 	/**
-	 * Pins that result as strike 
-	 **/
-	private static final int STRIKE_POINTS = 10;
-	/**
 	 * Max number of shoots by game
 	 */
 	private static final int SHOOTS_BY_GAME = 21;
@@ -43,10 +39,7 @@ public class PlayerController implements IPlayerController {
 	 * Shoots by normal turn
 	 **/
 	private static final int SHOOTS_BY_TURN = 2;
-	/**
-	 * Static parameter to LOG  
-	 */
-	private static final Logger LOG = Logger.getLogger(PlayerController.class.getName());
+
 	
 	private boolean match;
 	
@@ -141,22 +134,21 @@ public class PlayerController implements IPlayerController {
 						if (shootByPlayer >= SHOOTS_BY_GAME) {
 							StringBuilder incompleteMessage = new StringBuilder(playerName);
 							incompleteMessage.append("! ").append(messages.getMessage("src.main.labels.much.shoots"));
-							LOG.info(incompleteMessage.toString());
-							return null;
+							throw new BuildException(incompleteMessage.toString());
 						}
 						//Validate if the player make a strike and this is his first shoot in this turn 
-						if (pivotePlayerScore.getPinfalls() >= STRIKE_POINTS && shootPosition == 0 && turn < TURNS_BY_GAME) {
+						if (pivotePlayerScore.getPinfalls() >= Utilities.STRIKE_POINTS && shootPosition == 0 && turn < TURNS_BY_GAME) {
 							//Mark the first simulated frame position with a negative number to evaluate if the frame was correctly filled
 							shootCharByPlayer[shootByPlayer] = -1;
 							
 							//Set the second position with a strike value
-							shootCharByPlayer[shootByPlayer + 1] = STRIKE_POINTS;
+							shootCharByPlayer[shootByPlayer + 1] = Utilities.STRIKE_POINTS;
 							
 							//When a player make a Strike, he doesn't have a second shoot in this turn
 							shootByPlayer += 2;
 							
 							//Set the real score object with the pins value
-							score.getShoots()[0] = STRIKE_POINTS;
+							score.getShoots()[0] = Utilities.STRIKE_POINTS;
 							score.getShoots()[1] = 0;
 							
 							//set the label strike in true
@@ -174,7 +166,7 @@ public class PlayerController implements IPlayerController {
 								score.getShoots()[shootPosition] = pivotePlayerScore.getPinfalls();
 							}
 							//Evaluate if the current player make a spare
-							if ((score.getShoots()[0] + score.getShoots()[1]) >= STRIKE_POINTS && !score.isStrike()) {
+							if ((score.getShoots()[0] + score.getShoots()[1]) >= Utilities.STRIKE_POINTS && !score.isStrike()) {
 								score.setSpare(true);
 							}					
 							//Increase the shoot counter to indicate the player make this shoot form his turn

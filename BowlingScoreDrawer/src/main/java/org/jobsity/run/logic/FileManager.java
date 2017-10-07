@@ -15,7 +15,7 @@ import org.jobsity.run.model.PlayerScore;
 import org.jobsity.util.Utilities;
 
 /**
- * FileManager Class for manage file of the game
+ * FileManager Class to manage file of the game
  * 
  * @author alexander.vera
  * @since 30/10/2017
@@ -41,6 +41,7 @@ public class FileManager implements IFileManager {
 	 * */
 	private final IMessages messages;
 
+	
 	/**
 	 * Constructor for FileManager Class
 	 * @throws IOException 
@@ -79,7 +80,7 @@ public class FileManager implements IFileManager {
 	 *            String with a line player/pins (e.g. 'Lady 20')
 	 * @return PlayerScore a new player with then name and a score
 	 */
-	private PlayerScore buildPlayerByLine(String plainPlayer) {
+	private PlayerScore buildPlayerByLine(String plainPlayer) throws BuildException, NumberFormatException, NullPointerException, IOException{
 		// Initialize a new player
 		PlayerScore newPlayerScore = new PlayerScore();
 		// Split the player line in a name and pins
@@ -90,12 +91,33 @@ public class FileManager implements IFileManager {
 
 		// Validate if the line come with a valid number of pins. (Maria 10 =>
 		// Ok, Juan => Bad)
+		StringBuilder invalidShootMessage;
+		invalidShootMessage = new StringBuilder();
+		invalidShootMessage.append(newPlayerScore.getName());
+		
 		if (plainScoreSplited.size() > 1) {
-			newPlayerScore.setPinfalls(Utilities
-					.parseValidateInteger(plainScoreSplited.get(1)));
+			if(Utilities.validNumber(plainScoreSplited.get(1)) || Utilities.FAIL_SHOOT.equals(plainScoreSplited.get(1))){
+				int pins = Utilities
+						.parseValidateInteger(plainScoreSplited.get(1));
+				//if the shoot is more than 10
+				if(pins > Utilities.STRIKE_POINTS){
+					invalidShootMessage.append(messages.getMessage("src.main.messages.much.pins"));
+					throw new BuildException(invalidShootMessage.toString());
+				}
+				else{
+					newPlayerScore.setPinfalls(pins);				
+				}
+			}
+			else{
+				//if one shoot is not a number
+				invalidShootMessage.append(messages.getMessage("src.main.messages.alpha.shoot"));
+				throw new NumberFormatException(invalidShootMessage.toString());
+			}
+
 		} else {
-			// If the number of pins is not valid, put 0
-			newPlayerScore.setPinfalls(0);
+			// If the number of pins is not valid.
+			invalidShootMessage.append(messages.getMessage("src.main.messages.invalid.shoot"));
+			throw new BuildException(invalidShootMessage.toString());
 		}
 		return newPlayerScore;
 	}
@@ -120,6 +142,30 @@ public class FileManager implements IFileManager {
 		}
 	}
 
+	
+	/**
+	 * 
+	 */
+//	private List<List<PlayerScore>> splitAsLines(List<PlayerScore> listPlayers){
+//		int[]dummieFrame = new int[21];
+//		int turn=0;
+//		if(listPlayers!=null || listPlayers.size() < 1 ){
+//			
+//	PlayerScore pivotePlayerScore = listPlayers.get(0);
+//			listPlayers.forEach(playerSoce -> {
+//				if(turn < 9){
+//					if (playerPosition < countPlayers && pivotePlayerScore.getName().equals(playerName)) {
+//					
+//					
+//				}
+//			});
+//		}
+//		else{
+//			throw new NullPointerException("No players");
+//		}
+//	}
+	
+	
 	/**
 	 * Getter from fileName
 	 * 

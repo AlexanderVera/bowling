@@ -1,8 +1,11 @@
 package org.jobsity.util;
 
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
+import org.jobsity.run.interfaces.IMessages;
+import org.jobsity.run.logic.Messages;
 
 
 /**
@@ -15,8 +18,16 @@ import java.util.stream.Stream;
 */
 public class Utilities {
 
-	//private final static Logger LOG = Logger.getLogger(Utilities.class.getName());
-
+	/**
+	 * Pins that result as strike 
+	 **/
+	public static final int STRIKE_POINTS = 10;
+	
+	/***
+	 * Fail shoot
+	 */
+	public static final String FAIL_SHOOT = "F";
+	
 	/**
      * Method validate if a string input is a number
      *
@@ -72,10 +83,13 @@ public class Utilities {
 	 * 		  regexp Regular expression for the split	
 	 * @return List<String>
 	 */
-	public static List<String> split(String strLine, String regexp){
-	    return Stream.of(strLine.split(regexp))
-	      .map (elem -> new String(elem))
-	      .collect(Collectors.toList());
+	public static List<String> split(String strLine, String regexp) throws NullPointerException, IOException{
+		IMessages message = new Messages(); 
+		if(strLine == null || regexp == null){
+			throw new NullPointerException(message.getMessage("src.main.messages.null.var"));
+		}else{
+			return Arrays.asList(strLine.split(regexp));
+		}
 	}
 
 }

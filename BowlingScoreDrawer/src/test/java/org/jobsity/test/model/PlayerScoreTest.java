@@ -6,9 +6,9 @@ import org.jobsity.util.Utilities;
 import org.junit.Test;
 
 public class PlayerScoreTest {
-	
+
 	private final static Logger LOG = Logger.getLogger(Utilities.class.getName());
-	
+
 	@Test
 	public void testConstructor() {
 
@@ -16,18 +16,16 @@ public class PlayerScoreTest {
 		// Test empty construct
 		messageTestPerson = new StringBuilder();
 		PlayerScore playerScore = new PlayerScore();
-		messageTestPerson.append("playerScoreEmpty ").append(playerScore.getName()).append(" ").append(playerScore.getId())
-				.append(" ").append(playerScore.getPinfalls()).append(" ");
+		messageTestPerson.append("playerScoreEmpty ").append(playerScore.getName()).append(" ")
+				.append(playerScore.getPinfalls()).append(" ");
 		LOG.debug(messageTestPerson.toString());
 
-		
 		// Test construct
 		messageTestPerson = new StringBuilder();
-		playerScore = new PlayerScore("test1",4);
-		messageTestPerson.append("playerScoreEmpty ").append(playerScore.getName()).append(" ").append(playerScore.getId())
-				.append(" ").append(playerScore.getPinfalls()).append(" ");
+		playerScore = new PlayerScore("test1", 4);
+		messageTestPerson.append("playerScoreEmpty ").append(playerScore.getName()).append(" ")
+				.append(playerScore.getPinfalls()).append(" ");
 		LOG.debug(messageTestPerson.toString());
-		
 
 	}
 }

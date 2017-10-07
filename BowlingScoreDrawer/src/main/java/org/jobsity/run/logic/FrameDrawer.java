@@ -7,6 +7,7 @@ import org.jobsity.run.interfaces.IFrameDrawer;
 import org.jobsity.run.interfaces.IMessages;
 import org.jobsity.run.model.Frame;
 import org.jobsity.run.model.Score;
+import org.jobsity.util.Utilities;
 
 /**
 * FrameDrawer
@@ -21,10 +22,6 @@ public class FrameDrawer implements IFrameDrawer {
      */
 	private static final int NUMBER_OF_ROUNDS = 10;
 	
-	/**
-     * Number of pins of a bowling game
-     */
-	private static final int NUMBER_OF_PINS = 10;
 	
 	/**
      * List of Frame of a bowling game
@@ -99,20 +96,20 @@ public class FrameDrawer implements IFrameDrawer {
 			}
 			//Print the final turn strike and spare
 			if (score.getFlagFinal()) {
-				if (score.getShoots()[0] >= NUMBER_OF_PINS) {
+				if (score.getShoots()[0] >= Utilities.STRIKE_POINTS) {
 					scoreByPlayer.append('X');
 				} else {
 					scoreByPlayer.append(score.getShoots()[0]);
 				}
 				scoreByPlayer.append("\t");
-				if (score.getShoots()[1] >= NUMBER_OF_PINS) {
+				if (score.getShoots()[1] >= Utilities.STRIKE_POINTS) {
 					scoreByPlayer.append('X');
 				} else {
 					scoreByPlayer.append(score.getShoots()[1]);
 				}
 				scoreByPlayer.append("\t");
 
-				if (score.getShoots()[2] >= NUMBER_OF_PINS) {
+				if (score.getShoots()[2] >= Utilities.STRIKE_POINTS) {
 					scoreByPlayer.append('X');
 				} else {
 					scoreByPlayer.append(score.getShoots()[2]);

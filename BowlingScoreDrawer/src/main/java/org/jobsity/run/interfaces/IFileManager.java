@@ -1,7 +1,5 @@
 package org.jobsity.run.interfaces;
 
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -24,14 +22,6 @@ public interface IFileManager {
      */
 	List<PlayerScore> buildListPlayerFromFile() throws IOException, BuildException;
 	
-	/**
-     * Read a file and check if the file has content or exists
-     *
-     * @param file
-     * @return a BufferedReader with the content file.
-     * @throws
-     */
-	BufferedReader validateBoard(File file) throws IOException, BuildException;
 }
 
 /** 

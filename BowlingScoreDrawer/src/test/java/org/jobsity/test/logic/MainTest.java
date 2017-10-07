@@ -24,18 +24,18 @@ import org.junit.Test;
  *
  */
 public class MainTest {
-	private final static Logger LOG = Logger.getLogger(PlayerController.class.getName());
+	private final static Logger LOG = Logger.getLogger(MainTest.class.getName());
 
 	/**
 	 * Create the test case Test
 	 */
-	//@Test
+	@Test
 	public void printFrameIdealCase() {
 		LOG.info("Ideal case");
 		// Nice frame
 		try {
 			printBoard("test-frame.txt");
-		} catch (BuildException | IOException e) {
+		} catch (BuildException | NumberFormatException | IOException e) {
 			LOG.debug(e.getMessage());
 		}
 	}
@@ -82,12 +82,12 @@ public class MainTest {
 	/**
 	 * 4 players frame. Game with 4 players
 	 */
-	@Test
+	//@Test
 	public void printFrame4PlayersCase() {
 		LOG.info("Four players");
 		try {
 			printBoard("test-frame-4-players.txt");
-		} catch (BuildException | IOException e) {
+		} catch (BuildException | NumberFormatException | IOException e) {
 			LOG.debug(e.getMessage());
 		}
 	}

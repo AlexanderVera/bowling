@@ -10,7 +10,7 @@ package org.jobsity.run.interfaces;
 public interface IMessages {
 	
 	/**
-     * Method to return a text message used in the app
+     * Method that return a text message used in the app
      *
      * @return A String value with the message
      * @param key: String key
