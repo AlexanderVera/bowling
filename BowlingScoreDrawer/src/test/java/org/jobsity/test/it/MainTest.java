@@ -31,18 +31,18 @@ public class MainTest extends TestCase{
 	public void printBoardIdealCase() {
 		LOG.info("Happy path");
 		//Happy path
-		runTestCase("test-print-happy-path", "test-Board.txt");
+		runTestCase("test-print-happy-path", "test-frame.txt");
 	}
 
 	/**
 	 * Incomplete Board. Some player don't have all his shoots
 	 */
-	@Test
+	//@Test
 	public void printBoardIncompleteCase() {
 		LOG.info("Incomplete shoot for one player");
 		boolean thrown = false;
 		try {
-			Utilities.printBoard("test-Board-incomplete-shoots.txt",true);
+			Utilities.printBoard("test-frame-incomplete-shoots.txt",true);
 		} catch (BuildException | IOException e) {
 			LOG.error(e.getMessage());
 			thrown = true;
@@ -53,12 +53,12 @@ public class MainTest extends TestCase{
 	/**
 	 * Empty Board. The file is empty
 	 */
-	@Test
+	//@Test
 	public void printBoardEmptyCase() {
 		LOG.info("Empty file");
 		boolean thrown = false;
 		try {
-			Utilities.printBoard("test-Board-empty.txt",true);
+			Utilities.printBoard("test-frame-empty.txt",true);
 		} catch (BuildException | IOException e) {
 			LOG.error(e.getMessage());
 			thrown = true;
@@ -69,12 +69,12 @@ public class MainTest extends TestCase{
 	/**
 	 * Extra shoot game. Some player have more shoots
 	 */
-	@Test
+	//@Test
 	public void printBoardExtraCase() {
 		LOG.info("Extra shoots for a player");
 		boolean thrown = false;
 		try {
-			Utilities.printBoard("test-Board-extra-shoots.txt",true);
+			Utilities.printBoard("test-frame-extra-shoots.txt",true);
 		} catch (BuildException | IOException e) {
 			LOG.error(e.getMessage());
 			thrown = true;
@@ -88,7 +88,7 @@ public class MainTest extends TestCase{
 	@Test
 	public void printBoard4PlayersCase() {
 		LOG.info("Four players");
-		runTestCase("test-print-four-player", "test-Board-4-players.txt");		
+		runTestCase("test-print-four-player", "test-frame-4-players.txt");		
 	}
 
 	/**
@@ -99,7 +99,7 @@ public class MainTest extends TestCase{
 		LOG.info("No File");
 		boolean thrown = false;
 		try {
-			Utilities.printBoard("test-Board-fake.txt",true);
+			Utilities.printBoard("test-frame-fake.txt",true);
 		} catch (BuildException | IOException e) {
 			LOG.error(e.getMessage());
 			thrown = true;
@@ -113,7 +113,7 @@ public class MainTest extends TestCase{
 	@Test
 	public void printBoardAllStrikeCase() {
 		LOG.info("All Strike");
-		runTestCase("test-print-all-strike", "test-Board-all-strike.txt");
+		runTestCase("test-print-all-strike", "test-frame-all-strike.txt");
 	}
 
 	/**
@@ -122,7 +122,7 @@ public class MainTest extends TestCase{
 	@Test
 	public void printBoardAllFailCase() {
 		LOG.info("All fail");
-		runTestCase("test-print-all-fail", "test-Board-all-fail.txt");
+		runTestCase("test-print-all-fail", "test-frame-all-fail.txt");
 	}
 	
 	/**

@@ -12,7 +12,6 @@ The zip content will be:
 	-	/test-files/bowling-game.txt: Happy path 
 	-	/test-files/test-frame-all-strike.txt: File with all strike shoots
 	-	/test-files/test-frame-all-fail.txt: File with all fail shoots
-	-	/test-files/test-frame-large-game.txt: File with 1000 players
 
 ### Prerequisites
 #### Run Binary
