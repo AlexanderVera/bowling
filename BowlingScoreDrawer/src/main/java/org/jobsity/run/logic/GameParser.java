@@ -58,6 +58,7 @@ public class GameParser implements IGameParser{
 						lstSinglePlayer.add(currentPlayer);
 					}	
 					else{
+						//Change the player
 						gameLines.add(buildValidGameLine(lstSinglePlayer, playerPivote.getName()));
 						i--;
 						playerPivote = currentPlayer;
