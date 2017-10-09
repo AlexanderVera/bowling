@@ -124,6 +124,24 @@ public class MainTest extends TestCase{
 	}
 	
 	/**
+	 * A 12 points shoot
+	 */
+	@Test
+	public void printBoard12Case() {
+		LOG.info("12 points");
+		boolean thrown = false;
+		try {
+			Utilities.printBoard("test-frame-12-points.txt",true);
+		} catch (BuildException | NumberFormatException | IOException e) {
+			LOG.error(e.getMessage());
+			thrown = true;
+		}
+		assertTrue(thrown);
+	}
+	
+	
+	
+	/**
 	 * A invalid shoot
 	 */
 	@Test
