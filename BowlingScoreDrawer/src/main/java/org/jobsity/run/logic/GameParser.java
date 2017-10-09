@@ -39,7 +39,14 @@ public class GameParser implements IGameParser{
 		return buildGame(this.plainPlayers);
 	}
 	
-	 public GameBoard buildGame(List<PlayerScore> listPlayers) throws BuildException, IOException{
+	/**
+	 * Walk through each the player and build each game line to make a Game board
+	 * @param listPlayers
+	 * @return GameBoard 
+	 * @throws BuildException
+	 * @throws IOException
+	 */
+	public GameBoard buildGame(List<PlayerScore> listPlayers) throws BuildException, IOException{
 		 List<GameLine> gameLines; 
 		 List<PlayerScore> lstSinglePlayer = new ArrayList<PlayerScore>();
 		 if(listPlayers!=null && listPlayers.size() > 0){
@@ -86,7 +93,7 @@ public class GameParser implements IGameParser{
 		int shootPosition = 0;
 		// Shoots by player
 		int shoots = 0;
-		// Walks each turn.
+		// Walk through each turn.
 		while (turn < Utilities.TURNS_BY_GAME) {
 			score = new Score();
 			try {
