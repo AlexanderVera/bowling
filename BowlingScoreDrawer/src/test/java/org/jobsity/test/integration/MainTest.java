@@ -12,7 +12,6 @@ import org.junit.runners.JUnit4;
 import junit.framework.TestCase;
 
 
-
 /**
  * MainTest
  *
@@ -156,7 +155,6 @@ public class MainTest extends TestCase{
 			}
 			assertTrue(thrown);
 	}
-	
 }
 
 /*
