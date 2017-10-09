@@ -29,7 +29,7 @@ public class MainTest extends TestCase{
 	 */
 	@Test
 	public void printBoardIdealCase() {
-		LOG.info("Happy path");
+		LOG.info("******* Happy path case *******");
 		//Happy path
 		runTestCase("test-print-happy-path", "test-frame.txt");
 	}
@@ -39,15 +39,7 @@ public class MainTest extends TestCase{
 	 */
 	@Test
 	public void printBoardIncompleteCase() {
-		LOG.info("Incomplete shoot for one player");
-		boolean thrown = false;
-		try {
-			Utilities.printBoard("test-frame-incomplete-shoots.txt",true);
-		} catch (BuildException | IOException e) {
-			LOG.error(e.getMessage());
-			thrown = true;
-		}
-		assertTrue(thrown);
+		runExceptionTestCase("Incomplete shoot for one player", "test-frame-incomplete-shoots.txt");
 	}
 
 	/**
@@ -55,15 +47,7 @@ public class MainTest extends TestCase{
 	 */
 	@Test
 	public void printBoardEmptyCase() {
-		LOG.info("Empty file");
-		boolean thrown = false;
-		try {
-			Utilities.printBoard("test-frame-empty.txt",true);
-		} catch (BuildException | IOException e) {
-			LOG.error(e.getMessage());
-			thrown = true;
-		}
-		assertTrue(thrown);
+		runExceptionTestCase("Empty file case", "test-frame-empty.txt");
 	}
 
 	/**
@@ -71,15 +55,7 @@ public class MainTest extends TestCase{
 	 */
 	@Test
 	public void printBoardExtraCase() {
-		LOG.info("Extra shoots for a player");
-		boolean thrown = false;
-		try {
-			Utilities.printBoard("test-frame-extra-shoots.txt",true);
-		} catch (BuildException | IOException e) {
-			LOG.error(e.getMessage());
-			thrown = true;
-		}
-		assertTrue(thrown);
+		runExceptionTestCase("Extra shoots for a player case", "test-frame-extra-shoots.txt");
 	}
 
 	/**
@@ -87,7 +63,7 @@ public class MainTest extends TestCase{
 	 */
 	@Test
 	public void printBoard4PlayersCase() {
-		LOG.info("Four players");
+		LOG.info("******* Four players case *******");
 		runTestCase("test-print-four-player", "test-frame-4-players.txt");		
 	}
 
@@ -96,15 +72,7 @@ public class MainTest extends TestCase{
 	 */
 	@Test
 	public void printBoardNoFileCase() {
-		LOG.info("No File");
-		boolean thrown = false;
-		try {
-			Utilities.printBoard("test-frame-fake.txt",true);
-		} catch (BuildException | IOException e) {
-			LOG.error(e.getMessage());
-			thrown = true;
-		}
-		assertTrue(thrown);
+		runExceptionTestCase("No File case", "test-frame-extra-shoots.txt");
 	}
 	
 	/**
@@ -112,15 +80,7 @@ public class MainTest extends TestCase{
 	 */
 	@Test
 	public void printBoardLetterCase() {
-		LOG.info("Letter");
-		boolean thrown = false;
-		try {
-			Utilities.printBoard("test-frame-letter.txt",true);
-		} catch (BuildException | NumberFormatException | IOException e) {
-			LOG.error(e.getMessage());
-			thrown = true;
-		}
-		assertTrue(thrown);
+		runExceptionTestCase("Letter shoot case", "test-frame-letter.txt");
 	}
 	
 	/**
@@ -128,33 +88,15 @@ public class MainTest extends TestCase{
 	 */
 	@Test
 	public void printBoard12Case() {
-		LOG.info("12 points");
-		boolean thrown = false;
-		try {
-			Utilities.printBoard("test-frame-12-points.txt",true);
-		} catch (BuildException | NumberFormatException | IOException e) {
-			LOG.error(e.getMessage());
-			thrown = true;
-		}
-		assertTrue(thrown);
+		runExceptionTestCase("12 points case", "test-frame-12-points.txt");
 	}
-	
-	
 	
 	/**
 	 * A invalid shoot
 	 */
 	@Test
 	public void printBoardInvalidCase() {
-		LOG.info("Invalid");
-		boolean thrown = false;
-		try {
-			Utilities.printBoard("test-frame-invalid.txt",true);
-		} catch (BuildException | NumberFormatException | IOException e) {
-			LOG.error(e.getMessage());
-			thrown = true;
-		}
-		assertTrue(thrown);
+		runExceptionTestCase("Invalid shoot case", "test-frame-invalid.txt");
 	}
 
 	/**
@@ -180,7 +122,7 @@ public class MainTest extends TestCase{
 	 * @param expectedName
 	 * @param actualName
 	 */
-	public void runTestCase(String expectedName, String actualName){
+	private void runTestCase(String expectedName, String actualName){
 		try {
 			StringBuilder expectedHappyPath = Utilities.getFullStringFromClassPath(expectedName);
 			StringBuilder actualHappyBuildPath = Utilities.printBoard(actualName,true);
@@ -191,6 +133,30 @@ public class MainTest extends TestCase{
 			LOG.error(exc.getMessage());
 		}
 	}
+	
+	/**
+	 * Run test case and assert with a thrown boolean
+	 * Thrown will be false if the test build successfully
+	 * Expected true
+	 * @param logLabel
+	 * @param testFileName
+	 */
+	private void runExceptionTestCase(String logLabel, String testFileName) {
+			StringBuilder logMessages = new StringBuilder();
+			logMessages.append("******* ");
+			logMessages.append(logLabel);
+			logMessages.append(" *******");
+			LOG.info(logMessages.toString());
+			boolean thrown = false;
+			try {
+				Utilities.printBoard(testFileName,true);
+			} catch (BuildException | NumberFormatException | IOException e) {
+				LOG.error(e.getMessage());
+				thrown = true;
+			}
+			assertTrue(thrown);
+	}
+	
 }
 
 /*
