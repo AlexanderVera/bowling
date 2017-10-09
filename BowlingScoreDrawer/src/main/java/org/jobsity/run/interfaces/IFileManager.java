@@ -20,7 +20,7 @@ public interface IFileManager {
      *
      * @return A List<PlayerScore>, each Player/Score from file
      */
-	List<PlayerScore> buildListPlayerFromFile() throws IOException, BuildException;
+	List<PlayerScore> buildListPlayersFromFile() throws IOException, BuildException;
 	
 }
 

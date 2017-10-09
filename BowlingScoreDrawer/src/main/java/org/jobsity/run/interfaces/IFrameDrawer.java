@@ -10,5 +10,5 @@ public interface IFrameDrawer {
 	/**
      * Print a full frame based in a list of frames
      */
-	void printFrame();
+	StringBuilder printFrame();
 }

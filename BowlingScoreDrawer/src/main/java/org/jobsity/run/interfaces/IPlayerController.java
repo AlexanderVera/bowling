@@ -2,9 +2,7 @@ package org.jobsity.run.interfaces;
 
 import java.util.List;
 
-import org.jobsity.run.exceptions.BuildException;
-import org.jobsity.run.model.Frame;
-import org.jobsity.run.model.PlayerScore;
+import org.jobsity.run.model.GameLine;
 
 /**
 * IPlayerController
@@ -14,12 +12,11 @@ import org.jobsity.run.model.PlayerScore;
 */
 public interface IPlayerController {
 	/**
-     * Method that take a list of Shoot lines with a name and pins for each player
-     *
-     * @return A String value with the message
-     * @param plainPlayerScores
-     */
-	List<Frame> buildPlayerScore(List<PlayerScore> plainPlayerScores) throws BuildException;
+	 * 
+	 * @param listOfPLayers
+	 * @return List<GameLine>
+	 */
+	List<GameLine> calculateScore(List<GameLine> listOfPLayers); 
 }
 
 /**

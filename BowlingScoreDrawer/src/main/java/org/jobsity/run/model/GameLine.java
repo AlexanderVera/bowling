@@ -10,16 +10,12 @@ import java.util.List;
 * @author alexander.vera
 * @since 30/09/2017
 */
-public class Frame{
+public class GameLine{
 	
 	/**
 	* List of score from a player frame
 	*/
 	private List<Score> scores;
-	/**
-	* Last score from a player
-	*/
-	private Score currentScore;
 	/**
 	* Total score from a player
 	*/
@@ -28,15 +24,11 @@ public class Frame{
 	* Player name
 	*/
 	private String playerName;
-	/**
-	* Player id
-	*/
-	private Long playerId;
 	
 	/**
 	* Empty constructor
 	*/
-	public Frame(){
+	public GameLine(){
 		scores = new ArrayList<Score>();		
 		totalScore = 0;
 	}
@@ -47,8 +39,7 @@ public class Frame{
 	* 		 name: String that represents the name of player	
 	* 		 scores: All player shoots
 	*/		  
-	public Frame(Long playerId, String name, List<Score> scores){
-		this.playerId=playerId;
+	public GameLine(String name, List<Score> scores){
 		this.playerName=name;
 		this.scores = scores;
 		totalScore = 0;
@@ -69,23 +60,6 @@ public class Frame{
 	}
 
 	/**
-	 * Getter from currentScore
-	 * @return Score
-	 */
-	public Score getCurrentScore() {
-		return currentScore;
-	}
-	
-	/**
-	 * Setter from currentScore
-	 * 
-	 */
-	public void setCurrentScore(Score currentScore) {
-		scores.add(currentScore);
-		this.currentScore = currentScore;
-	}
-
-	/**
 	 * Getter from totalScore
 	 * @return totalScore
 	 */
@@ -99,22 +73,6 @@ public class Frame{
 	 */
 	public void setTotalScore(int totalScore) {
 		this.totalScore = totalScore;
-	}
-
-	/**
-	 * Getter from PlayerId
-	 * @return PlayerId
-	 */
-	public Long getPlayerId() {
-		return playerId;
-	}
-
-	/**
-	 * Setter from PlayerId
-	 * 
-	 */
-	public void setPlayerId(Long playerId) {
-		this.playerId = playerId;
 	}
 
 	/**

@@ -6,10 +6,15 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.jobsity.run.logic.FrameDrawer;
-import org.jobsity.run.model.Frame;
+import org.jobsity.run.model.GameBoard;
+import org.jobsity.run.model.GameLine;
 import org.jobsity.run.model.Score;
 import org.jobsity.util.Utilities;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+
+import junit.framework.TestCase;
 
 /**
  * 
@@ -19,53 +24,90 @@ import org.junit.Test;
  * HISTORY CHANGES
  * 
  */
-public class FrameDrawerTest {
+@RunWith(JUnit4.class)
+public class FrameDrawerTest extends TestCase{
 	private final static Logger LOG = Logger.getLogger(Utilities.class.getName());
 		
 	/*Test the printFrame in 3 scenarios: null, empty and full list. 
 	*/
 	@Test
-	public void printFrameTest() {	
-		List<Frame> nullListFrames = null;
-		List<Frame> emptyListFrames = new ArrayList<Frame>();
+	public void printNullBoardTest() {	
+		List<GameLine> nullListGame = null;
+		GameBoard game;
+		StringBuilder boardToPrint;
 		try{
-			printFrameCases("Print frame with a null list", nullListFrames);
-			printFrameCases("Print frame with a empty list", emptyListFrames);		
-			printFrameCases("Print frame with a dummie List", makeFullListOfFrames());
+			game = new GameBoard(nullListGame);
+			boardToPrint = printFrameCases("Print frame with a null list", game);
+			LOG.debug(boardToPrint.toString());
+			assertEquals(new StringBuilder("\n").toString().trim(), boardToPrint.toString().trim());
 		}
 		catch(IOException exc){
 			LOG.debug(exc.getMessage());
 		}
 	}
 	
+	@Test
+	public void printEmptyBoardTest() {	
+		List<GameLine> emptyListGame = new ArrayList<GameLine>();
+		GameBoard game;
+		StringBuilder boardToPrint;
+		StringBuilder expectedString;
+		try{
+			game = new GameBoard(emptyListGame);
+			boardToPrint = printFrameCases("Print frame with a empty list", game);
+			expectedString = Utilities.getFullStringFromClassPath("test-print-empty.txt");
+			LOG.debug(boardToPrint.toString());
+			assertEquals(expectedString.toString().trim(), boardToPrint.toString().trim());
+		}
+		catch(IOException exc){
+			LOG.debug(exc.getMessage());
+		}
+	}
+	
+	
+	@Test
+	public void printFullBoardTest() {	
+		GameBoard game;
+		StringBuilder boardToPrint;
+		try{	
+			game = new GameBoard(makeFullListOfFrames());
+			boardToPrint = printFrameCases("Print frame with a dummie List", game);
+			LOG.debug(boardToPrint.toString());
+		}
+		catch(IOException exc){
+			LOG.debug(exc.getMessage());
+		}
+	}
+	
+	
 	/***
 	 * PrintFrame
 	 * @param frames
 	 * @throws IOException 
 	 */
-	public void printFrameCases(String message, List<Frame> frames) throws IOException{
+	public StringBuilder printFrameCases(String message, GameBoard frame) throws IOException{
 		StringBuilder messageTest = new StringBuilder(message);		
-		FrameDrawer boardTestEmpty = new FrameDrawer(frames);
+		FrameDrawer boardTestEmpty = new FrameDrawer(frame.getListOfGameLines());
 		LOG.debug(messageTest.toString());
-		boardTestEmpty.printFrame();		
+		return boardTestEmpty.printFrame();		
 	}
 	
 	/**
-	 * @return List<Frame> List of frame with dummie players
+	 * @return List<GameLine> List of gameLines with dummie players
 	 */
-	public List<Frame> makeFullListOfFrames(){
-		List<Frame> fullListFrames = new ArrayList<Frame>();
-		Frame player = null;
+	public List<GameLine> makeFullListOfFrames(){
+		List<GameLine> fullGameLines = new ArrayList<GameLine>();
+		GameLine gameLine = null;
 		for(int i = 0; i< 10; i++){
-			player = new Frame();
-			player.setPlayerId(System.currentTimeMillis());
+			gameLine = new GameLine();
 			StringBuilder name = new StringBuilder("Test");
 			name.append(i);
-			player.setPlayerName(name.toString());
+			gameLine.setPlayerName(name.toString());
 			List<Score> scores = new ArrayList<Score>(); 
-			player.setScore(scores);
+			gameLine.setScore(scores);
+			fullGameLines.add(gameLine);
 		}
-		return fullListFrames;
+		return fullGameLines;
 	}
 	
 }

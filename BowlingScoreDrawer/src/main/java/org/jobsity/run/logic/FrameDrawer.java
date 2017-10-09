@@ -5,7 +5,8 @@ import java.util.List;
 
 import org.jobsity.run.interfaces.IFrameDrawer;
 import org.jobsity.run.interfaces.IMessages;
-import org.jobsity.run.model.Frame;
+import org.jobsity.run.model.GameBoard;
+import org.jobsity.run.model.GameLine;
 import org.jobsity.run.model.Score;
 import org.jobsity.util.Utilities;
 
@@ -26,7 +27,7 @@ public class FrameDrawer implements IFrameDrawer {
 	/**
      * List of Frame of a bowling game
      */
-	private List<Frame> players;
+	private List<GameLine> gameLines;
 	
 	/**
      * Parameter to get de messages
@@ -38,45 +39,51 @@ public class FrameDrawer implements IFrameDrawer {
      * @param players List<Frame>
 	 * @throws IOException 
      */
-	public FrameDrawer(final List<Frame> players) throws IOException {
-		this.players  = players;
+	public FrameDrawer(final List<GameLine> gameLines) throws IOException {
+		this.gameLines  = gameLines;
 		setMessages(new Messages());
 	}
-
+	/**
+ 	* 
+ 	* @param players
+ 	* @throws IOException
+ 	*/
+	public FrameDrawer(final GameBoard frame) throws IOException {
+		this.gameLines  = frame.getListOfGameLines();
+		setMessages(new Messages());
+	}
 	/**
      * Print a full frame based in a list of frames
      *
      */
-	public void printFrame() {
-
-		if (getPlayers() != null) {
-			
-			StringBuilder scoreByPlayer = null;
+	public StringBuilder printFrame() {
+		StringBuilder frameToPrint = new StringBuilder();
+		if (this.gameLines != null) {
 			//Print the numbers 1-10 on top of the frame
-			printFrameTitle(scoreByPlayer);
+			frameToPrint.append(printFrameTitle());
 			
 			//Walk all the player
-			for (Frame tmpPlayerFrame : getPlayers()) {
-				scoreByPlayer = new StringBuilder(tmpPlayerFrame.getPlayerName());
-				scoreByPlayer.append('\n');
-				System.out.print(scoreByPlayer);
-				scoreByPlayer = new StringBuilder(messages.getMessage("src.main.labels.pinfall"));
+			for (GameLine tmpPlayerFrame : this.gameLines) {
+				frameToPrint.append(tmpPlayerFrame.getPlayerName());
+				frameToPrint.append('\n');
+				frameToPrint.append(messages.getMessage("src.main.labels.pinfall"));
 				//Print the scores
-				printPlayerScores(scoreByPlayer, tmpPlayerFrame.getScore());
-				scoreByPlayer.append('\n');
-				System.out.print(scoreByPlayer.toString());
+				frameToPrint.append(printPlayerScores(tmpPlayerFrame.getScore()));
+				frameToPrint.append("\n");
 				//Print the total score	
-				printTotalScore(scoreByPlayer, tmpPlayerFrame);
+				frameToPrint.append(printTotalScore(tmpPlayerFrame));
 
 			}
 		}
+		return frameToPrint;
 	}
 	
 	/**
 	 * @param scoreByPlayer: StringBuilder to print the scores
 	 * 		  scores: List of scores for a player
 	 */
-	public void printPlayerScores(StringBuilder scoreByPlayer, List<Score> scores){
+	public StringBuilder printPlayerScores(List<Score> scores){
+		StringBuilder scoreByPlayer = new StringBuilder();
 		for (Score score : scores) {
 			scoreByPlayer.append("\t");
 			//Print the strike and spare score
@@ -117,50 +124,51 @@ public class FrameDrawer implements IFrameDrawer {
 
 			}
 		}
+		return scoreByPlayer;
 	}
 	/**Print the number on the frame header
 	 * 
 	 * @param scoreByPlayer: StringBuilder to build a labels from the top
 	 */
-	public void printFrameTitle(StringBuilder scoreByPlayer){
-		scoreByPlayer = new StringBuilder(messages.getMessage("src.main.labels.frame"));
-		scoreByPlayer.append("\t\t");
+	public StringBuilder printFrameTitle(){
+		StringBuilder scoresByPlayer = new StringBuilder(messages.getMessage("src.main.labels.frame"));
+		scoresByPlayer.append("\t\t");
 		//Load the number labels of frame
 		for (int i = 0; i < NUMBER_OF_ROUNDS; i++) {
-			scoreByPlayer.append((i + 1) + "\t\t");
+			scoresByPlayer.append((i + 1) + "\t\t");
 		}
-		scoreByPlayer.append('\n');
-		System.out.print(scoreByPlayer.toString());
+		scoresByPlayer.append('\n');
+		return scoresByPlayer;
 	} 
 	
 	/**
 	 * @param scoreByPlayer: StringBuilder to print the score to print 
 	 * 		  frame: Object with the scores of current player 	
 	 */
-	public void printTotalScore(StringBuilder scoreByPlayer, Frame frame){
-		scoreByPlayer = new StringBuilder(messages.getMessage("src.main.labels.score"));
-		scoreByPlayer.append("\t");
+	public StringBuilder printTotalScore(GameLine frame){
+		StringBuilder scoresByPlayer = new StringBuilder(messages.getMessage("src.main.labels.score"));
+		scoresByPlayer.append("\t");
 		for (Score score : frame.getScore()) {
-			scoreByPlayer.append("\t");
-			scoreByPlayer.append(score.getTotal());
-			scoreByPlayer.append("\t");
+			scoresByPlayer.append("\t");
+			scoresByPlayer.append(score.getTotal());
+			scoresByPlayer.append("\t");
 		}
-		scoreByPlayer.append("\n");
-		System.out.print(scoreByPlayer.toString());
+		scoresByPlayer.append("\n");
+		return scoresByPlayer;
 	}
 	
 	/**
      * Getter from players
      */
-	public List<Frame> getPlayers() {
-		return players;
+	public List<GameLine> getGameLines() {
+		return gameLines;
 	}
 
 	/**
      * Setter from players
      */
-	public void setPlayers(List<Frame> players) {
-		this.players = players;
+	public void setGameLines(List<GameLine> players) {
+		this.gameLines = players;
 	}
 	
 	/**

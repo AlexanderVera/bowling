@@ -54,5 +54,17 @@ public class UtilitiesTest extends TestCase{
 		}
 		assertTrue(thrown);
 	}
+	
+	@Test
+	public void getFullStringFromClassPathTest() throws IOException{
+		try {
+			StringBuilder fileString = new StringBuilder();
+			fileString=Utilities.getFullStringFromClassPath("test-print-happy-path");
+			assertNotNull(fileString);
+		}
+		catch(IOException exc) {
+			throw new IOException();
+		}
+	}
 
 }
