@@ -29,11 +29,8 @@ public class Main {
 				StringBuilder gameBoard = Utilities.printBoard(args[0], false);
 				System.out.print(gameBoard);
 			}
-			catch(BuildException bExc){
+			catch(BuildException | IOException | NumberFormatException bExc){
 				LOG.debug(bExc.getMessage());				
-			}
-			catch(IOException exc){
-				LOG.error(exc.getMessage());
 			}
 		}
 		else{
