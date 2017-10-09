@@ -37,7 +37,7 @@ public class MainTest extends TestCase{
 	/**
 	 * Incomplete Board. Some player don't have all his shoots
 	 */
-	//@Test
+	@Test
 	public void printBoardIncompleteCase() {
 		LOG.info("Incomplete shoot for one player");
 		boolean thrown = false;
@@ -53,7 +53,7 @@ public class MainTest extends TestCase{
 	/**
 	 * Empty Board. The file is empty
 	 */
-	//@Test
+	@Test
 	public void printBoardEmptyCase() {
 		LOG.info("Empty file");
 		boolean thrown = false;
@@ -69,7 +69,7 @@ public class MainTest extends TestCase{
 	/**
 	 * Extra shoot game. Some player have more shoots
 	 */
-	//@Test
+	@Test
 	public void printBoardExtraCase() {
 		LOG.info("Extra shoots for a player");
 		boolean thrown = false;
@@ -137,7 +137,7 @@ public class MainTest extends TestCase{
 			LOG.info(actualHappyBuildPath);
 			assertEquals(expectedHappyPath.toString().trim(), actualHappyBuildPath.toString().trim());
 		}
-		catch(IOException | BuildException exc) {
+		catch(IOException | NumberFormatException | BuildException exc) {
 			LOG.error(exc.getMessage());
 		}
 	}

@@ -31,7 +31,7 @@ public class FileManagerTest extends TestCase{
 			LOG.debug("Filemanager.buildListPlayerFromFileTest with no file");
 			FileManager fileManager = new FileManager(new File(""));
 			fileManager.buildListPlayersFromFile();
-		} catch (IOException | BuildException e) {
+		} catch (IOException | NumberFormatException | BuildException e) {
 			LOG.error(e.getMessage());
 			thrown = true;
 		}
@@ -48,7 +48,7 @@ public class FileManagerTest extends TestCase{
 			List<PlayerScore> playerScores = fileManager.buildListPlayersFromFile();
 			assertNotNull(playerScores);
 		}
-		catch(IOException | BuildException exc) {
+		catch(IOException | NumberFormatException | BuildException exc) {
 			LOG.error(exc.getMessage());
 		}
 	}
@@ -90,7 +90,7 @@ public class FileManagerTest extends TestCase{
 			assertNotNull(playerScores);
 			assertEquals("Jeff", playerScores.get(0).getName());
 			LOG.debug(playerScores.get(0).getName());
-		} catch (IOException | BuildException e) {
+		} catch (IOException | NumberFormatException | BuildException e) {
 			LOG.debug(e.getMessage());
 		}
 	}

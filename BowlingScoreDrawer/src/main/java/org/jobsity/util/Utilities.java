@@ -212,7 +212,7 @@ public class Utilities {
 		return file;
 	}
 	
-	public static StringBuilder printBoard(String fileName, boolean classPath) throws BuildException, IOException{
+	public static StringBuilder printBoard(String fileName, boolean classPath) throws BuildException, IOException, NumberFormatException{
 			GameBoard gameBoard = new GameBoard();
 			File fileScore = getFileFromClassPath(fileName, classPath);
 			IFileManager fileManager = new FileManager(fileScore);

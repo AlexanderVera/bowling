@@ -58,7 +58,7 @@ public class FileManager implements IFileManager {
 	 * 
 	 * @return A list of String, each line is a player info
 	 */
-	public List<PlayerScore> buildListPlayersFromFile() throws BuildException, IOException {
+	public List<PlayerScore> buildListPlayersFromFile() throws BuildException, IOException, NumberFormatException {
 		List<PlayerScore> playerShoots = null;
 		BufferedReader bufferPlayerLines;
 		bufferPlayerLines = validateFile(getFile());
