@@ -13,7 +13,6 @@ public class PlayerControllerTest {
 	private final static Logger LOG = Logger.getLogger(PlayerController.class.getName());
 	@Test
 	public void buildPlayerScoreTest(){
-
 		try{
 			PlayerController player = new PlayerController();
 			//player.calculateScore(listPlainPlayers);
