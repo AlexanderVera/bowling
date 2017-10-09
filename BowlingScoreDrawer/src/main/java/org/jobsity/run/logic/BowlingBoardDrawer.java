@@ -17,12 +17,6 @@ import org.jobsity.util.Utilities;
 * @since 30/09/2017
 **/
 public class BowlingBoardDrawer implements BoardDrawer {
-
-	/**
-     * Maximum round in a a bowling game
-     */
-	private static final int NUMBER_OF_ROUNDS = 10;
-	
 	
 	/**
      * List of game lines of a bowling game
@@ -30,7 +24,7 @@ public class BowlingBoardDrawer implements BoardDrawer {
 	private List<GameLine> gameLines;
 	
 	/**
-     * Parameter to get de messages
+     * Parameter to get the messages
      */
 	private Messages messages;
 
@@ -134,7 +128,7 @@ public class BowlingBoardDrawer implements BoardDrawer {
 		StringBuilder scoresByPlayer = new StringBuilder(messages.getMessage("src.main.labels.frame"));
 		scoresByPlayer.append("\t\t");
 		//Load the number labels of frame
-		for (int i = 0; i < NUMBER_OF_ROUNDS; i++) {
+		for (int i = 0; i < Utilities.TURNS_BY_GAME; i++) {
 			scoresByPlayer.append((i + 1) + "\t\t");
 		}
 		scoresByPlayer.append('\n');
