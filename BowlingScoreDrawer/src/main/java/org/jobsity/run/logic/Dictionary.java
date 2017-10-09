@@ -4,16 +4,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import org.jobsity.run.interfaces.IMessages;
+import org.jobsity.run.interfaces.Messages;
 
 /**
- * Messages Class. Manage the app messages.
+ * Dictionary Class. Manage the app messages.
  * 
  * @author alexander.vera
  * @since 30/09/2017
  *
  */
-public class Messages implements IMessages {
+public class Dictionary implements Messages {
 
 	/**
 	 * Load properties file
@@ -32,7 +32,7 @@ public class Messages implements IMessages {
 	 * @throws IOException 
 	 * 
 	 */
-	public Messages() throws IOException{
+	public Dictionary() throws IOException{
 		this.properties=loadMessageFile();
 	}
 	

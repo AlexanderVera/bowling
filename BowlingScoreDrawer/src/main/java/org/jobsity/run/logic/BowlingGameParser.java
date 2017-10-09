@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jobsity.run.exceptions.BuildException;
-import org.jobsity.run.interfaces.IGameParser;
+import org.jobsity.run.interfaces.GameParser;
 import org.jobsity.run.model.GameBoard;
 import org.jobsity.run.model.GameLine;
 import org.jobsity.run.model.PlayerPins;
@@ -13,22 +13,22 @@ import org.jobsity.run.model.ScoreFrame;
 import org.jobsity.util.Utilities;
 
 /**
- * GameParser Class. Covert a List of Player score into a valid Game lines
+ * BowlingGameParser Class. Covert a List of Player score into a valid Game lines
  * 
  * @author alexander.vera
  * @since 06/10/2017
  *
  */
-public class GameParser implements IGameParser{
+public class BowlingGameParser implements GameParser{
 	private List<PlayerPins> plainPlayers;
-	private Messages messages;
+	private Dictionary messages;
 	
-	public GameParser() throws IOException {
-		messages = new Messages();
+	public BowlingGameParser() throws IOException {
+		messages = new Dictionary();
 	}
-	public GameParser(List<PlayerPins> plainPlayers) throws IOException{
+	public BowlingGameParser(List<PlayerPins> plainPlayers) throws IOException{
 		this.plainPlayers = plainPlayers;
-		messages = new Messages();
+		messages = new Dictionary();
 	}
 	
 	

@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.jobsity.run.exceptions.BuildException;
-import org.jobsity.run.logic.FileManager;
+import org.jobsity.run.logic.FileManagerDefault;
 import org.jobsity.run.model.PlayerPins;
 import org.jobsity.util.Utilities;
 import org.junit.Test;
@@ -29,7 +29,7 @@ public class FileManagerTest extends TestCase{
 		boolean thrown = false;
 		try {
 			LOG.debug("Filemanager.buildListPlayerFromFileTest with no file");
-			FileManager fileManager = new FileManager(new File(""));
+			FileManagerDefault fileManager = new FileManagerDefault(new File(""));
 			fileManager.buildListPlayersFromFile();
 		} catch (IOException | NumberFormatException | BuildException e) {
 			LOG.error(e.getMessage());
@@ -42,9 +42,9 @@ public class FileManagerTest extends TestCase{
 	public void buildListPlayerFromFullFileTest(){
 		File fileTest = FRAME_TEST_FILE;
 		try {
-			FileManager fileManager = new FileManager(new File(""));
+			FileManagerDefault fileManager = new FileManagerDefault(new File(""));
 			LOG.debug("FileManager.buildListPlayerFromFileTest with a full file");
-			fileManager = new FileManager(fileTest);
+			fileManager = new FileManagerDefault(fileTest);
 			List<PlayerPins> playerScores = fileManager.buildListPlayersFromFile();
 			assertNotNull(playerScores);
 		}
@@ -57,7 +57,7 @@ public class FileManagerTest extends TestCase{
 		LOG.debug("FileManager.validateBoardTest with no file");
 		boolean thrown = false;
 		try {
-			FileManager fileManager = new FileManager(new File(""));
+			FileManagerDefault fileManager = new FileManagerDefault(new File(""));
 			fileManager.validateFile(new File(""));
 		} catch (IOException | BuildException e) {
 			LOG.error(e.getMessage());
@@ -69,10 +69,10 @@ public class FileManagerTest extends TestCase{
 	//@Test
 	public void validateBoardFullFileTest() {
 		LOG.debug("FileManager.validateBoardTest with a full file");
-		FileManager fileManager;
+		FileManagerDefault fileManager;
 		try {
 			File fileTest = FRAME_TEST_FILE;
-			fileManager = new FileManager(fileTest);
+			fileManager = new FileManagerDefault(fileTest);
 			BufferedReader validFile = fileManager.validateFile(fileTest);
 			assertNotNull(validFile);
 		} catch (IOException | BuildException e) {
@@ -85,7 +85,7 @@ public class FileManagerTest extends TestCase{
 		try {
 			LOG.debug("Complete game");
 			File file = Utilities.getFileFromClassPath("test-frame.txt", true);
-			FileManager filemanager = new FileManager(file);
+			FileManagerDefault filemanager = new FileManagerDefault(file);
 			List<PlayerPins> playerScores = filemanager.buildListPlayersFromFile();
 			assertNotNull(playerScores);
 			assertEquals("Jeff", playerScores.get(0).getName());

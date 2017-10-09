@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.jobsity.run.exceptions.BuildException;
-import org.jobsity.run.logic.GameParser;
+import org.jobsity.run.logic.BowlingGameParser;
 import org.jobsity.run.model.GameBoard;
 import org.jobsity.run.model.PlayerPins;
 import org.jobsity.util.Utilities;
@@ -27,7 +27,7 @@ public class GameParserTest extends TestCase{
 		boolean thrown = false;
 		
 		try {
-			GameParser gameParser = new GameParser();
+			BowlingGameParser gameParser = new BowlingGameParser();
 			GameBoard game = gameParser.buildGame(listPlainPlayers);
 			assertNotNull(game);
 			assertEquals("Player0", game.getListOfGameLines().get(0).getPlayerName());

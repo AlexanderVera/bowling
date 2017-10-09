@@ -5,8 +5,8 @@ import java.io.IOException;
 import junit.framework.TestCase;
 
 import org.apache.log4j.Logger;
-import org.jobsity.run.interfaces.IMessages;
-import org.jobsity.run.logic.Messages;
+import org.jobsity.run.interfaces.Messages;
+import org.jobsity.run.logic.Dictionary;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -20,7 +20,7 @@ public class MessageTest extends TestCase{
 	@Test
 	public void getPropertieTest(){
 		try{
-		IMessages message = new Messages();
+		Messages message = new Dictionary();
 		String testMessage = message.getMessage("src.main.labels.much.shoots");
 		String noMessage = message.getMessage("this.is.not.a.key");
 		assertNotNull(testMessage);

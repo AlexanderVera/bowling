@@ -7,12 +7,12 @@ import org.jobsity.run.exceptions.BuildException;
 import org.jobsity.run.model.PlayerPins;
 
 /**
-* IFileManager
+* FileManager
 * 
 * @author alexander.vera
 * @since 30/09/2017
 */
-public interface IFileManager {
+public interface FileManager {
 	
 	/**
      * Method that take the input file and make a list of file.

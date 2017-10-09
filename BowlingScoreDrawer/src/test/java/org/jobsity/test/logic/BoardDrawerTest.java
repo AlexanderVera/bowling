@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.jobsity.run.logic.BoardDrawer;
+import org.jobsity.run.logic.BowlingBoardDrawer;
 import org.jobsity.run.model.GameBoard;
 import org.jobsity.run.model.GameLine;
 import org.jobsity.run.model.ScoreFrame;
@@ -87,7 +87,7 @@ public class BoardDrawerTest extends TestCase{
 	 */
 	public StringBuilder printBoardCases(String message, GameBoard frame) throws IOException{
 		StringBuilder messageTest = new StringBuilder(message);		
-		BoardDrawer boardTestEmpty = new BoardDrawer(frame.getListOfGameLines());
+		BowlingBoardDrawer boardTestEmpty = new BowlingBoardDrawer(frame.getListOfGameLines());
 		LOG.debug(messageTest.toString());
 		return boardTestEmpty.printBoard();		
 	}

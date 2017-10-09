@@ -7,7 +7,7 @@ package org.jobsity.run.interfaces;
 * @since 30/09/2017
 */
 
-public interface IMessages {
+public interface Messages {
 	
 	/**
      * Method that return a text message used in the app

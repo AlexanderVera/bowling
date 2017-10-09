@@ -12,7 +12,7 @@ import org.jobsity.run.model.GameBoard;
  * @since 06/10/2017
  *
  */
-public interface IGameParser {
+public interface GameParser {
 	
 	public GameBoard buildBoardFromPlayers() throws BuildException, IOException;
 }

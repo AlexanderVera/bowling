@@ -5,12 +5,12 @@ import java.util.List;
 import org.jobsity.run.model.GameLine;
 
 /**
-* IPlayerController
+* BowlingScore
 *
 * @author alexander.vera
 * @since 01/10/2017
 */
-public interface IPlayerController {
+public interface BowlingScore {
 	/**
 	 * 
 	 * @param listOfPLayers

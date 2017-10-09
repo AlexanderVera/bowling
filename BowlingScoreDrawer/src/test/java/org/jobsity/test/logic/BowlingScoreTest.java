@@ -8,25 +8,25 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.jobsity.run.exceptions.BuildException;
-import org.jobsity.run.interfaces.IGameParser;
-import org.jobsity.run.logic.GameParser;
-import org.jobsity.run.logic.PlayerController;
+import org.jobsity.run.interfaces.GameParser;
+import org.jobsity.run.logic.BowlingGameParser;
+import org.jobsity.run.logic.BowlingScoreController;
 import org.jobsity.run.model.GameBoard;
 import org.jobsity.run.model.GameLine;
 import org.jobsity.run.model.PlayerPins;
 import org.jobsity.util.Utilities;
 import org.junit.Test;
 
-public class PlayerControllerTest {
-	private final static Logger LOG = Logger.getLogger(PlayerController.class.getName());
+public class BowlingScoreTest {
+	private final static Logger LOG = Logger.getLogger(BowlingScoreController.class.getName());
 	@Test
 	public void buildPlayerPinTest(){
 		boolean thrown = false;
 		try{
 			List<PlayerPins> listPlainPlayers = Utilities.generateMockPlayers();
-			IGameParser gameParser = new GameParser(listPlainPlayers);
+			GameParser gameParser = new BowlingGameParser(listPlainPlayers);
 			GameBoard gameBoard = gameParser.buildBoardFromPlayers();
-			PlayerController player = new PlayerController();
+			BowlingScoreController player = new BowlingScoreController();
 			List<GameLine> gameLines = player.calculateScore(gameBoard.getListOfGameLines());
 			Integer scorePlayerOne = gameLines.get(0).getScore().get(0).getTotal();
 			LOG.debug(scorePlayerOne);

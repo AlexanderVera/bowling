@@ -9,19 +9,19 @@ import java.util.Collections;
 import java.util.List;
 
 import org.jobsity.run.exceptions.BuildException;
-import org.jobsity.run.interfaces.IFileManager;
-import org.jobsity.run.interfaces.IMessages;
+import org.jobsity.run.interfaces.FileManager;
+import org.jobsity.run.interfaces.Messages;
 import org.jobsity.run.model.PlayerPins;
 import org.jobsity.util.Utilities;
 
 /**
- * FileManager Class. Manage the input file with the scores.
+ * DefaultFileManager Class. Manage the input file with the scores.
  * 
  * @author alexander.vera
  * @since 30/10/2017
  *
  */
-public class FileManager implements IFileManager {
+public class FileManagerDefault implements FileManager {
 	/**
 	 * Name of the file with the data games
 	 * 
@@ -39,16 +39,16 @@ public class FileManager implements IFileManager {
 	/**
 	 * Parameter to get the message or key words
 	 */
-	private final IMessages messages;
+	private final Messages messages;
 
 	/**
 	 * Constructor for FileManager Class
 	 * 
 	 * @throws IOException
 	 */
-	public FileManager(File file) throws IOException {
+	public FileManagerDefault(File file) throws IOException {
 		this.file = file;
-		messages = new Messages();
+		messages = new Dictionary();
 	}
 	
 	

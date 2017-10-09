@@ -10,16 +10,16 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.jobsity.run.exceptions.BuildException;
-import org.jobsity.run.interfaces.IFileManager;
-import org.jobsity.run.interfaces.IBoardDrawer;
-import org.jobsity.run.interfaces.IGameParser;
-import org.jobsity.run.interfaces.IMessages;
-import org.jobsity.run.interfaces.IPlayerController;
-import org.jobsity.run.logic.FileManager;
-import org.jobsity.run.logic.BoardDrawer;
-import org.jobsity.run.logic.GameParser;
-import org.jobsity.run.logic.Messages;
-import org.jobsity.run.logic.PlayerController;
+import org.jobsity.run.interfaces.FileManager;
+import org.jobsity.run.interfaces.BoardDrawer;
+import org.jobsity.run.interfaces.GameParser;
+import org.jobsity.run.interfaces.Messages;
+import org.jobsity.run.interfaces.BowlingScore;
+import org.jobsity.run.logic.FileManagerDefault;
+import org.jobsity.run.logic.BowlingBoardDrawer;
+import org.jobsity.run.logic.BowlingGameParser;
+import org.jobsity.run.logic.Dictionary;
+import org.jobsity.run.logic.BowlingScoreController;
 import org.jobsity.run.model.GameBoard;
 import org.jobsity.run.model.PlayerPins;
 
@@ -155,7 +155,7 @@ public class Utilities {
 	 * @return List<String>
 	 */
 	public static List<String> split(String strLine, String regexp) throws NullPointerException, IOException {
-		IMessages message = new Messages();
+		Messages message = new Dictionary();
 		if (strLine == null || regexp == null) {
 			throw new NullPointerException(message.getMessage("src.main.messages.null.var"));
 		} else {
@@ -174,7 +174,7 @@ public class Utilities {
 	 * @throws BuildException
 	 */
 	public static String infoPlayerMessage(String playerName, String keyMessage) throws IOException, BuildException {
-		IMessages messages = new Messages();
+		Messages messages = new Dictionary();
 		if (playerName != null && keyMessage != null) {
 			StringBuilder infoMessage = new StringBuilder(playerName);
 			infoMessage.append("! ").append(messages.getMessage(keyMessage));
@@ -193,7 +193,7 @@ public class Utilities {
 	 */
 	public static File getFileFromClassPath(String fileName, boolean classPath) throws IOException {
 		File file;
-		IMessages messages = new Messages();
+		Messages messages = new Dictionary();
 		if (classPath) {
 			// Get the .txt file from the classpath
 			URL fileFromPath = Thread.currentThread().getContextClassLoader().getResource(fileName);
@@ -215,13 +215,13 @@ public class Utilities {
 	public static StringBuilder printBoard(String fileName, boolean classPath) throws BuildException, IOException, NumberFormatException{
 			GameBoard gameBoard = new GameBoard();
 			File fileScore = getFileFromClassPath(fileName, classPath);
-			IFileManager fileManager = new FileManager(fileScore);
-			IGameParser gameParser = new GameParser(fileManager.buildListPlayersFromFile());
+			FileManager fileManager = new FileManagerDefault(fileScore);
+			GameParser gameParser = new BowlingGameParser(fileManager.buildListPlayersFromFile());
 			gameBoard = gameParser.buildBoardFromPlayers();
-			final IPlayerController playerController = new PlayerController();
-			gameBoard.setListOfGameLines(playerController.calculateScore(gameBoard.getListOfGameLines()));
-			IBoardDrawer boardDrawer = null;
-			boardDrawer = new BoardDrawer(gameBoard);
+			final BowlingScore bowlingScoreController = new BowlingScoreController();
+			gameBoard.setListOfGameLines(bowlingScoreController.calculateScore(gameBoard.getListOfGameLines()));
+			BoardDrawer boardDrawer = null;
+			boardDrawer = new BowlingBoardDrawer(gameBoard);
 			return boardDrawer.printBoard();
 	}
 
@@ -233,7 +233,7 @@ public class Utilities {
 	 */
 	public static StringBuilder getFullStringFromClassPath(String fileName) throws IOException{
 		File file;
-		IMessages messages = new Messages();
+		Messages messages = new Dictionary();
 		try {
 			file = getFileFromClassPath(fileName, true);
 			if(file != null && file.exists()){

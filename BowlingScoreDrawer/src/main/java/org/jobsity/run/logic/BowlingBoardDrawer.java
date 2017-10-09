@@ -3,20 +3,20 @@ package org.jobsity.run.logic;
 import java.io.IOException;
 import java.util.List;
 
-import org.jobsity.run.interfaces.IBoardDrawer;
-import org.jobsity.run.interfaces.IMessages;
+import org.jobsity.run.interfaces.BoardDrawer;
+import org.jobsity.run.interfaces.Messages;
 import org.jobsity.run.model.GameBoard;
 import org.jobsity.run.model.GameLine;
 import org.jobsity.run.model.ScoreFrame;
 import org.jobsity.util.Utilities;
 
 /**
-* BoardDrawer class. Generate a String with the Bowling game board.
+* BowlingBoardDrawer class. Generate a String with the Bowling game board.
 *
 * @author alexander.vera
 * @since 30/09/2017
 **/
-public class BoardDrawer implements IBoardDrawer {
+public class BowlingBoardDrawer implements BoardDrawer {
 
 	/**
      * Maximum round in a a bowling game
@@ -32,25 +32,25 @@ public class BoardDrawer implements IBoardDrawer {
 	/**
      * Parameter to get de messages
      */
-	private IMessages messages;
+	private Messages messages;
 
 	/**
      * Constructor
      * @param players List<GameLines>
 	 * @throws IOException 
      */
-	public BoardDrawer(final List<GameLine> gameLines) throws IOException {
+	public BowlingBoardDrawer(final List<GameLine> gameLines) throws IOException {
 		this.gameLines  = gameLines;
-		setMessages(new Messages());
+		setMessages(new Dictionary());
 	}
 	/**
  	* 
  	* @param players
  	* @throws IOException
  	*/
-	public BoardDrawer(final GameBoard frame) throws IOException {
+	public BowlingBoardDrawer(final GameBoard frame) throws IOException {
 		this.gameLines  = frame.getListOfGameLines();
-		setMessages(new Messages());
+		setMessages(new Dictionary());
 	}
 	/**
      * Print a full frame based in a list of frames
@@ -174,14 +174,14 @@ public class BoardDrawer implements IBoardDrawer {
 	/**
      * Getter from IMessages
      */
-	public IMessages getMessages() {
+	public Messages getMessages() {
 		return messages;
 	}
 
 	/**
      * Setter from IMessages
      */
-	public void setMessages(IMessages messages) {
+	public void setMessages(Messages messages) {
 		this.messages = messages;
 	}
 }

@@ -4,19 +4,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jobsity.run.interfaces.IPlayerController;
+import org.jobsity.run.interfaces.BowlingScore;
 import org.jobsity.run.model.GameLine;
 import org.jobsity.run.model.PlayerPins;
 import org.jobsity.run.model.ScoreFrame;
 
 /**
-* PlayerController class. Calculate the total score with bonus.
+* BowlingScoreController class. Calculate the total score with bonus.
 *
 * @author alexander.vera
 * @since 01/10/2017
 *
 */
-public class PlayerController implements IPlayerController {
+public class BowlingScoreController implements BowlingScore {
 
 	/**
      * List of couple Name and score as a string (Joe 9)
@@ -24,7 +24,7 @@ public class PlayerController implements IPlayerController {
 	private List<PlayerPins> plainPlayerPins;
 
 
-	public PlayerController() throws IOException {
+	public BowlingScoreController() throws IOException {
 	}
 
 
