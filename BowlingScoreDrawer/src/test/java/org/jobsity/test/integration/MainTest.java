@@ -106,6 +106,38 @@ public class MainTest extends TestCase{
 		}
 		assertTrue(thrown);
 	}
+	
+	/**
+	 * A letter shoot
+	 */
+	@Test
+	public void printBoardLetterCase() {
+		LOG.info("Letter");
+		boolean thrown = false;
+		try {
+			Utilities.printBoard("test-frame-letter.txt",true);
+		} catch (BuildException | NumberFormatException | IOException e) {
+			LOG.error(e.getMessage());
+			thrown = true;
+		}
+		assertTrue(thrown);
+	}
+	
+	/**
+	 * A invalid shoot
+	 */
+	@Test
+	public void printBoardInvalidCase() {
+		LOG.info("Invalid");
+		boolean thrown = false;
+		try {
+			Utilities.printBoard("test-frame-invalid.txt",true);
+		} catch (BuildException | NumberFormatException | IOException e) {
+			LOG.error(e.getMessage());
+			thrown = true;
+		}
+		assertTrue(thrown);
+	}
 
 	/**
 	 * Game with a single player with all strike
