@@ -11,7 +11,7 @@ import java.util.List;
 import org.jobsity.run.exceptions.BuildException;
 import org.jobsity.run.interfaces.IFileManager;
 import org.jobsity.run.interfaces.IMessages;
-import org.jobsity.run.model.PlayerScore;
+import org.jobsity.run.model.PlayerPins;
 import org.jobsity.util.Utilities;
 
 /**
@@ -58,13 +58,13 @@ public class FileManager implements IFileManager {
 	 * 
 	 * @return A list of String, each line is a player info
 	 */
-	public List<PlayerScore> buildListPlayersFromFile() throws BuildException, IOException, NumberFormatException {
-		List<PlayerScore> playerShoots = null;
+	public List<PlayerPins> buildListPlayersFromFile() throws BuildException, IOException, NumberFormatException {
+		List<PlayerPins> playerShoots = null;
 		BufferedReader bufferPlayerLines;
 		bufferPlayerLines = validateFile(getFile());
 		String playerLine;
 		if (bufferPlayerLines != null) {
-			playerShoots = new ArrayList<PlayerScore>();
+			playerShoots = new ArrayList<PlayerPins>();
 			while ((playerLine = bufferPlayerLines.readLine()) != null) {
 				if (playerLine.trim().length() > 0) {
 					playerShoots.add(buildPlayerByLine(playerLine));
@@ -82,31 +82,31 @@ public class FileManager implements IFileManager {
 	 * 
 	 * @param plainPlayer
 	 *            String with a line player/pins (e.g. 'Lady 20')
-	 * @return PlayerScore a new player with then name and a score
+	 * @return PlayerPin a new player with then name and a score
 	 */
-	private PlayerScore buildPlayerByLine(String plainPlayer)
+	private PlayerPins buildPlayerByLine(String plainPlayer)
 			throws BuildException, NumberFormatException, NullPointerException, IOException {
 		// Initialize a new player
-		PlayerScore newPlayerScore = new PlayerScore();
+		PlayerPins newPlayerPin = new PlayerPins();
 		// Split the player line in a name and pins
-		List<String> plainScoreSplited = Utilities.split(plainPlayer.trim(), "[\\s\\t]+");
+		List<String> plainPlayerPinSplitted = Utilities.split(plainPlayer.trim(), "[\\s\\t]+");
 
 		// Set the name in the Player
-		newPlayerScore.setName(plainScoreSplited.get(0));
+		newPlayerPin.setName(plainPlayerPinSplitted.get(0));
 
 		// Validate if the line come with a valid number of pins. (Maria 10 =>
 		// Ok, Juan => Bad)
-		String playerName = newPlayerScore.getName();
+		String playerName = newPlayerPin.getName();
 
-		if (plainScoreSplited.size() > 1) {
-			if (Utilities.validNumber(plainScoreSplited.get(1))
-					|| Utilities.FAIL_SHOOT.equals(plainScoreSplited.get(1))) {
-				int pins = Utilities.parseValidateInteger(plainScoreSplited.get(1));
+		if (plainPlayerPinSplitted.size() > 1) {
+			if (Utilities.validNumber(plainPlayerPinSplitted.get(1))
+					|| Utilities.FAIL_SHOOT.equals(plainPlayerPinSplitted.get(1))) {
+				int pins = Utilities.parseValidateInteger(plainPlayerPinSplitted.get(1));
 				// if the shoot is more than 10
 				if (pins > Utilities.STRIKE_POINTS) {
 					throw new BuildException(Utilities.infoPlayerMessage(playerName,"src.main.messages.much.pins"));
 				} else {
-					newPlayerScore.setPinfalls(pins);
+					newPlayerPin.setPinfalls(pins);
 				}
 			} else {
 				// if one shoot is not a number
@@ -116,7 +116,7 @@ public class FileManager implements IFileManager {
 			// If the number of pins is not valid.
 			throw new BuildException(Utilities.infoPlayerMessage(playerName,"src.main.messages.invalid.shoot"));
 		}
-		return newPlayerScore;
+		return newPlayerPin;
 	}
 
 	/**

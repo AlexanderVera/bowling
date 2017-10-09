@@ -5,7 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.apache.log4j.Logger;
-import org.jobsity.run.model.Score;
+import org.jobsity.run.model.ScoreFrame;
 import org.jobsity.util.Utilities;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +22,7 @@ public class ScoreTest {
 		StringBuilder messageTestPerson = null;
 		// Test empty construct
 		messageTestPerson = new StringBuilder();
-		Score score = new Score();
+		ScoreFrame score = new ScoreFrame();
 		messageTestPerson.append("ScoreEmpty ").append(score.getShoots()[0]).append(" ").append(score.getShoots()[1])
 				.append(" ").append(score.getShoots()[2]).append(" ").append(score.getTotal()).append(" ")
 				.append(score.getFlagFinal()).append(" ").append(score.isSpare()).append(" ").append(score.isStrike())
@@ -40,7 +40,7 @@ public class ScoreTest {
 		
 		// Test construct
 		messageTestPerson = new StringBuilder();
-		Score scoreComplete = new Score(true);
+		ScoreFrame scoreComplete = new ScoreFrame(true);
 		int[] mockPins = {2,9,0};
 		scoreComplete.setShoots(mockPins);
 		scoreComplete.setSpare(true);

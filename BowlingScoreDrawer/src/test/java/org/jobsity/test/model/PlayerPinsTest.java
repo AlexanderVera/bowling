@@ -3,11 +3,11 @@ package org.jobsity.test.model;
 import static org.junit.Assert.assertEquals;
 
 import org.apache.log4j.Logger;
-import org.jobsity.run.model.PlayerScore;
+import org.jobsity.run.model.PlayerPins;
 import org.jobsity.util.Utilities;
 import org.junit.Test;
 
-public class PlayerScoreTest {
+public class PlayerPinsTest {
 
 	private final static Logger LOG = Logger.getLogger(Utilities.class.getName());
 
@@ -17,7 +17,7 @@ public class PlayerScoreTest {
 		StringBuilder messageTestPerson = null;
 		// Test empty construct
 		messageTestPerson = new StringBuilder();
-		PlayerScore playerScore = new PlayerScore();
+		PlayerPins playerScore = new PlayerPins();
 		messageTestPerson.append("playerScoreEmpty ").append(playerScore.getName()).append(" ")
 				.append(playerScore.getPinfalls()).append(" ");
 		assertEquals("",playerScore.getName());
@@ -26,7 +26,7 @@ public class PlayerScoreTest {
 
 		// Test construct
 		messageTestPerson = new StringBuilder();
-		playerScore = new PlayerScore("test1", 4);
+		playerScore = new PlayerPins("test1", 4);
 		messageTestPerson.append("playerScoreEmpty ").append(playerScore.getName()).append(" ")
 				.append(playerScore.getPinfalls()).append(" ");
 		assertEquals("test1",playerScore.getName());

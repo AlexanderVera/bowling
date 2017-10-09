@@ -8,8 +8,8 @@ import org.jobsity.run.exceptions.BuildException;
 import org.jobsity.run.interfaces.IGameParser;
 import org.jobsity.run.model.GameBoard;
 import org.jobsity.run.model.GameLine;
-import org.jobsity.run.model.PlayerScore;
-import org.jobsity.run.model.Score;
+import org.jobsity.run.model.PlayerPins;
+import org.jobsity.run.model.ScoreFrame;
 import org.jobsity.util.Utilities;
 
 /**
@@ -20,13 +20,13 @@ import org.jobsity.util.Utilities;
  *
  */
 public class GameParser implements IGameParser{
-	private List<PlayerScore> plainPlayers;
+	private List<PlayerPins> plainPlayers;
 	private Messages messages;
 	
 	public GameParser() throws IOException {
 		messages = new Messages();
 	}
-	public GameParser(List<PlayerScore> plainPlayers) throws IOException{
+	public GameParser(List<PlayerPins> plainPlayers) throws IOException{
 		this.plainPlayers = plainPlayers;
 		messages = new Messages();
 	}
@@ -46,14 +46,14 @@ public class GameParser implements IGameParser{
 	 * @throws BuildException
 	 * @throws IOException
 	 */
-	public GameBoard buildGame(List<PlayerScore> listPlayers) throws BuildException, IOException{
+	public GameBoard buildGame(List<PlayerPins> listPlayers) throws BuildException, IOException{
 		 List<GameLine> gameLines; 
-		 List<PlayerScore> lstSinglePlayer = new ArrayList<PlayerScore>();
+		 List<PlayerPins> lstSinglePlayer = new ArrayList<PlayerPins>();
 		 if(listPlayers!=null && listPlayers.size() > 0){
 			 gameLines = new ArrayList<GameLine>();
-			 PlayerScore playerPivote = listPlayers.get(0);
+			 PlayerPins playerPivote = listPlayers.get(0);
 				for(int i =0; i<listPlayers.size(); i++ ){
-					PlayerScore currentPlayer = listPlayers.get(i);
+					PlayerPins currentPlayer = listPlayers.get(i);
 					if(currentPlayer.getName().equals(playerPivote.getName())){
 						lstSinglePlayer.add(currentPlayer);
 					}	
@@ -63,7 +63,7 @@ public class GameParser implements IGameParser{
 						i--;
 						//Change the player
 						playerPivote = currentPlayer;
-						lstSinglePlayer = new ArrayList<PlayerScore>();
+						lstSinglePlayer = new ArrayList<PlayerPins>();
 					}
 				}
 				gameLines.add(buildValidGameLine(lstSinglePlayer, playerPivote.getName()));
@@ -82,13 +82,13 @@ public class GameParser implements IGameParser{
 	 * @throws BuildException
 	 * @throws IOException
 	 */
-	public GameLine buildValidGameLine(List<PlayerScore> lstPlayer, String playerName) throws BuildException, IOException {
+	public GameLine buildValidGameLine(List<PlayerPins> lstPlayer, String playerName) throws BuildException, IOException {
 		// GameLine for each player.
 		GameLine gameLine = new GameLine();
 		//All scores for a single player to make a game line.
-		List<Score> scoreByPlayer = new ArrayList<Score>();
+		List<ScoreFrame> scoreByPlayer = new ArrayList<ScoreFrame>();
 		//Each score for a player.
-		Score score;
+		ScoreFrame score;
 		// Init turn counter.
 		int turn = 0;
 		// Pinfall position
@@ -97,7 +97,7 @@ public class GameParser implements IGameParser{
 		int shoots = 0;
 		// Walk through each turn.
 		while (turn < Utilities.TURNS_BY_GAME) {
-			score = new Score();
+			score = new ScoreFrame();
 			try {
 				gameLine.setPlayerName(playerName);
 				// If is a regular turn
@@ -154,10 +154,10 @@ public class GameParser implements IGameParser{
 		return gameLine;
 	}
 	
-	public List<PlayerScore> getPlainPlayers() {
+	public List<PlayerPins> getPlainPlayers() {
 		return plainPlayers;
 	}
-	public void setPlainPlayers(List<PlayerScore> plainPlayers) {
+	public void setPlainPlayers(List<PlayerPins> plainPlayers) {
 		this.plainPlayers = plainPlayers;
 	}
 }

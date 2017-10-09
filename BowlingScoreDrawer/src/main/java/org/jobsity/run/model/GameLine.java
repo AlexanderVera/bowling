@@ -15,7 +15,7 @@ public class GameLine{
 	/**
 	* List of score from a player frame
 	*/
-	private List<Score> scores;
+	private List<ScoreFrame> scores;
 	/**
 	* Total score from a player
 	*/
@@ -29,7 +29,7 @@ public class GameLine{
 	* Empty constructor
 	*/
 	public GameLine(){
-		scores = new ArrayList<Score>();		
+		scores = new ArrayList<ScoreFrame>();		
 		totalScore = 0;
 	}
 
@@ -39,7 +39,7 @@ public class GameLine{
 	* 		 name: String that represents the name of player	
 	* 		 scores: All player shoots
 	*/		  
-	public GameLine(String name, List<Score> scores){
+	public GameLine(String name, List<ScoreFrame> scores){
 		this.playerName=name;
 		this.scores = scores;
 		totalScore = 0;
@@ -49,13 +49,13 @@ public class GameLine{
 	 * Getter from Score
 	 * @return Score
 	 */
-	public List<Score> getScore() {
+	public List<ScoreFrame> getScore() {
 		return scores;
 	}
 	/**
 	 * Setter from Score
 	 */
-	public void setScore(List<Score> scores) {
+	public void setScore(List<ScoreFrame> scores) {
 		this.scores = scores;
 	}
 

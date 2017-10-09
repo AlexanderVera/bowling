@@ -1,20 +1,20 @@
 package org.jobsity.run.model;
 
 /**
-* PlayerScore class. Object that represents a player score pair (e.g Jhon 3) 
+* PlayerPins class. Object that represents a player pin pair (e.g Jhon 3) 
 *
 * @author alexander.vera
 * @since 30/10/2017
 *
 */
-public class PlayerScore extends Person implements Comparable<PlayerScore>{
+public class PlayerPins extends Person implements Comparable<PlayerPins>{
 	private int pinfalls;
 	
-	public PlayerScore(){
+	public PlayerPins(){
 		
 	}
 	
-	public PlayerScore(String name, int pinfalls){
+	public PlayerPins(String name, int pinfalls){
 		setName(name);
 		this.pinfalls = pinfalls;
 	}
@@ -27,7 +27,7 @@ public class PlayerScore extends Person implements Comparable<PlayerScore>{
 		this.pinfalls = pinfalls;
 	}
 
-	public int compareTo(PlayerScore newPlayer) {
+	public int compareTo(PlayerPins newPlayer) {
 		return this.getName().compareTo(newPlayer.getName());
 		
 	}

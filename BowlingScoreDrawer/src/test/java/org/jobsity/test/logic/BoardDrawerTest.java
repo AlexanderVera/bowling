@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 import org.jobsity.run.logic.BoardDrawer;
 import org.jobsity.run.model.GameBoard;
 import org.jobsity.run.model.GameLine;
-import org.jobsity.run.model.Score;
+import org.jobsity.run.model.ScoreFrame;
 import org.jobsity.util.Utilities;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -103,7 +103,7 @@ public class BoardDrawerTest extends TestCase{
 			StringBuilder name = new StringBuilder("Test");
 			name.append(i);
 			gameLine.setPlayerName(name.toString());
-			List<Score> scores = new ArrayList<Score>(); 
+			List<ScoreFrame> scores = new ArrayList<ScoreFrame>(); 
 			gameLine.setScore(scores);
 			fullGameLines.add(gameLine);
 		}

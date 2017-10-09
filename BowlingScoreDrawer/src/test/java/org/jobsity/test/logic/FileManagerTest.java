@@ -8,7 +8,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.jobsity.run.exceptions.BuildException;
 import org.jobsity.run.logic.FileManager;
-import org.jobsity.run.model.PlayerScore;
+import org.jobsity.run.model.PlayerPins;
 import org.jobsity.util.Utilities;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,7 +45,7 @@ public class FileManagerTest extends TestCase{
 			FileManager fileManager = new FileManager(new File(""));
 			LOG.debug("FileManager.buildListPlayerFromFileTest with a full file");
 			fileManager = new FileManager(fileTest);
-			List<PlayerScore> playerScores = fileManager.buildListPlayersFromFile();
+			List<PlayerPins> playerScores = fileManager.buildListPlayersFromFile();
 			assertNotNull(playerScores);
 		}
 		catch(IOException | NumberFormatException | BuildException exc) {
@@ -86,7 +86,7 @@ public class FileManagerTest extends TestCase{
 			LOG.debug("Complete game");
 			File file = Utilities.getFileFromClassPath("test-frame.txt", true);
 			FileManager filemanager = new FileManager(file);
-			List<PlayerScore> playerScores = filemanager.buildListPlayersFromFile();
+			List<PlayerPins> playerScores = filemanager.buildListPlayersFromFile();
 			assertNotNull(playerScores);
 			assertEquals("Jeff", playerScores.get(0).getName());
 			LOG.debug(playerScores.get(0).getName());

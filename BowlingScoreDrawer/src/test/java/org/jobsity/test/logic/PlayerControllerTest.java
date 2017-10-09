@@ -13,17 +13,17 @@ import org.jobsity.run.logic.GameParser;
 import org.jobsity.run.logic.PlayerController;
 import org.jobsity.run.model.GameBoard;
 import org.jobsity.run.model.GameLine;
-import org.jobsity.run.model.PlayerScore;
+import org.jobsity.run.model.PlayerPins;
 import org.jobsity.util.Utilities;
 import org.junit.Test;
 
 public class PlayerControllerTest {
 	private final static Logger LOG = Logger.getLogger(PlayerController.class.getName());
 	@Test
-	public void buildPlayerScoreTest(){
+	public void buildPlayerPinTest(){
 		boolean thrown = false;
 		try{
-			List<PlayerScore> listPlainPlayers = Utilities.generateMockPlayers();
+			List<PlayerPins> listPlainPlayers = Utilities.generateMockPlayers();
 			IGameParser gameParser = new GameParser(listPlainPlayers);
 			GameBoard gameBoard = gameParser.buildBoardFromPlayers();
 			PlayerController player = new PlayerController();

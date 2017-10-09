@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 import org.jobsity.run.model.GameLine;
-import org.jobsity.run.model.Score;
+import org.jobsity.run.model.ScoreFrame;
 import org.jobsity.util.Utilities;
 import org.junit.Test;
 
@@ -24,7 +24,7 @@ public class PersonTest {
 		
 	    // Test construct
 		messageTestPerson = new StringBuilder();
-		GameLine personComplete = new GameLine("test", new ArrayList<Score>());
+		GameLine personComplete = new GameLine("test", new ArrayList<ScoreFrame>());
 		messageTestPerson.append("PersonComplete ").append(personComplete.getPlayerName()).append(" ");
 		LOG.debug(messageTestPerson.toString());
 		

@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 import org.jobsity.run.exceptions.BuildException;
 import org.jobsity.run.logic.GameParser;
 import org.jobsity.run.model.GameBoard;
-import org.jobsity.run.model.PlayerScore;
+import org.jobsity.run.model.PlayerPins;
 import org.jobsity.util.Utilities;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +22,7 @@ public class GameParserTest extends TestCase{
 	
 	@Test
 	public void buildGameTest() {
-		List<PlayerScore> listPlainPlayers = Utilities.generateMockPlayers();
+		List<PlayerPins> listPlainPlayers = Utilities.generateMockPlayers();
 		
 		boolean thrown = false;
 		

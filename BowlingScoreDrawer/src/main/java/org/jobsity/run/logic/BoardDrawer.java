@@ -7,7 +7,7 @@ import org.jobsity.run.interfaces.IBoardDrawer;
 import org.jobsity.run.interfaces.IMessages;
 import org.jobsity.run.model.GameBoard;
 import org.jobsity.run.model.GameLine;
-import org.jobsity.run.model.Score;
+import org.jobsity.run.model.ScoreFrame;
 import org.jobsity.util.Utilities;
 
 /**
@@ -68,7 +68,7 @@ public class BoardDrawer implements IBoardDrawer {
 				frameToPrint.append('\n');
 				frameToPrint.append(messages.getMessage("src.main.labels.pinfall"));
 				//Print the scores
-				frameToPrint.append(printPlayerScores(tmpPlayerBoard.getScore()));
+				frameToPrint.append(printPlayerPins(tmpPlayerBoard.getScore()));
 				frameToPrint.append("\n");
 				//Print the total score	
 				frameToPrint.append(printTotalScore(tmpPlayerBoard));
@@ -82,9 +82,9 @@ public class BoardDrawer implements IBoardDrawer {
 	 * @param scoreByPlayer: StringBuilder to print the scores
 	 * 		  scores: List of scores for a player
 	 */
-	public StringBuilder printPlayerScores(List<Score> scores){
+	public StringBuilder printPlayerPins(List<ScoreFrame> scores){
 		StringBuilder scoreByPlayer = new StringBuilder();
-		for (Score score : scores) {
+		for (ScoreFrame score : scores) {
 			scoreByPlayer.append("\t");
 			//Print the strike and spare score
 			if (!score.isFlagFinal()) {
@@ -148,7 +148,7 @@ public class BoardDrawer implements IBoardDrawer {
 	public StringBuilder printTotalScore(GameLine frame){
 		StringBuilder scoresByPlayer = new StringBuilder(messages.getMessage("src.main.labels.score"));
 		scoresByPlayer.append("\t");
-		for (Score score : frame.getScore()) {
+		for (ScoreFrame score : frame.getScore()) {
 			scoresByPlayer.append("\t");
 			scoresByPlayer.append(score.getTotal());
 			scoresByPlayer.append("\t");

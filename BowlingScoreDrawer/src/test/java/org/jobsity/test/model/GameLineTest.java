@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 import org.jobsity.run.model.GameLine;
-import org.jobsity.run.model.Score;
+import org.jobsity.run.model.ScoreFrame;
 import org.jobsity.util.Utilities;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,7 +29,7 @@ public class GameLineTest extends TestCase{
 		
 	    // Test construct
 		messageTestPerson = new StringBuilder();
-		GameLine completeGameLine = new GameLine("test", new ArrayList<Score>());
+		GameLine completeGameLine = new GameLine("test", new ArrayList<ScoreFrame>());
 		assertEquals("test", completeGameLine.getPlayerName());
 		messageTestPerson.append("PersonComplete ").append(completeGameLine.getPlayerName()).append(" ");
 		LOG.debug(messageTestPerson.toString());

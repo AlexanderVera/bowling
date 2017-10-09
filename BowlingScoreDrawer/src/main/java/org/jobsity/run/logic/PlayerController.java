@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.jobsity.run.interfaces.IPlayerController;
 import org.jobsity.run.model.GameLine;
-import org.jobsity.run.model.PlayerScore;
-import org.jobsity.run.model.Score;
+import org.jobsity.run.model.PlayerPins;
+import org.jobsity.run.model.ScoreFrame;
 
 /**
 * PlayerController class. Calculate the total score with bonus.
@@ -21,7 +21,7 @@ public class PlayerController implements IPlayerController {
 	/**
      * List of couple Name and score as a string (Joe 9)
      */
-	private List<PlayerScore> plainPlayerScores;
+	private List<PlayerPins> plainPlayerPins;
 
 
 	public PlayerController() throws IOException {
@@ -36,9 +36,9 @@ public class PlayerController implements IPlayerController {
 	public List<GameLine> calculateScore(List<GameLine> listOfPLayers) {
 		List<GameLine> outPlayers = new ArrayList<GameLine>();
 		listOfPLayers.forEach(player -> {
-			List<Score> listScores = new ArrayList<Score>();	
+			List<ScoreFrame> listScores = new ArrayList<ScoreFrame>();	
 			for (int posScore = 0; posScore < player.getScore().size(); posScore++) {
-				Score currentScore = player.getScore().get(posScore);
+				ScoreFrame currentScore = player.getScore().get(posScore);
 				int bonus = evaluateBonus(currentScore, posScore, player.getScore());
 				int tempTotal = currentScore.getShoots()[0] + currentScore.getShoots()[1] + bonus;
 				player.setTotalScore(player.getTotalScore() + tempTotal);
@@ -58,13 +58,13 @@ public class PlayerController implements IPlayerController {
      *		  posScore: position or turn for this score
      *        listScores: List of all scores for a player	 	 
      */	
-	public int evaluateBonus(Score score, int posScore, List<Score> listScores) {
+	public int evaluateBonus(ScoreFrame score, int posScore, List<ScoreFrame> listScores) {
 		//If the score is the last score, there is no bonus and just sum all points from this round
 		if (score.isFlagFinal()) {
 			return score.getShoots()[2];
 		} else {
 			//Get the score for the next round
-			Score nextScore = listScores.get(posScore + 1);
+			ScoreFrame nextScore = listScores.get(posScore + 1);
 			if (score.isSpare()) {
 				//If current score is a spare, the bonus is the next shoot
 				return nextScore.getShoots()[0];
@@ -77,7 +77,7 @@ public class PlayerController implements IPlayerController {
 					//If the score is a strike and the next score is a strike too.
 					//The bonus will be the next first next first shoot and
 					//The next next first shoot
-					Score postNextScore = listScores.get(posScore + 2);
+					ScoreFrame postNextScore = listScores.get(posScore + 2);
 					return nextScore.getShoots()[0] + postNextScore.getShoots()[0];
 				} else {
 					//If the score is a strike but the next is a regular shoot.
@@ -93,14 +93,14 @@ public class PlayerController implements IPlayerController {
 	/**
      * Getter from PlainPlayerSCore
      */
-	public List<PlayerScore> getPlainPlayerScores() {
-		return plainPlayerScores;
+	public List<PlayerPins> getPlainPlayerPins() {
+		return plainPlayerPins;
 	}
 	/**
      * Setter from PlainPlayerSCore
      */
-	public void setPlainPlayerScores(List<PlayerScore> plainPlayerScores) {
-		this.plainPlayerScores = plainPlayerScores;
+	public void setPlainPlayerPins(List<PlayerPins> plainPlayerPins) {
+		this.plainPlayerPins = plainPlayerPins;
 	}
 }
 /*
@@ -108,7 +108,7 @@ public class PlayerController implements IPlayerController {
 * -------------------------------------------------- 
 * Author             Date          Change 
 * ----------------- -------------- ------------------
-* alexander.vera	01/10/2017 		improve the buildPlayerScore method
+* alexander.vera	01/10/2017 		improve the buildPlayerPin method
 * alexander.vera	02/10/2017 		create validation for a incorrect scores
 */
  

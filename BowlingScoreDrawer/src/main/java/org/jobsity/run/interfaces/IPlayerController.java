@@ -24,6 +24,6 @@ public interface IPlayerController {
 * -------------------------------------------------- 
 * Author             Date          Change 
 * ----------------- -------------- ------------------
-* alexander.vera	01/10/2017 		improve the buildPlayerScore method
+* alexander.vera	01/10/2017 		improve the buildPlayerPin method
 * alexander.vera	02/10/2017 		create validation for a incorrect scores
 */

@@ -1,4 +1,4 @@
-package org.jobsity.test.it;
+package org.jobsity.test.integration;
 
 import java.io.IOException;
 

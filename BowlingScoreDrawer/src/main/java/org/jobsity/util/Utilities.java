@@ -21,7 +21,7 @@ import org.jobsity.run.logic.GameParser;
 import org.jobsity.run.logic.Messages;
 import org.jobsity.run.logic.PlayerController;
 import org.jobsity.run.model.GameBoard;
-import org.jobsity.run.model.PlayerScore;
+import org.jobsity.run.model.PlayerPins;
 
 /**
  * Utilities Object with a useful utilities for the app.
@@ -131,20 +131,20 @@ public class Utilities {
 		return stringPlayers;
 	}
 
-	public static List<PlayerScore> generateMockPlayers(){
-		List<String> mockStringPlayers = generatePlayerFile(1);
-		List<PlayerScore> mockPlayerScores = new ArrayList<PlayerScore>();
-		mockStringPlayers.forEach(mockPlayer -> {
-			PlayerScore mockPlayerScore = new PlayerScore();
+	public static List<PlayerPins> generateMockPlayers(){
+		List<String> mockPlainPlayerPins = generatePlayerFile(1);
+		List<PlayerPins> mockPlayerPins = new ArrayList<PlayerPins>();
+		mockPlainPlayerPins.forEach(mockPlayer -> {
+			PlayerPins mockPlayerPin = new PlayerPins();
 			try {
-				List<String> stringPlayerScore = Utilities.split(mockPlayer, "[\\s\\t]+");
-				mockPlayerScore.setName(stringPlayerScore.get(0));
-				mockPlayerScore.setPinfalls(Utilities.parseValidateInteger(stringPlayerScore.get(1)));
-				mockPlayerScores.add(mockPlayerScore);
+				List<String> stringPlayerPin= Utilities.split(mockPlayer, "[\\s\\t]+");
+				mockPlayerPin.setName(stringPlayerPin.get(0));
+				mockPlayerPin.setPinfalls(Utilities.parseValidateInteger(stringPlayerPin.get(1)));
+				mockPlayerPins.add(mockPlayerPin);
 			} catch (NullPointerException | IOException e) {
 			}
 		});
-		return mockPlayerScores;
+		return mockPlayerPins;
 	}
 	
 	/**

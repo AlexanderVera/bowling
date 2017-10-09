@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.jobsity.run.exceptions.BuildException;
-import org.jobsity.run.model.PlayerScore;
+import org.jobsity.run.model.PlayerPins;
 
 /**
 * IFileManager
@@ -18,9 +18,9 @@ public interface IFileManager {
      * Method that take the input file and make a list of file.
      * Lines with the player and his pinfalls
      *
-     * @return A List<PlayerScore>, each Player/Score from file
+     * @return A List<PlayerPins>, each Player/Score from file
      */
-	List<PlayerScore> buildListPlayersFromFile() throws IOException, BuildException;
+	List<PlayerPins> buildListPlayersFromFile() throws IOException, BuildException;
 	
 }
 

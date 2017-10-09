@@ -1,24 +1,24 @@
 package org.jobsity.run.model;
 
 /**
-* Score class. Object that represents a turn single score for a player, the shoots and the total score.
+* ScoreFrame class. Object that represents a frame for a player, the shoots and the total score.
 *
 * @author alexander.vera
 * @since 30/10/2017
 *
 **/
-public class Score {
+public class ScoreFrame {
 	private int[] shoots;
 	private int total;
 	private boolean flagFinal;
 	private boolean strike;
 	private boolean spare;
 	
-	public Score(){
+	public ScoreFrame(){
 		shoots = new int[3];
 	}
 	
-	public Score(boolean flagFinal){
+	public ScoreFrame(boolean flagFinal){
 		this.flagFinal=flagFinal;
 		this.shoots = new int[3];
 	}
