@@ -2,7 +2,7 @@ package org.jobsity.run.model;
 
 import java.util.List;
 /**
- * List of lines of the game
+ * GameBoard class. List of lines of a Bowling game
  * 
  * @author alexander.vera
  * @since 2017/10/06
@@ -27,3 +27,10 @@ public class GameBoard {
 		this.listOfGameLines = listOfGameLines;
 	}
 }
+
+/*
+* Changes history
+* -------------------------------------------------- 
+* Author             Date          Change 
+* ----------------- -------------- ------------------
+*/

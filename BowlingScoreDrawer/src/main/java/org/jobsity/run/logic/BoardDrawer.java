@@ -3,7 +3,7 @@ package org.jobsity.run.logic;
 import java.io.IOException;
 import java.util.List;
 
-import org.jobsity.run.interfaces.IFrameDrawer;
+import org.jobsity.run.interfaces.IBoardDrawer;
 import org.jobsity.run.interfaces.IMessages;
 import org.jobsity.run.model.GameBoard;
 import org.jobsity.run.model.GameLine;
@@ -11,12 +11,12 @@ import org.jobsity.run.model.Score;
 import org.jobsity.util.Utilities;
 
 /**
-* FrameDrawer
+* BoardDrawer class. Generate a String with the Bowling game board.
 *
 * @author alexander.vera
 * @since 30/09/2017
 **/
-public class FrameDrawer implements IFrameDrawer {
+public class BoardDrawer implements IBoardDrawer {
 
 	/**
      * Maximum round in a a bowling game
@@ -25,7 +25,7 @@ public class FrameDrawer implements IFrameDrawer {
 	
 	
 	/**
-     * List of Frame of a bowling game
+     * List of game lines of a bowling game
      */
 	private List<GameLine> gameLines;
 	
@@ -36,10 +36,10 @@ public class FrameDrawer implements IFrameDrawer {
 
 	/**
      * Constructor
-     * @param players List<Frame>
+     * @param players List<GameLines>
 	 * @throws IOException 
      */
-	public FrameDrawer(final List<GameLine> gameLines) throws IOException {
+	public BoardDrawer(final List<GameLine> gameLines) throws IOException {
 		this.gameLines  = gameLines;
 		setMessages(new Messages());
 	}
@@ -48,7 +48,7 @@ public class FrameDrawer implements IFrameDrawer {
  	* @param players
  	* @throws IOException
  	*/
-	public FrameDrawer(final GameBoard frame) throws IOException {
+	public BoardDrawer(final GameBoard frame) throws IOException {
 		this.gameLines  = frame.getListOfGameLines();
 		setMessages(new Messages());
 	}
@@ -56,22 +56,22 @@ public class FrameDrawer implements IFrameDrawer {
      * Print a full frame based in a list of frames
      *
      */
-	public StringBuilder printFrame() {
+	public StringBuilder printBoard() {
 		StringBuilder frameToPrint = new StringBuilder();
 		if (this.gameLines != null) {
 			//Print the numbers 1-10 on top of the frame
-			frameToPrint.append(printFrameTitle());
+			frameToPrint.append(printBoardTitle());
 			
 			//Walk all the player
-			for (GameLine tmpPlayerFrame : this.gameLines) {
-				frameToPrint.append(tmpPlayerFrame.getPlayerName());
+			for (GameLine tmpPlayerBoard : this.gameLines) {
+				frameToPrint.append(tmpPlayerBoard.getPlayerName());
 				frameToPrint.append('\n');
 				frameToPrint.append(messages.getMessage("src.main.labels.pinfall"));
 				//Print the scores
-				frameToPrint.append(printPlayerScores(tmpPlayerFrame.getScore()));
+				frameToPrint.append(printPlayerScores(tmpPlayerBoard.getScore()));
 				frameToPrint.append("\n");
 				//Print the total score	
-				frameToPrint.append(printTotalScore(tmpPlayerFrame));
+				frameToPrint.append(printTotalScore(tmpPlayerBoard));
 
 			}
 		}
@@ -90,12 +90,12 @@ public class FrameDrawer implements IFrameDrawer {
 			if (!score.isFlagFinal()) {
 				if (score.isStrike()) {
 					scoreByPlayer.append("\t");
-					scoreByPlayer.append('X');
+					scoreByPlayer.append(Utilities.STRIKE_SYMBOL);
 				} else {
 					scoreByPlayer.append(score.getShoots()[0]);
 					scoreByPlayer.append("\t");
 					if (score.isSpare()) {
-						scoreByPlayer.append('/');
+						scoreByPlayer.append(Utilities.SPARE_SYMBOL);
 					} else {
 						scoreByPlayer.append(score.getShoots()[1]);
 					}
@@ -104,20 +104,20 @@ public class FrameDrawer implements IFrameDrawer {
 			//Print the final turn strike and spare
 			if (score.getFlagFinal()) {
 				if (score.getShoots()[0] >= Utilities.STRIKE_POINTS) {
-					scoreByPlayer.append('X');
+					scoreByPlayer.append(Utilities.STRIKE_SYMBOL);
 				} else {
 					scoreByPlayer.append(score.getShoots()[0]);
 				}
 				scoreByPlayer.append("\t");
 				if (score.getShoots()[1] >= Utilities.STRIKE_POINTS) {
-					scoreByPlayer.append('X');
+					scoreByPlayer.append(Utilities.STRIKE_SYMBOL);
 				} else {
 					scoreByPlayer.append(score.getShoots()[1]);
 				}
 				scoreByPlayer.append("\t");
 
 				if (score.getShoots()[2] >= Utilities.STRIKE_POINTS) {
-					scoreByPlayer.append('X');
+					scoreByPlayer.append(Utilities.STRIKE_SYMBOL);
 				} else {
 					scoreByPlayer.append(score.getShoots()[2]);
 				}
@@ -130,7 +130,7 @@ public class FrameDrawer implements IFrameDrawer {
 	 * 
 	 * @param scoreByPlayer: StringBuilder to build a labels from the top
 	 */
-	public StringBuilder printFrameTitle(){
+	public StringBuilder printBoardTitle(){
 		StringBuilder scoresByPlayer = new StringBuilder(messages.getMessage("src.main.labels.frame"));
 		scoresByPlayer.append("\t\t");
 		//Load the number labels of frame

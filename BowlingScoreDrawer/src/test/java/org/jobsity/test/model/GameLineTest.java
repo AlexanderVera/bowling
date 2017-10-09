@@ -7,8 +7,13 @@ import org.jobsity.run.model.GameLine;
 import org.jobsity.run.model.Score;
 import org.jobsity.util.Utilities;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
-public class FrameTest {
+import junit.framework.TestCase;
+
+@RunWith(JUnit4.class)
+public class GameLineTest extends TestCase{
 	private final static Logger LOG = Logger.getLogger(Utilities.class.getName());
 	
 	@Test
@@ -17,14 +22,16 @@ public class FrameTest {
 		StringBuilder messageTestPerson = null;
 	    // Test empty construct
 		messageTestPerson = new StringBuilder();
-		GameLine person = new GameLine();
-		messageTestPerson.append("PersonComplete ").append(person.getPlayerName()).append(" ");
+		GameLine emptyGameLine = new GameLine();
+		messageTestPerson.append("GameLine ").append(emptyGameLine.getPlayerName()).append(" ");
+		assertNull(emptyGameLine.getPlayerName());
 		LOG.debug(messageTestPerson.toString());
 		
 	    // Test construct
 		messageTestPerson = new StringBuilder();
-		GameLine personComplete = new GameLine("test", new ArrayList<Score>());
-		messageTestPerson.append("PersonComplete ").append(personComplete.getPlayerName()).append(" ");
+		GameLine completeGameLine = new GameLine("test", new ArrayList<Score>());
+		assertEquals("test", completeGameLine.getPlayerName());
+		messageTestPerson.append("PersonComplete ").append(completeGameLine.getPlayerName()).append(" ");
 		LOG.debug(messageTestPerson.toString());
 		
 		

@@ -15,7 +15,7 @@ import org.jobsity.run.model.PlayerScore;
 import org.jobsity.util.Utilities;
 
 /**
- * FileManager Class to manage file of the game
+ * FileManager Class. Manage the input file with the scores.
  * 
  * @author alexander.vera
  * @since 30/10/2017
@@ -169,8 +169,7 @@ public class FileManager implements IFileManager {
 	/**
 	 * Setter from fileName
 	 * 
-	 * @param {file}
-	 *            file Set the File
+	 * @param file Set the File
 	 */
 	public void setFile(File file) {
 		this.file = file;
@@ -179,9 +178,11 @@ public class FileManager implements IFileManager {
 }
 
 /*
- * Changes history -------------------------------------------------- Author
- * Date Change ----------------- -------------- ------------------
- * alexander.vera 01/10/2017 add validateBoard method alexander.vera 04/10/2017
- * add getANewPlayer method alexander.vera 04/10/2017 change getANewPlayer name
- * by buildPlayerByLine
- */
+* Changes history
+* -------------------------------------------------- 
+* Author             Date          Change 
+* ----------------- -------------- ------------------
+* alexander.vera 	01/10/2017 		add validateBoard method 
+* alexander.vera 	04/10/2017 		add getANewPlayer method 
+* alexander.vera 	04/10/2017 		change getANewPlayer name by buildPlayerByLine
+*/

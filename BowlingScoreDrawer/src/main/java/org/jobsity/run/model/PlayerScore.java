@@ -1,12 +1,10 @@
 package org.jobsity.run.model;
 
 /**
-* PlayerScore
-* Object that represents a player 
+* PlayerScore class. Object that represents a player score pair (e.g Jhon 3) 
 *
 * @author alexander.vera
 * @since 30/10/2017
-* 
 *
 */
 public class PlayerScore extends Person implements Comparable<PlayerScore>{

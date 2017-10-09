@@ -9,12 +9,6 @@ import org.jobsity.util.Utilities;
 import org.junit.Test;
 
 public class PersonTest {
-
-	/**
-	 * Create the test case
-	 *
-	 * @param 
-	 */ 
 	
 	private final static Logger LOG = Logger.getLogger(Utilities.class.getName());
 	

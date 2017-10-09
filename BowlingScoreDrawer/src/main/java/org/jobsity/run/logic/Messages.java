@@ -7,7 +7,7 @@ import java.util.Properties;
 import org.jobsity.run.interfaces.IMessages;
 
 /**
- * Messages Class to manage the app messages
+ * Messages Class. Manage the app messages.
  * 
  * @author alexander.vera
  * @since 30/09/2017

@@ -5,24 +5,26 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.jobsity.run.exceptions.BuildException;
 import org.jobsity.run.interfaces.IFileManager;
-import org.jobsity.run.interfaces.IFrameDrawer;
+import org.jobsity.run.interfaces.IBoardDrawer;
 import org.jobsity.run.interfaces.IGameParser;
 import org.jobsity.run.interfaces.IMessages;
 import org.jobsity.run.interfaces.IPlayerController;
 import org.jobsity.run.logic.FileManager;
-import org.jobsity.run.logic.FrameDrawer;
+import org.jobsity.run.logic.BoardDrawer;
 import org.jobsity.run.logic.GameParser;
 import org.jobsity.run.logic.Messages;
 import org.jobsity.run.logic.PlayerController;
 import org.jobsity.run.model.GameBoard;
+import org.jobsity.run.model.PlayerScore;
 
 /**
- * Utilities Object with a useful utilities for the app
+ * Utilities Object with a useful utilities for the app.
  *
  * @author alexander.vera
  * @since 30/10/2017
@@ -59,6 +61,16 @@ public class Utilities {
 	 * 
 	 **/
 	public static final int LAST_TURN = 9;
+	
+	/**
+	 * Symbol of spare
+	 **/
+	public static final char SPARE_SYMBOL = '/';
+	
+	/**
+	 * Symbol of strike
+	 **/
+	public static final char STRIKE_SYMBOL = 'X';
 
 	/**
 	 * Method validate if a string input is a number
@@ -102,16 +114,39 @@ public class Utilities {
 	 * 
 	 * @params numPlayer: int, number of player to generate
 	 */
-	public static void generatePlayerFile(int numPlayer) {
+	public static List<String> generatePlayerFile(int numPlayer) {
+		List<String> stringPlayers = new ArrayList<String>();
+		StringBuilder playerBuilder;
 		for (int i = 0; i < numPlayer; i++) {
 			for (int j = 0; j < 20; j++) {
+				playerBuilder  = new StringBuilder();
 				int points = (int) (Math.random() * 9) + 1;
-				System.out.println("Player" + i + " " + points);
+				playerBuilder.append("Player").append(i).append(" ").append(points);
+				stringPlayers.add(playerBuilder.toString());
 			}
-			System.out.println("Player" + i + " " + 0);
+			playerBuilder  = new StringBuilder();
+			playerBuilder.append("Player").append(i).append(" ").append(0);
+			stringPlayers.add(playerBuilder.toString());
 		}
+		return stringPlayers;
 	}
 
+	public static List<PlayerScore> generateMockPlayers(){
+		List<String> mockStringPlayers = generatePlayerFile(1);
+		List<PlayerScore> mockPlayerScores = new ArrayList<PlayerScore>();
+		mockStringPlayers.forEach(mockPlayer -> {
+			PlayerScore mockPlayerScore = new PlayerScore();
+			try {
+				List<String> stringPlayerScore = Utilities.split(mockPlayer, "[\\s\\t]+");
+				mockPlayerScore.setName(stringPlayerScore.get(0));
+				mockPlayerScore.setPinfalls(Utilities.parseValidateInteger(stringPlayerScore.get(1)));
+				mockPlayerScores.add(mockPlayerScore);
+			} catch (NullPointerException | IOException e) {
+			}
+		});
+		return mockPlayerScores;
+	}
+	
 	/**
 	 * Take a player line and split by spaces or tabs
 	 * 
@@ -178,16 +213,16 @@ public class Utilities {
 	}
 	
 	public static StringBuilder printBoard(String fileName, boolean classPath) throws BuildException, IOException{
-			GameBoard gameFrame = new GameBoard();
+			GameBoard gameBoard = new GameBoard();
 			File fileScore = getFileFromClassPath(fileName, classPath);
 			IFileManager fileManager = new FileManager(fileScore);
 			IGameParser gameParser = new GameParser(fileManager.buildListPlayersFromFile());
-			gameFrame = gameParser.buildFrameFromPlayers();
+			gameBoard = gameParser.buildBoardFromPlayers();
 			final IPlayerController playerController = new PlayerController();
-			gameFrame.setListOfGameLines(playerController.calculateScore(gameFrame.getListOfGameLines()));
-			IFrameDrawer boardDrawer = null;
-			boardDrawer = new FrameDrawer(gameFrame);
-			return boardDrawer.printFrame();
+			gameBoard.setListOfGameLines(playerController.calculateScore(gameBoard.getListOfGameLines()));
+			IBoardDrawer boardDrawer = null;
+			boardDrawer = new BoardDrawer(gameBoard);
+			return boardDrawer.printBoard();
 	}
 
 	/**
@@ -222,10 +257,10 @@ public class Utilities {
 	}
 }
 
-
-
 /*
- * Changes history -------------------------------------------------- Author
- * Date Change ----------------- -------------- ------------------
- * alexander.vera 02/10/2017 add generatePlayerFile method
- */
+* Changes history
+* -------------------------------------------------- 
+* Author             Date          Change 
+* ----------------- -------------- ------------------
+* alexander.vera 02/10/2017 add generatePlayerFile method
+*/

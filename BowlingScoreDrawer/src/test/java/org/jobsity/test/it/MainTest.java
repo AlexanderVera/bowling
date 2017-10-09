@@ -11,6 +11,8 @@ import org.junit.runners.JUnit4;
 
 import junit.framework.TestCase;
 
+
+
 /**
  * MainTest
  *
@@ -26,21 +28,21 @@ public class MainTest extends TestCase{
 	 * Create the test case Test
 	 */
 	@Test
-	public void printFrameIdealCase() {
+	public void printBoardIdealCase() {
 		LOG.info("Happy path");
 		//Happy path
-		runTestCase("test-print-happy-path", "test-frame.txt");
+		runTestCase("test-print-happy-path", "test-Board.txt");
 	}
 
 	/**
-	 * Incomplete frame. Some player don't have all his shoots
+	 * Incomplete Board. Some player don't have all his shoots
 	 */
 	@Test
-	public void printFrameIncompleteCase() {
+	public void printBoardIncompleteCase() {
 		LOG.info("Incomplete shoot for one player");
 		boolean thrown = false;
 		try {
-			Utilities.printBoard("test-frame-incomplete-shoots.txt",true);
+			Utilities.printBoard("test-Board-incomplete-shoots.txt",true);
 		} catch (BuildException | IOException e) {
 			LOG.error(e.getMessage());
 			thrown = true;
@@ -49,14 +51,14 @@ public class MainTest extends TestCase{
 	}
 
 	/**
-	 * Empty frame. The file is empty
+	 * Empty Board. The file is empty
 	 */
 	@Test
-	public void printFrameEmptyCase() {
+	public void printBoardEmptyCase() {
 		LOG.info("Empty file");
 		boolean thrown = false;
 		try {
-			Utilities.printBoard("test-frame-empty.txt",true);
+			Utilities.printBoard("test-Board-empty.txt",true);
 		} catch (BuildException | IOException e) {
 			LOG.error(e.getMessage());
 			thrown = true;
@@ -65,14 +67,14 @@ public class MainTest extends TestCase{
 	}
 
 	/**
-	 * Extra shoot frame. Some player have more shoots
+	 * Extra shoot game. Some player have more shoots
 	 */
 	@Test
-	public void printFrameExtraCase() {
+	public void printBoardExtraCase() {
 		LOG.info("Extra shoots for a player");
 		boolean thrown = false;
 		try {
-			Utilities.printBoard("test-frame-extra-shoots.txt",true);
+			Utilities.printBoard("test-Board-extra-shoots.txt",true);
 		} catch (BuildException | IOException e) {
 			LOG.error(e.getMessage());
 			thrown = true;
@@ -81,23 +83,23 @@ public class MainTest extends TestCase{
 	}
 
 	/**
-	 * 4 players frame. Game with 4 players
+	 * 4 players Board. Game with 4 players
 	 */
 	@Test
-	public void printFrame4PlayersCase() {
+	public void printBoard4PlayersCase() {
 		LOG.info("Four players");
-		runTestCase("test-print-four-player", "test-frame-4-players.txt");		
+		runTestCase("test-print-four-player", "test-Board-4-players.txt");		
 	}
 
 	/**
 	 * No file to the game
 	 */
 	@Test
-	public void printFrameNoFileCase() {
+	public void printBoardNoFileCase() {
 		LOG.info("No File");
 		boolean thrown = false;
 		try {
-			Utilities.printBoard("test-frame-fake.txt",true);
+			Utilities.printBoard("test-Board-fake.txt",true);
 		} catch (BuildException | IOException e) {
 			LOG.error(e.getMessage());
 			thrown = true;
@@ -109,18 +111,18 @@ public class MainTest extends TestCase{
 	 * Game with a single player with all strike
 	 */
 	@Test
-	public void printFrameAllStrikeCase() {
+	public void printBoardAllStrikeCase() {
 		LOG.info("All Strike");
-		runTestCase("test-print-all-strike", "test-frame-all-strike.txt");
+		runTestCase("test-print-all-strike", "test-Board-all-strike.txt");
 	}
 
 	/**
 	 * Game with a player with all fails
 	 */
 	@Test
-	public void printFrameAllFailCase() {
+	public void printBoardAllFailCase() {
 		LOG.info("All fail");
-		runTestCase("test-print-all-fail", "test-frame-all-fail.txt");
+		runTestCase("test-print-all-fail", "test-Board-all-fail.txt");
 	}
 	
 	/**

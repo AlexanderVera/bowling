@@ -10,7 +10,7 @@ import org.jobsity.run.model.PlayerScore;
 import org.jobsity.run.model.Score;
 
 /**
-* PlayerController
+* PlayerController class. Calculate the total score with bonus.
 *
 * @author alexander.vera
 * @since 01/10/2017

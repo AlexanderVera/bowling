@@ -8,7 +8,7 @@ import org.jobsity.util.Utilities;
 
 
 /**
-* Main
+* Main class. Run the app.
 * @author alexander.vera
 * @since 29/10/2017
 *
@@ -26,8 +26,8 @@ public class Main {
 	public static void main(final String[] args) {
 		if(args.length>0){
 			try{
-				StringBuilder gameFrame = Utilities.printBoard(args[0], false);
-				System.out.print(gameFrame);
+				StringBuilder gameBoard = Utilities.printBoard(args[0], false);
+				System.out.print(gameBoard);
 			}
 			catch(BuildException bExc){
 				LOG.debug(bExc.getMessage());				

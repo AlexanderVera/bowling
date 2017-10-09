@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.jobsity.run.logic.FrameDrawer;
+import org.jobsity.run.logic.BoardDrawer;
 import org.jobsity.run.model.GameBoard;
 import org.jobsity.run.model.GameLine;
 import org.jobsity.run.model.Score;
@@ -25,7 +25,7 @@ import junit.framework.TestCase;
  * 
  */
 @RunWith(JUnit4.class)
-public class FrameDrawerTest extends TestCase{
+public class BoardDrawerTest extends TestCase{
 	private final static Logger LOG = Logger.getLogger(Utilities.class.getName());
 		
 	/*Test the printFrame in 3 scenarios: null, empty and full list. 
@@ -37,7 +37,7 @@ public class FrameDrawerTest extends TestCase{
 		StringBuilder boardToPrint;
 		try{
 			game = new GameBoard(nullListGame);
-			boardToPrint = printFrameCases("Print frame with a null list", game);
+			boardToPrint = printBoardCases("Print frame with a null list", game);
 			LOG.debug(boardToPrint.toString());
 			assertEquals(new StringBuilder("\n").toString().trim(), boardToPrint.toString().trim());
 		}
@@ -54,7 +54,7 @@ public class FrameDrawerTest extends TestCase{
 		StringBuilder expectedString;
 		try{
 			game = new GameBoard(emptyListGame);
-			boardToPrint = printFrameCases("Print frame with a empty list", game);
+			boardToPrint = printBoardCases("Print frame with a empty list", game);
 			expectedString = Utilities.getFullStringFromClassPath("test-print-empty.txt");
 			LOG.debug(boardToPrint.toString());
 			assertEquals(expectedString.toString().trim(), boardToPrint.toString().trim());
@@ -70,8 +70,8 @@ public class FrameDrawerTest extends TestCase{
 		GameBoard game;
 		StringBuilder boardToPrint;
 		try{	
-			game = new GameBoard(makeFullListOfFrames());
-			boardToPrint = printFrameCases("Print frame with a dummie List", game);
+			game = new GameBoard(makeFullListOfBoards());
+			boardToPrint = printBoardCases("Print frame with a dummie List", game);
 			LOG.debug(boardToPrint.toString());
 		}
 		catch(IOException exc){
@@ -85,17 +85,17 @@ public class FrameDrawerTest extends TestCase{
 	 * @param frames
 	 * @throws IOException 
 	 */
-	public StringBuilder printFrameCases(String message, GameBoard frame) throws IOException{
+	public StringBuilder printBoardCases(String message, GameBoard frame) throws IOException{
 		StringBuilder messageTest = new StringBuilder(message);		
-		FrameDrawer boardTestEmpty = new FrameDrawer(frame.getListOfGameLines());
+		BoardDrawer boardTestEmpty = new BoardDrawer(frame.getListOfGameLines());
 		LOG.debug(messageTest.toString());
-		return boardTestEmpty.printFrame();		
+		return boardTestEmpty.printBoard();		
 	}
 	
 	/**
 	 * @return List<GameLine> List of gameLines with dummie players
 	 */
-	public List<GameLine> makeFullListOfFrames(){
+	public List<GameLine> makeFullListOfBoards(){
 		List<GameLine> fullGameLines = new ArrayList<GameLine>();
 		GameLine gameLine = null;
 		for(int i = 0; i< 10; i++){

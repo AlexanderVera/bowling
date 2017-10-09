@@ -1,8 +1,7 @@
 package org.jobsity.run.model;
 
 /**
-* Person
-* Object to represents a person
+* Person class. Object that represents a person
 *
 * @author alexander.vera
 * @since 30/10/2017

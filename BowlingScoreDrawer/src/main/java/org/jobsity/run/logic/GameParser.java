@@ -13,7 +13,7 @@ import org.jobsity.run.model.Score;
 import org.jobsity.util.Utilities;
 
 /**
- * GameParser Turn a PlayerScores into Frame, with validations
+ * GameParser Class. Covert a List of Player score into a valid Game lines
  * 
  * @author alexander.vera
  * @since 06/10/2017
@@ -33,9 +33,9 @@ public class GameParser implements IGameParser{
 	
 	
 	/**
-	 * 
+	 * @return GameBoard
 	 */
-	public GameBoard buildFrameFromPlayers() throws BuildException, IOException {
+	public GameBoard buildBoardFromPlayers() throws BuildException, IOException {
 		return buildGame(this.plainPlayers);
 	}
 	
@@ -65,26 +65,36 @@ public class GameParser implements IGameParser{
 		 return new GameBoard(gameLines);
 	 }
 
+	/**
+	 * Build a Game Line for a single player.
+	 * @param lstPlayer
+	 * @param playerName
+	 * @return
+	 * @throws BuildException
+	 * @throws IOException
+	 */
 	public GameLine buildValidGameLine(List<PlayerScore> lstPlayer, String playerName) throws BuildException, IOException {
-		// GameLine
+		// GameLine for each player.
 		GameLine gameLine = new GameLine();
-		//
+		//All scores for a single player to make a game line.
 		List<Score> scoreByPlayer = new ArrayList<Score>();
-		//
+		//Each score for a player.
 		Score score;
-		// Current turn
+		// Init turn counter.
 		int turn = 0;
 		// Pinfall position
 		int shootPosition = 0;
 		// Shoots by player
 		int shoots = 0;
+		// Walks each turn.
 		while (turn < Utilities.TURNS_BY_GAME) {
 			score = new Score();
 			try {
 				gameLine.setPlayerName(playerName);
 				// If is a regular turn
+				int firstShoot = lstPlayer.get(shootPosition).getPinfalls();
 				if (turn < Utilities.LAST_TURN) {
-					int firstShoot = lstPlayer.get(shootPosition).getPinfalls();
+					// If this scores is a Strike set just the first frame and flag a Strike.
 					if (firstShoot == Utilities.STRIKE_POINTS) {
 						shootPosition += 1;
 						score.setStrike(true);
@@ -94,15 +104,15 @@ public class GameParser implements IGameParser{
 						shootPosition += Utilities.SHOOTS_BY_TURN;
 						score.getShoots()[0] = firstShoot;
 						score.getShoots()[1] = secondShoot;
-						//If both shoots in one turn is 10. The turn is a spare
+						//If the both shoots sum in one turn is 10 flag a spare
 						if (firstShoot + secondShoot >= Utilities.STRIKE_POINTS) {
 							score.setSpare(true);
 						}
 					}
+					//Sum 1 shoot
 					shoots += Utilities.SHOOTS_BY_TURN;
 				} else {
-					// If if the final turn
-					int firstShoot = lstPlayer.get(shootPosition).getPinfalls();
+					// If if the final turn set extra shoot
 					int secndShoot = lstPlayer.get(shootPosition + 1).getPinfalls();
 					int thirdShoot = lstPlayer.get(shootPosition + 2).getPinfalls();
 					if (firstShoot > -1 && secndShoot > -1 && thirdShoot > -1) {
@@ -110,8 +120,10 @@ public class GameParser implements IGameParser{
 						score.getShoots()[0] = firstShoot;
 						score.getShoots()[1] = secndShoot;
 						score.getShoots()[2] = thirdShoot;
+						//Sum 3 shoots
 						shoots += 3;
 						shootPosition += 3;
+						//If the last shoot position is lower than number of players it means the player has more shots than the maximum
 						if (shootPosition < lstPlayer.size()) {
 							throw new BuildException(Utilities.infoPlayerMessage(playerName,"src.main.labels.much.shoots"));
 						}
@@ -120,9 +132,12 @@ public class GameParser implements IGameParser{
 			} catch (IndexOutOfBoundsException e) {
 				throw new BuildException(Utilities.infoPlayerMessage(playerName,"src.main.labels.incomplete"));
 			}
+			//Add score in this player
 			scoreByPlayer.add(score);
+			//Change turn
 			turn++;
 		}
+		//If the shoots number is lower than shoots by game it means the player has more shots than the maximum
 		if (shoots < Utilities.SHOOTS_BY_GAME) {
 			throw new BuildException(Utilities.infoPlayerMessage(playerName, "src.main.labels.incomplete"));
 		}

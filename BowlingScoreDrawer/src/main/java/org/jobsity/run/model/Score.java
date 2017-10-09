@@ -1,8 +1,7 @@
 package org.jobsity.run.model;
 
 /**
-* Score
-* Object that represents a score for a player, the shoots and the total.
+* Score class. Object that represents a turn single score for a player, the shoots and the total score.
 *
 * @author alexander.vera
 * @since 30/10/2017
@@ -11,7 +10,6 @@ package org.jobsity.run.model;
 public class Score {
 	private int[] shoots;
 	private int total;
-	private String symbol;
 	private boolean flagFinal;
 	private boolean strike;
 	private boolean spare;
@@ -23,14 +21,6 @@ public class Score {
 	public Score(boolean flagFinal){
 		this.flagFinal=flagFinal;
 		this.shoots = new int[3];
-	}
-
-	public String getSymbol() {
-		return symbol;
-	}
-
-	public void setSymbol(String symbol) {
-		this.symbol = symbol;
 	}
 
 	public int getTotal() {

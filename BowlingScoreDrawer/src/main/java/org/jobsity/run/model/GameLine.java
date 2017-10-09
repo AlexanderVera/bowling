@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
-* Frame
-* Object to represent a line of all pinfall for a player
+* GameLine class. A player with all its score in one game.
+* 
 *
 * @author alexander.vera
 * @since 30/09/2017

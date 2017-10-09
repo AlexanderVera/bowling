@@ -7,5 +7,13 @@ import org.jobsity.run.model.GameBoard;
 
 public interface IGameParser {
 	
-	public GameBoard buildFrameFromPlayers() throws BuildException, IOException;
+	public GameBoard buildBoardFromPlayers() throws BuildException, IOException;
 }
+
+/*
+* 
+* Changes history
+* -------------------------------------------------- 
+* Author             Date          Change 
+* ----------------- -------------- ------------------
+*/

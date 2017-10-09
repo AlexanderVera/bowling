@@ -1,5 +1,7 @@
 package org.jobsity.test.model;
 
+import static org.junit.Assert.assertEquals;
+
 import org.apache.log4j.Logger;
 import org.jobsity.run.model.PlayerScore;
 import org.jobsity.util.Utilities;
@@ -18,6 +20,8 @@ public class PlayerScoreTest {
 		PlayerScore playerScore = new PlayerScore();
 		messageTestPerson.append("playerScoreEmpty ").append(playerScore.getName()).append(" ")
 				.append(playerScore.getPinfalls()).append(" ");
+		assertEquals("",playerScore.getName());
+		assertEquals(0, playerScore.getPinfalls());
 		LOG.debug(messageTestPerson.toString());
 
 		// Test construct
@@ -25,6 +29,8 @@ public class PlayerScoreTest {
 		playerScore = new PlayerScore("test1", 4);
 		messageTestPerson.append("playerScoreEmpty ").append(playerScore.getName()).append(" ")
 				.append(playerScore.getPinfalls()).append(" ");
+		assertEquals("test1",playerScore.getName());
+		assertEquals(4, playerScore.getPinfalls());
 		LOG.debug(messageTestPerson.toString());
 
 	}
