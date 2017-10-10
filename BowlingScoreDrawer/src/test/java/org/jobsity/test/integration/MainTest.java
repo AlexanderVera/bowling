@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.jobsity.run.exceptions.BuildException;
 import org.jobsity.util.Utilities;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
@@ -20,6 +21,7 @@ import junit.framework.TestCase;
  *
  */
 @RunWith(JUnit4.class)
+@Category(IntegrationBoardTest.class)
 public class MainTest extends TestCase{
 	private final static Logger LOG = Logger.getLogger(MainTest.class.getName());
 

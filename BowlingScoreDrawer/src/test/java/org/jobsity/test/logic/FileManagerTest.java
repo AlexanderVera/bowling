@@ -42,8 +42,8 @@ public class FileManagerTest extends TestCase{
 	public void buildListPlayerFromFullFileTest(){
 		File fileTest = FRAME_TEST_FILE;
 		try {
-			FileManagerDefault fileManager = new FileManagerDefault(new File(""));
 			LOG.debug("FileManager.buildListPlayerFromFileTest with a full file");
+			FileManagerDefault fileManager = new FileManagerDefault(new File(""));
 			fileManager = new FileManagerDefault(fileTest);
 			List<PlayerPins> playerScores = fileManager.buildListPlayersFromFile();
 			assertNotNull(playerScores);
@@ -66,7 +66,7 @@ public class FileManagerTest extends TestCase{
 		assertTrue(thrown);
 	}
 	
-	//@Test
+	@Test
 	public void validateBoardFullFileTest() {
 		LOG.debug("FileManager.validateBoardTest with a full file");
 		FileManagerDefault fileManager;
